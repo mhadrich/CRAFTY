@@ -2,7 +2,6 @@ import { View, Text, Image } from "react-native";
 import React, { useState } from "react";
 
 const ArticleCard = () => {
-  const [like, setLike] = useState(false);
   return (
     <View className="pr-4">
       <Image

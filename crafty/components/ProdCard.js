@@ -20,11 +20,11 @@ const ProdCard = () => {
       <View className="-top-8  items-start justify-start">
         <View className="flex flex-row pb-1">
           <Rating
-            startingValue={4} //THIS TO UPDATE THE VALUES
-            type="custom"
-            ratingColor="#FFBA49"
-            tintColor="#f4f4f4"
-            ratingBackgroundColor="#d5d5d5"
+            startingValue={2.5} // THIS TO UPDATE THE VALUES
+            type="custom" // KEEP ON CUSTOMS TO ENABLE COLOR CHOICE
+            ratingColor="#FFBA49" // YELLOW COLOR
+            tintColor="#f4f4f4" // DO NOT UPDATE THIS
+            ratingBackgroundColor="#d5d5d5" // STARS GRAY
             readonly={true}
             imageSize={16}
           />
