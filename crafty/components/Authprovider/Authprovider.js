@@ -53,7 +53,7 @@ export const Authprovider = ({ children }) => {
       try {
         const response = await axios.post("http://192.168.100.121:4000/auth/login", {
           password: password,
-          Email: email,
+          email: email,
         });
         console.log("🚀 ~ file: Authprovider.js:58 ~ Login ~ response:", response.data)
       

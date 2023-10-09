@@ -32,7 +32,7 @@ const Sendverification = async (req, res) => {
 
 
     const user = await 
-    prisma.user.findFirst({ where: { Email: email } });
+    prisma.user.findFirst({ where: { email: email } });
     console.log("🚀 ~ file: reset-password.js:35 ~ Sendverification ~ user :", user )
     
     if (user) {
@@ -84,10 +84,10 @@ const resetPassword= async(req,res)=>{
     var hashedpassowrd = await bcrypt.hash(password, salt)
     const updateUser = await prisma.user.update({
         where: {
-          Email: email,
+          email: email,
         },
         data: {
-          Password: hashedpassowrd,
+          password: hashedpassowrd,
         },
       })
       if(updateUser){

@@ -32,7 +32,7 @@ export default function SignUp({ navigation }) {
     console.log("🚀 ~ file: SignUp.js:25 ~ register ~ data:", data);
 
     console.log("register", data);
-   const res = await onSignUp(data.Email,data.Password,data.Name,"","user")
+   const res = await onSignUp(data.Email,data.Password,data.Name,"guedri","USER")
    console.log("🚀 ~ file: SignUp.js:28 ~ register ~ res:", res)
    if(res===201){
     console.log("hello")
@@ -194,7 +194,7 @@ export default function SignUp({ navigation }) {
             <Text className="mt-4">Continue without an account</Text>
           </TouchableOpacity>
         </View>
-y      </KeyboardAvoidingView>
+     </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
