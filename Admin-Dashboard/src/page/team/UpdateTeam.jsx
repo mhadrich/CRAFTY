@@ -12,10 +12,10 @@ import { DateField } from "@mui/x-date-pickers/DateField";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { Tostify } from "../Tostify/ToastyFy";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const regEmail =
   /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
 const data = [
   {
     value: "admin",
@@ -31,7 +31,10 @@ const data = [
   },
 ];
 
-const Form = () => {
+const UpdateTeam = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { rowData } = location.state || {};
   const {
     register,
     handleSubmit,
@@ -39,54 +42,48 @@ const Form = () => {
   } = useForm();
 
   const [open, setOpen] = React.useState(false);
-  const handleClose = (event, Reason) => {
-    if (Reason === "clickaway") {
-      return;
-    }
-    setOpen(false);
-  };
 
-  const [name, setname] = useState("");
-  const [lastName, setlastName] = useState("");
-  const [businessName, setbusinessName] = useState("");
-  const [email, setemail] = useState("");
-  const [password, setpassword] = useState("");
-  const [role, setrole] = useState("User");
+  const [name, setname] = useState(rowData.name);
+  const [lastName, setlastName] = useState(rowData.lastName);
+  const [businessName, setbusinessName] = useState(rowData.buisnessName);
+  const [email, setemail] = useState(rowData.email);
+  const [role, setrole] = useState(rowData.role);
   const handleClick = () => {
     setOpen(true);
     setname("");
     setlastName("");
     setbusinessName("");
     setemail("");
-    setpassword("");
   };
-  const onSubmit = () => {
+  const onSubmit = async () => {
     var obj = {
       role,
       name,
       lastName,
       businessName,
       email,
-      password,
+      password:rowData.password
     };
+    console.log(obj, "now");
     axios
-      .post("http://localhost:4000/auth/signup", obj)
+      .put(`http://localhost:4000/user/updateuser/${rowData.id}`, obj)
       .then(() => {
-        toast.success("account created successfully.");
+        toast.success("information has been updated successfully.");
+        handleClick();
+        setTimeout(() => {
+          navigate("/team");
+        }, 1100);
       })
       .catch(() => {
         toast.error("An error occurred. Please try again.");
       });
-
-    console.log("done", obj);
-    handleClick();
   };
 
   return (
     <Box>
       <Header
-        title="CREATE Profile"
-        subTitle="Here you can create profile (Admin - Crafter - User)"
+        title="Update Profile"
+        subTitle="Here you can update profile (Admin - Crafter - User)"
       />
       <Box
         onSubmit={handleSubmit(onSubmit)}
@@ -167,23 +164,6 @@ const Form = () => {
             setemail(e.target.value);
           }}
         />
-        <TextField
-          label="Password *"
-          variant="filled"
-          type="password"
-          error={Boolean(errors.password)}
-          helperText={
-            Boolean(errors.password)
-              ? "This field is required & min 6 character"
-              : null
-          }
-          {...register("password", { required: true, minLength: 6 })}
-          value={password}
-          onChange={(e) => {
-            setpassword(e.target.value);
-          }}
-        />
-
 
         <TextField
           variant="filled"
@@ -209,7 +189,7 @@ const Form = () => {
             sx={{ textTransform: "capitalize", backgroundColor: "#8c633f" }}
             variant="contained"
           >
-            Create New User
+            Update
           </Button>
         </Box>
       </Box>
@@ -217,4 +197,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default UpdateTeam;

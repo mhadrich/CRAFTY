@@ -7,7 +7,7 @@ require("dotenv").config()
    
     try {
       const body =  await req.body;
-      console.log(body);
+      console.log(body,"boodyyy");
       
       const { 
         role,

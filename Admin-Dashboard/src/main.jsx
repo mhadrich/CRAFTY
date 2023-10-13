@@ -11,6 +11,7 @@ import {
 import App from "./App";
 import Dashboard from "./page/dashboard/Dashboard";
 import Team from "./page/team/Team";
+import UpdateTeam from "./page/team/UpdateTeam";
 import Contacts from "./page/contacts/Contacts";
 import Form from "./page/form/Form";
 import Notifications from "./page/notifications/Notifications";
@@ -28,6 +29,7 @@ const router = createBrowserRouter(
     <Route path="/" element={<App />}>
       <Route index element={<Dashboard />} />
       <Route path="team" element={<Team />} />
+      <Route path="updateTeam" element={<UpdateTeam />} />
       <Route path="contacts" element={<Contacts />} />
       <Route path="form" element={<Form />} />
       <Route path="notifications" element={<Notifications />} />

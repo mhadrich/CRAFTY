@@ -8,23 +8,23 @@ const CLIENT_ID = "158506994862-p6mi7ndl4m8f576p7fcbpq3kjq4v3kkb.apps.googleuser
 const CLIENT_SECRET = "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";
 const REDIRECT_URI = "https://developers.google.com/oauthplayground";
 const REFRESH_TOKEN = "1//04es7KwnLR_k7CgYIARAAGAQSNwF-L9Irsr2lYAHJgagWGQFbO-tECgXDYvQ9JtrsoppVZIxP6U3HlZ0FWOStFr-hq3-ktxshXh8";
-const oAuth2Client = new OAuth2(
-    CLIENT_ID,
-    CLIENT_SECRET,
-    REDIRECT_URI
-);
-oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
-const transporter = nodemailer.createTransport({
-    service: "gmail",
-    auth: {
-        type: "OAuth2",
-        user: "rayenguedri24@gmail.com",
-        clientId: CLIENT_ID,
-        clientSecret: CLIENT_SECRET,
-        refreshToken: REFRESH_TOKEN,
-        accessToken: oAuth2Client.getAccessToken(),
-    },
-});
+// const oAuth2Client = new OAuth2(
+//     CLIENT_ID,
+//     CLIENT_SECRET,
+//     REDIRECT_URI
+// );
+// oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
+// const transporter = nodemailer.createTransport({
+//     service: "gmail",
+//     auth: {
+//         type: "OAuth2",
+//         user: "rayenguedri24@gmail.com",
+//         clientId: CLIENT_ID,
+//         clientSecret: CLIENT_SECRET,
+//         refreshToken: REFRESH_TOKEN,
+//         accessToken: oAuth2Client.getAccessToken(),
+//     },
+// });
 const verificationCodeMap = new Map();
 
 const Sendverification = async (req, res) => {
