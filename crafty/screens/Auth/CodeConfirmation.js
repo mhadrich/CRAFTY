@@ -25,7 +25,6 @@ const CodeConfirmation = ({ navigation ,route }) => {
      
      console.log("🚀 ~ file: CodeConfirmation.js:24 ~ CodeConfirmationVerify ~  email:",  data.data)
      
-     
       const res = await axios.post(`http:${ADRESS_API}:4000/reset/reset-password/verify`,{email:data.data ,code})
       console.log("🚀 ~ file: CodeConfirmation.js:27 ~ CodeConfirmationVerify ~ res:", res.status)
       
