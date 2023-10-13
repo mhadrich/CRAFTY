@@ -27,11 +27,10 @@ const Articles = ({ navigation }) => {
           horizontal={true}
           showsHorizontalScrollIndicator={false}
         >
-          <ArticleCard />
-          <ArticleCard />
-          <ArticleCard />
-          <ArticleCard />
-          <ArticleCard />
+          <ArticleCard navigation={navigation} />
+          <ArticleCard navigation={navigation} />
+          <ArticleCard navigation={navigation} />
+          <ArticleCard navigation={navigation} />
         </ScrollView>
       </View>
     </View>

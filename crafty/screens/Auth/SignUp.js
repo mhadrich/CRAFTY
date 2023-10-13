@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Text,
   View,
@@ -18,7 +18,8 @@ import { useAuth } from "../../components/Authprovider/Authprovider";
 
 export default function SignUp({ navigation }) {
   const inputs = "mb-4 w-96 h-16 pl-3 bg-white rounded-md";
-  const inputsError = "mb-4 w-96 h-16 pl-3 bg-white rounded-md border border-red-500  "
+  const inputsError =
+    "mb-4 w-96 h-16 pl-3 bg-white rounded-md border border-red-500  ";
   const {
     control,
     handleSubmit,
@@ -32,16 +33,22 @@ export default function SignUp({ navigation }) {
     console.log("🚀 ~ file: SignUp.js:25 ~ register ~ data:", data);
 
     console.log("register", data);
-   const res = await onSignUp(data.Email,data.Password,data.Name,"guedri","USER")
-   console.log("🚀 ~ file: SignUp.js:28 ~ register ~ res:", res)
-   if(res===201){
-    console.log("hello")
-    navigation.navigate("Login")
-   } else {
-     alert(res)
-   }
-  }    
-  
+    const res = await onSignUp(
+      data.Email,
+      data.Password,
+      data.Name,
+      "guedri",
+      "USER"
+    );
+    console.log("🚀 ~ file: SignUp.js:28 ~ register ~ res:", res);
+    if (res === 201) {
+      console.log("hello");
+      navigation.navigate("Login");
+    } else {
+      alert(res);
+    }
+  };
+
   return (
     <SafeAreaView className="flex-1 bg-[f9f9f9] items-center w-screen h-screen  ">
       <KeyboardAvoidingView
@@ -128,14 +135,21 @@ export default function SignUp({ navigation }) {
                 field: { value, onChange, onBlur },
                 fieldState: { error },
               }) => (
-                <><TextInput
-                  value={value}
-                  onChangeText={onChange}
-                  onBlur={onBlur}
-                  className={error ?  inputsError : inputs}
-                  placeholder={"Email"}
-                />
-              {error &&<Text className="text-red-500">{error.message}</Text>}</> )}
+                <>
+                  <TextInput
+                    inputMode="email"
+                    autoCapitalize="none"
+                    value={value}
+                    onChangeText={onChange}
+                    onBlur={onBlur}
+                    className={error ? inputsError : inputs}
+                    placeholder={"Email"}
+                  />
+                  {error && (
+                    <Text className="text-red-500">{error.message}</Text>
+                  )}
+                </>
+              )}
             />
 
             <Controller
@@ -194,7 +208,7 @@ export default function SignUp({ navigation }) {
             <Text className="mt-4">Continue without an account</Text>
           </TouchableOpacity>
         </View>
-     </KeyboardAvoidingView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }

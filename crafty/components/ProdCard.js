@@ -1,7 +1,7 @@
 import { View, Text, Image, Pressable } from "react-native";
 import React, { useState } from "react";
 import HeartIcon from "./HeartIcon";
-import { Rating, AirbnbRating } from "react-native-ratings";
+import { Rating } from "react-native-ratings";
 
 const ProdCard = () => {
   const [like, setLike] = useState(false);

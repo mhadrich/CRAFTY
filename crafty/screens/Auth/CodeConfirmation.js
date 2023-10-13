@@ -23,7 +23,7 @@ const CodeConfirmation = ({ navigation ,route }) => {
      
      console.log("🚀 ~ file: CodeConfirmation.js:24 ~ CodeConfirmationVerify ~  email:",  data.data)
      
-      const res = await axios.post("http://192.168.100.121:4000/reset/reset-password/verify",{email:data.data ,code})
+      const res = await axios.post("http://192.168.103.15:4000/reset/reset-password/verify",{email:data.data ,code})
       console.log("🚀 ~ file: CodeConfirmation.js:27 ~ CodeConfirmationVerify ~ res:", res.status)
       
      

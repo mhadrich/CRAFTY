@@ -34,7 +34,7 @@ export const Authprovider = ({ children }) => {
 
   const SignUp = async (email, password, name, lastname, role) => {
     try {
-    const  res=  await axios.post("http://192.168.100.121:4000/auth/signup", {
+    const  res=  await axios.post("http://192.168.103.15:4000/auth/signup", {
         Role:role,
         Name: name,
         Password: password,
@@ -51,7 +51,7 @@ export const Authprovider = ({ children }) => {
     }}
     const Login = async (email, password) => {
       try {
-        const response = await axios.post("http://192.168.100.121:4000/auth/login", {
+        const response = await axios.post("http://192.168.103.15:4000/auth/login", {
           password: password,
           email: email,
         });

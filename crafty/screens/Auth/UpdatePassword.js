@@ -26,7 +26,7 @@ const UpdatePassword = ({ navigation ,route}) => {
     console.log("🚀 ~ file: UpdatePassword.js:25 ~ UpdatePass ~ data:", NewPassword)
     console.log(params)
     try{
-    const res = await axios.put ("http://192.168.100.121:4000/reset/reset-password",{email:params.data,password:NewPassword})
+    const res = await axios.put ("http://192.168.103.15:4000/reset/reset-password",{email:params.data,password:NewPassword})
     console.log("🚀 ~ file: ForgetPassword.js:9 ~ sendEmail ~ res.satuts:", res.data)
   
     if(res.status===200){
