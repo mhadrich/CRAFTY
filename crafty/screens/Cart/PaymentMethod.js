@@ -16,6 +16,14 @@ const PaymentMethod = ({ navigation, route }) => {
   const data = route.params;
   return (
     <View className="flex-1">
+      <View
+        pointerEvents="none"
+        className={
+          bsOpen
+            ? "bg-black w-screen h-screen absolute z-20 opacity-20 transition-all"
+            : "bg-black w-screen h-screen absolute z-20 opacity-0 transition-all"
+        }
+      ></View>
       <ScrollView>
         <View className="py-8 gap-4  mb-10 items-center">
           {data &&
@@ -77,6 +85,7 @@ const PaymentMethod = ({ navigation, route }) => {
         </View>
       </ScrollView>
       <KeyboardAvoidingView
+        className="z-50"
         keyboardVerticalOffset={0}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         enabled
@@ -84,7 +93,7 @@ const PaymentMethod = ({ navigation, route }) => {
         <View>
           <BottomSheet
             isOpen={bsOpen}
-            className="bg-black"
+            onClose={() => setBSOpen(false)}
             sliderMinHeight={0}
             ref={(ref) => (panelRef.current = ref)}
           >

@@ -23,10 +23,18 @@ const ArticleView = ({ navigation }) => {
   };
   return (
     <View className="flex-1">
+      <View
+        pointerEvents="none"
+        className={
+          bsOpen
+            ? "bg-black w-screen h-screen absolute z-20 opacity-20 transition-all"
+            : "bg-black w-screen h-screen absolute z-20 opacity-0 transition-all"
+        }
+      ></View>
       {/* SNEAKY */}
       <View
         style={{ opacity: val }}
-        className={`absolute shadow bg-white w-full z-10 items-center h-28 justify-end pb-5`}
+        className={`absolute shadow bg-white w-full z-30 items-center h-28 justify-end pb-5`}
       >
         <Text className="text-[#8C633F] font-semibold text-base">
           Gifts for her
@@ -140,7 +148,7 @@ const ArticleView = ({ navigation }) => {
           </View>
           <TouchableOpacity
             onPress={() => {
-              setBSOpen(!bsOpen);
+              setBSOpen(true);
             }}
             className="scale-150 mb-16"
           >
@@ -149,15 +157,15 @@ const ArticleView = ({ navigation }) => {
         </View>
       </ScrollView>
       {bsOpen && (
-        <View>
+        <View className="z-50">
           <BottomSheet
             isOpen={true}
+            onClose={() => setBSOpen(false)}
             sliderMinHeight={0}
+            sliderMaxHeight={700}
             ref={(ref) => (panelRef.current = ref)}
           >
-            <ScrollView>
-              <ArticleComments navigation={navigation} />
-            </ScrollView>
+            <ArticleComments close={setBSOpen} />
           </BottomSheet>
         </View>
       )}

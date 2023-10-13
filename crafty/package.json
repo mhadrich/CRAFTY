@@ -31,7 +31,8 @@
     "react-native-simple-bottom-sheet": "^1.0.4",
     "react-native-svg": "13.9.0",
     "react-native-web": "^0.19.9",
-    "socket.io-client": "^4.7.2"
+    "socket.io-client": "^4.7.2",
+    "expo-linear-gradient": "~12.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

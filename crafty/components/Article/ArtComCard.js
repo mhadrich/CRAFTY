@@ -11,7 +11,7 @@ const ArtComCard = () => {
       <View className="bg-[#f9f9f9] left-4 shadow rounded-xl bottom-4 w-11/12">
         <View className="p-8 gap-10">
           <View className="flex flex-row justify-between">
-            <Text className="text-sm font-normal leading-3">Helene Moore</Text>
+            <Text className="text-sm font-semibold leading-3">Helene Moore</Text>
             <Text className="text-xs font-normal opacity-50 leading-3">
               June 5, 2019
             </Text>
