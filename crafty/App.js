@@ -22,6 +22,7 @@ import ShippingAddresses from "./screens/Cart/ShippingAddresses";
 import PaymentMethod from "./screens/Cart/PaymentMethod";
 import Success from "./screens/Cart/Success";
 import ArticleView from "./screens/Article/ArticleView";
+import ProductDetail from "./screens/ProductDetail"
 
 const Stack = createStackNavigator();
 
@@ -152,6 +153,7 @@ export default function App() {
               options={{ headerTitle: "", headerTintColor: "#8C633F", headerTransparent: true }}
             />
           </>
+<Stack.Screen name="ProductDetail" component={ProductDetail} />
           <Stack.Screen name="Chat" component={Chat} />
         </Stack.Navigator>
       </Authprovider>

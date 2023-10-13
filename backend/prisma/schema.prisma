@@ -8,8 +8,8 @@ datasource db {
 }
 
 model User {
-  id              Int             @id @default(autoincrement()) 
-  role            Role
+  id              Int             @id @default(autoincrement())
+  role            Role            @default(user)
   name            String
   lastName        String
   businessName    String?         @unique
@@ -25,13 +25,15 @@ model User {
   reviews         Review[]
   articles        Article[]
   comments        Comment[]
-  adress         Adress[]
+  adress          Adress[]
   favoriteItem    FavouriteItem[]
+  notification    Notification[]
 }
 
 enum Role {
-  USER
-  CRAFTER
+  user
+  crafter
+  admin
 }
 
 model Article {
@@ -152,7 +154,9 @@ model FavouriteItem {
 }
 
 model Notification {
-  id    Int    @id @default(autoincrement())
-  Title Int
-  Body  String
+  id     Int    @id @default(autoincrement())
+  Title  Int
+  Body   String
+  userId Int
+  user   User   @relation(fields: [userId], references: [id])
 }

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import axios from "axios";
+import axios from "axios"
+import ADRESS_API from "../../Api";
 import {
   Text,
   View,
@@ -13,27 +14,22 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function ForgetPassword({ navigation }) {
   const inputs = "w-96 px-4 h-16 bg-white rounded-md";
-  const [email, setemail] = useState();
-  const sendEmail = async () => {
-    try {
-      const res = await axios.post(
-        "http://192.168.103.15:4000/reset/reset-password/send",
-        { email: email }
-      );
-      console.log(
-        "🚀 ~ file: ForgetPassword.js:9 ~ sendEmail ~ res.satuts:",
-        res.data
-      );
-
-      if (res.status === 200) {
-        navigation.navigate("CodeConfirmation", { data: email });
-      } else {
-        alert(res.data);
-      }
-    } catch (err) {
-      console.error("Error:", err);
-    }
-  };
+   const [email,setemail] = useState()
+   const sendEmail = async()=> {
+    try{
+          const res = await axios.post(`http:/${ADRESS_API}:4000/reset/reset-password/send`,{email:email})
+        console.log("🚀 ~ file: ForgetPassword.js:9 ~ sendEmail ~ res.satuts:", res.data)
+      
+        if(res.status===200){
+        navigation.navigate("CodeConfirmation",{ data: email })
+        }else{
+          alert(res.data)
+        }}
+        catch (err) {
+          console.error('Error:', err);
+          }}
+        
+   
 
   return (
     <SafeAreaView className="flex-1 bg-[f9f9f9]  ">

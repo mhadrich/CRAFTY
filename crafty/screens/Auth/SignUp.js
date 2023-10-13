@@ -11,7 +11,7 @@ import {
 import Svg, { Path } from "react-native-svg";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
-
+import ADRESS_API from "../../Api";
 import { useForm, Controller } from "react-hook-form";
 // import { err } from "react-native-svg/lib/typescript/xml";
 import { useAuth } from "../../components/Authprovider/Authprovider";

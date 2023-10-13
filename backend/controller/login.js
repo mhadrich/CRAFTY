@@ -8,10 +8,10 @@ const jwt = require('jsonwebtoken');
 const login = async (req, res) => {
   try {
 
-    const { Email, password } = await req.body;
+    const { email, password } = await req.body;
     const user = await prisma.user.findFirst({
       where: {
-        email: Email,
+        email: email,
       },
     });
 

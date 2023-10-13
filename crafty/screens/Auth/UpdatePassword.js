@@ -11,6 +11,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { useForm, Controller } from "react-hook-form";
 import axios from "axios";
+import ADRESS_API from "../../Api";
 const UpdatePassword = ({ navigation ,route}) => {
   const Passwoerd_regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
   const inputs = "mb-4 w-96 h-16 pl-3 bg-white rounded-md";
@@ -26,7 +27,7 @@ const UpdatePassword = ({ navigation ,route}) => {
     console.log("🚀 ~ file: UpdatePassword.js:25 ~ UpdatePass ~ data:", NewPassword)
     console.log(params)
     try{
-    const res = await axios.put ("http://192.168.103.15:4000/reset/reset-password",{email:params.data,password:NewPassword})
+    const res = await axios.put (`http://${ADRESS_API}:4000/reset/reset-password`,{email:params.data,password:NewPassword})
     console.log("🚀 ~ file: ForgetPassword.js:9 ~ sendEmail ~ res.satuts:", res.data)
   
     if(res.status===200){
