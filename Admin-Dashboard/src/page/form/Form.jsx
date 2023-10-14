@@ -9,21 +9,24 @@ import dayjs from "dayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DateField } from "@mui/x-date-pickers/DateField";
+import { toast } from "react-toastify";
+import axios from "axios";
+import { Tostify } from "../Tostify/ToastyFy";
 
 const regEmail =
   /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 const data = [
   {
-    value: "Admin",
+    value: "admin",
     label: "Admin",
   },
   {
-    value: "Crafter",
+    value: "crafter",
     label: "Crafter",
   },
   {
-    value: "User",
+    value: "user",
     label: "User",
   },
 ];
@@ -36,41 +39,45 @@ const Form = () => {
   } = useForm();
 
   const [open, setOpen] = React.useState(false);
-  const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
+  const handleClose = (event, Reason) => {
+    if (Reason === "clickaway") {
       return;
     }
     setOpen(false);
   };
 
-
-  const [firstName, setfirstName] = useState("");
+  const [name, setname] = useState("");
   const [lastName, setlastName] = useState("");
-  const [BusinessName, setBusinessName] = useState("");
+  const [businessName, setbusinessName] = useState("");
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const [role, setrole] = useState("User");
-  const [Birthday, setBirthday] = React.useState(dayjs("2022-04-17"));
   const handleClick = () => {
     setOpen(true);
-    setfirstName("");
+    setname("");
     setlastName("");
-    setBusinessName("");
+    setbusinessName("");
     setemail("");
     setpassword("");
-    setfirstName("");
   };
   const onSubmit = () => {
     var obj = {
-      firstName,
+      role,
+      name,
       lastName,
-      BusinessName,
+      businessName,
       email,
       password,
-      Birthday: Birthday["$d"].toString(),
-      role,
     };
-    //here add the query of add someone + verification :
+    axios
+      .post("http://localhost:4000/auth/signup", obj)
+      .then(() => {
+        toast.success("account created successfully.");
+      })
+      .catch(() => {
+        toast.error("An error occurred. Please try again.");
+      });
+
     console.log("done", obj);
     handleClick();
   };
@@ -92,21 +99,23 @@ const Form = () => {
         noValidate
         autoComplete="on"
       >
+        <Tostify />
+
         <Stack sx={{ gap: 2 }} direction={"row"}>
           <TextField
-            error={Boolean(errors.firstName)}
+            error={Boolean(errors.name)}
             helperText={
-              Boolean(errors.firstName)
+              Boolean(errors.name)
                 ? "This field is required & min 3 character"
                 : null
             }
-            {...register("firstName", { required: true, minLength: 3 })}
+            {...register("name", { required: true, minLength: 3 })}
             sx={{ flex: 1 }}
             label="First Name *"
             variant="filled"
-            value={firstName}
+            value={name}
             onChange={(e) => {
-              setfirstName(e.target.value);
+              setname(e.target.value);
             }}
           />
 
@@ -128,18 +137,18 @@ const Form = () => {
           />
         </Stack>
         <TextField
-          error={Boolean(errors.BusinessName)}
+          error={Boolean(errors.businessName)}
           helperText={
-            Boolean(errors.BusinessName)
+            Boolean(errors.businessName)
               ? "This field is required & min 3 character & unique "
               : null
           }
-          label="BusinessName *"
+          label="businessName *"
           variant="filled"
-          {...register("firstName", { required: true, minLength: 3 })}
-          value={BusinessName}
+          {...register("name", { required: true, minLength: 3 })}
+          value={businessName}
           onChange={(e) => {
-            setBusinessName(e.target.value);
+            setbusinessName(e.target.value);
           }}
         />
 
@@ -165,27 +174,16 @@ const Form = () => {
           error={Boolean(errors.password)}
           helperText={
             Boolean(errors.password)
-              ? "This field is required & min 8 character"
+              ? "This field is required & min 6 character"
               : null
           }
-          {...register("password", { required: true, minLength: 8 })}
+          {...register("password", { required: true, minLength: 6 })}
           value={password}
           onChange={(e) => {
             setpassword(e.target.value);
           }}
         />
 
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <DemoContainer components={["DateField"]}>
-            <DateField
-              label="Basic date field"
-              value={Birthday}
-              onChange={(newValue) => setBirthday(newValue)}
-              sx={{ flex: 1 }}
-              variant="filled"
-            />
-          </DemoContainer>
-        </LocalizationProvider>
 
         <TextField
           variant="filled"
@@ -208,23 +206,11 @@ const Form = () => {
         <Box sx={{ textAlign: "right" }}>
           <Button
             type="submit"
-            sx={{ textTransform: "capitalize" ,backgroundColor:"#8c633f" }}
+            sx={{ textTransform: "capitalize", backgroundColor: "#8c633f" }}
             variant="contained"
-            
           >
             Create New User
           </Button>
-
-          <Snackbar
-            anchorOrigin={{ vertical: "top", horizontal: "right" }}
-            open={open}
-            autoHideDuration={3000}
-            onClose={handleClose}
-          >
-            <Alert onClose={handleClose} severity="info" sx={{ width: "100%" }}>
-              Account created successfully
-            </Alert>
-          </Snackbar>
         </Box>
       </Box>
     </Box>

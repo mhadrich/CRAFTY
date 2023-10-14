@@ -1,6 +1,6 @@
 const prisma = require("../lib/prisma.js");
 require("dotenv").config();
- 
+
 /* Get Users */
 const GET = async (req, res) => {
   try {
@@ -15,6 +15,29 @@ const GET = async (req, res) => {
   }
 };
 
+// Get user by email
+const GETBYEMAIL = async (req, res) => {
+  try {
+    const { email } = req.params;
+    if (!email) {
+      return res.status(400).json({ error: "Email parameter is missing" });
+    }
+    const user = await prisma.user.findFirst({
+      where: {
+        email: email,
+      },
+    });
+
+    return res.status(200).json(user);
+  } catch (error) {
+    const message =
+      error instanceof Error ? error.message : "An unknown error occurred";
+    return res
+      .status(500)
+      .json({ message: "Error fetching user by email", error: message });
+  }
+};
+
 /*UPDATE User*/
 
 const UPDATE = async (req, { params }) => {
@@ -23,7 +46,7 @@ const UPDATE = async (req, { params }) => {
       throw new Error("ID parameter is missing");
     }
     const body = await req.json();
-    
+
     const { id } = params;
     let hashedPassword;
     if (body.password) {
@@ -36,7 +59,7 @@ const UPDATE = async (req, { params }) => {
     } else {
       delete updateData.password;
     }
-
+    console.log(updateData);
     const updatedUser = await prisma.user.update({
       where: { id },
       data: updateData,
@@ -46,8 +69,11 @@ const UPDATE = async (req, { params }) => {
   } catch (error) {
     const message =
       error instanceof Error ? error.message : "An unknown error occurred";
-    return new Response(JSON.stringify({ message: "Error updating user", error: message }), { status: 500 });
-  } 
+    return new Response(
+      JSON.stringify({ message: "Error updating user", error: message }),
+      { status: 500 }
+    );
+  }
 };
 
 /*DELETE User */
@@ -58,7 +84,7 @@ const DELETE = async (req, { params }) => {
     }
 
     const { id } = params;
-    await prisma.User.delete({
+    await prisma.user.delete({
       where: { id },
     });
 
@@ -75,6 +101,4 @@ const DELETE = async (req, { params }) => {
   }
 };
 
-
-
-module.exports = { GET, UPDATE, DELETE };
+module.exports = { GET, GETBYEMAIL, UPDATE, DELETE };

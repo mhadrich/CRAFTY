@@ -1,15 +1,13 @@
-const  express =require ("express")
+const express = require("express");
 
-const router = express.Router() ;
+const router = express.Router();
 
-const  {POST,GET,GETById,UPDATE,DELETE}= require("../controller/Article");
+const { POST, GET, GETById, UPDATE, DELETE } = require("../controller/Article");
 
+router.post("/addarticle", POST);
+router.get("/getarticles", GET);
+router.get("/getarticle", GETById);
+router.put("/updatearticle/:id", UPDATE);
+router.delete("/deletearticle/:id", DELETE);
 
-router.post("/addarticle",POST);
-router.get("/getarticles",GET);
-router.get("/getarticle",GETById);
-router.put("/updatearticle",UPDATE);
-router.delete("/deletearticle",DELETE) 
-
-
-module.exports= router 
+module.exports = router;

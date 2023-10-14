@@ -26,7 +26,6 @@
   color: black;
   margin: 3rem 0;
   font-size: 2rem;
-
 }
 
 .input {
@@ -73,4 +72,8 @@
 .btn:hover {
   background-color: antiquewhite;
   box-shadow: none;
+}
+.password-validation-msg {
+  color: red;
+  margin-bottom: -5%;
 }
