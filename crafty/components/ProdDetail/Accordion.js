@@ -1,6 +1,6 @@
 import React from "react";
 import { Text, View, TouchableOpacity } from "react-native";
-import data from "../data.json";
+import data from "../../data.json";
 import { Svg, Path } from "react-native-svg";
 
 export default function Accordion() {
