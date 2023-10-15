@@ -18,13 +18,9 @@ export default function Login({ navigation }) {
   const inputsError =
     "mb-4 w-96 h-16 pl-3 bg-white rounded-md border border-red-500  ";
   const Email_rgex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-  const { onLogin, onSignUp } = useAuth();
-  const LoginFunc = async (data) => {
+  const { control, handleSubmit, formState: { errors } } = useForm()
+  const { onLogin, onSignUp ,authState } = useAuth()
+  const LoginFunc = async(data) => {
     console.log("register", data);
     const res = await onLogin(data.Email, data.Password);
     console.log("🚀 ~ file: SignUp.js:28 ~ Login ~ res:", res);

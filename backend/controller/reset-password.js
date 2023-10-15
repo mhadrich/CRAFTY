@@ -7,24 +7,24 @@ const bcrypt = require("bcrypt")
 const CLIENT_ID = "158506994862-p6mi7ndl4m8f576p7fcbpq3kjq4v3kkb.apps.googleusercontent.com"
 const CLIENT_SECRET = "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";
 const REDIRECT_URI = "https://developers.google.com/oauthplayground";
-const REFRESH_TOKEN = "1//04es7KwnLR_k7CgYIARAAGAQSNwF-L9Irsr2lYAHJgagWGQFbO-tECgXDYvQ9JtrsoppVZIxP6U3HlZ0FWOStFr-hq3-ktxshXh8";
-// const oAuth2Client = new OAuth2(
-//     CLIENT_ID,
-//     CLIENT_SECRET,
-//     REDIRECT_URI
-// );
-// oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
-// const transporter = nodemailer.createTransport({
-//     service: "gmail",
-//     auth: {
-//         type: "OAuth2",
-//         user: "rayenguedri24@gmail.com",
-//         clientId: CLIENT_ID,
-//         clientSecret: CLIENT_SECRET,
-//         refreshToken: REFRESH_TOKEN,
-//         accessToken: oAuth2Client.getAccessToken(),
-//     },
-// });
+const REFRESH_TOKEN = "4/0AfJohXmxmOHEv-z2vo1Ysj5I7VXCgj5HTwJeQGaL-S8schVj7NBLy3-m68XyYrY6aiwf4w";
+const oAuth2Client = new OAuth2(
+    CLIENT_ID,
+    CLIENT_SECRET,
+    REDIRECT_URI
+);
+oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
+const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+        type: "OAuth2",
+        user: "rayenguedri24@gmail.com",
+        clientId: CLIENT_ID,
+        clientSecret: CLIENT_SECRET,
+        refreshToken: REFRESH_TOKEN,
+        accessToken: "ya29.a0AfB_byAdQJT4qn_nyMgJ_nFHsF5fGnGXsy0EniIn9t4s7abxq337nmxOa5RD5W89GctHGvNsdJtoSe7_-YHOEIC0YSRaVzBJCMF3CEHbx61mplWL3DYFxQZo4ZDGeB_2qBBiGgOI51EMntio6vda9KhwBc38rvRpPqktaCgYKAWUSARISFQGOcNnCN7qM4E7ticDTWULAstXBuw0171",
+    },
+});
 const verificationCodeMap = new Map();
 
 const Sendverification = async (req, res) => {
@@ -38,10 +38,60 @@ const Sendverification = async (req, res) => {
     if (user) {
         const verificationCode = Math.floor(1000 + Math.random() * 9000);
         const mailOptions = {
-            from: "rayenguedri24@gmail.com",
+            from: "NoReply@Crafty.com",
             to: email,
-            subject: "Reset Password Code",
-            text: `Your reset password code is ${verificationCode}`,
+            subject: "Password Reset Verification Code",
+            html: `<!DOCTYPE html>
+            <html>
+            <head>
+              <meta charset="utf-8">
+              <title>Password Reset Verification Code</title>
+            </head>
+            <body>
+              <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td>
+                    <table align="center" width="600" border="0" cellspacing="0" cellpadding="0" style="border-collapse: collapse;">
+                      <tr>
+                        <td align="center" bgcolor="#CFB49B" style="padding: 40px 0 30px 0;">
+                          <h1 style="color: #ffffff; font-size: 24px;">Password Reset Verification Code</h1>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td bgcolor="#ffffff" style="padding: 40px 30px 40px 30px;">
+                          <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                              <td style="color: #333333; font-size: 16px;">
+                                <p>Dear ${user.name},</p>
+                                <p>We have received a request to reset your password for your Crafty account. To complete this process, please use the following verification code:</p>
+                                <p style="font-weight: bold; font-size: 20px;">Verification Code: ${verificationCode}</p>
+                                <p>This code will expire in 1 hour. Please do not share this code with anyone for security reasons.</p>
+                                <p>If you didn't request a password reset, please ignore this email. Your account remains secure.</p>
+                                <p>To reset your password, please follow these steps:</p>
+                                <ol>
+                                  <li>Go to the Crafty password reset page.</li>
+                                  <li>Enter your email address and the verification code.</li>
+                                  <li>Follow the on-screen instructions to create a new password.</li>
+                                </ol>
+                                <p>If you have any questions or need assistance, please don't hesitate to contact our support team at crafty.support@Crafty.com </p>
+                                <p>Thank you for choosing Crafty.</p>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td bgcolor="#CFB49B" style="text-align: center; padding: 20px 0;">
+                          <p style="color: #ffffff; font-size: 14px;">&copy; Crafty 2023</p>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </body>
+            </html>
+            `,
         };
         transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
