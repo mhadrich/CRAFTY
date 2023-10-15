@@ -8,7 +8,7 @@ const {
   GETBYID,
   UPDATE,
   DELETE,
-} = require("../contro     ller/Adress");
+} = require("../controller/Adress");
 
 router.post("/addadress", POST);
 router.get("/getadresss", GET);

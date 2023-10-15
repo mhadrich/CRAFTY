@@ -84,7 +84,7 @@ const Profile = ({ navigation }) => {
           <View>
             <View className="flex justify-between ml-4 mb-3 mt-3 ">
               <TouchableOpacity
-                onPress={() => navigation.navigate("Conversation")}
+                onPress={() => navigation.navigate("Chat")}
               >
                 <View className="flex flex-row justify-between">
                   <Text className="text-base font-bold">My Conversations</Text>
@@ -102,7 +102,7 @@ const Profile = ({ navigation }) => {
           </View>
           <View>
             <View className="flex justify-between ml-4 mb-3 mt-3">
-              <TouchableOpacity onPress={() => navigation.navigate("")}>
+              <TouchableOpacity onPress={() => navigation.navigate("ShippingAddresses")}>
                 <View className="flex flex-row justify-between">
                   <Text className="text-base font-bold">
                     Shipping Addresses
@@ -120,7 +120,7 @@ const Profile = ({ navigation }) => {
           </View>
           <View>
             <View className="flex justify-between ml-4 mb-3 mt-3">
-              <TouchableOpacity onPress={() => navigation.navigate("")}>
+              <TouchableOpacity onPress={() => navigation.navigate("PaymentMethod")}>
                 <View className="flex flex-row justify-between">
                   <Text className="text-base font-bold">Payment methods</Text>
                   <Image
@@ -129,7 +129,7 @@ const Profile = ({ navigation }) => {
                   ></Image>
                 </View>
 
-                <Text className="text-[#999] text-s">Visa **34</Text>
+                <Text className="text-[#999] text-s">There is no methods for now</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -152,7 +152,7 @@ const Profile = ({ navigation }) => {
           </View>
           <View>
             <View className="flex justify-between ml-4 mb-3 mt-3">
-              <TouchableOpacity onPress={() => navigation.navigate("")}>
+              <TouchableOpacity onPress={() => navigation.navigate("Reviews")}>
                 <View className="flex flex-row justify-between">
                   <Text className="text-base font-bold">My reviews</Text>
                   <Image

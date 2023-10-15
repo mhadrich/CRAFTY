@@ -9,10 +9,9 @@ import ForgetPassword from "./screens/Auth/ForgetPassword";
 import CodeConfirmation from "./screens/Auth/CodeConfirmation";
 import UpdatePassword from "./screens/Auth/UpdatePassword";
 import Authprovider from "./components/Authprovider/Authprovider";
-import Profile from "./screens/Profile";
-import MyOrders from "./screens/MyOrders";
+import Profile from "./screens/profile";
+import MyOrders from "./components/profile/MyOrders";
 import ProductDetail from "./screens/ProductDetail";
-
 import Chat from "./screens/chat";
 import HomeNavSearch from "./components/Home/HomeNavSearch";
 import HomeSearch from "./components/Home/HomeSearch";
@@ -20,14 +19,12 @@ import SearchNav from "./components/Home/SearchNav";
 import AllProd from "./screens/AllProd";
 import AllArticles from "./screens/AllArticles";
 import SearchFilters from "./components/Home/SearchFilters";
-import Chat from "./screens/chat";
 import Checkout from "./screens/Cart/Checkout";
 import MyBag from "./screens/Cart/MyBag";
 import ShippingAddresses from "./screens/Cart/ShippingAddresses";
 import PaymentMethod from "./screens/Cart/PaymentMethod";
 import Success from "./screens/Cart/Success";
 import ArticleView from "./screens/Article/ArticleView";
-import ProductDetail from "./screens/ProductDetail";
 import Reviews from "./components/ProdDetail/Reviews";
 import ArtComCard from "./components/Article/ArtComCard";
 import ItemReviewCard from "./components/ProdDetail/ItemReviewCard";
@@ -46,15 +43,6 @@ export default function App() {
             component={Welcomepage}
             options={{ headerShown: false }}
           />
-          <Stack.Screen name="Home" component={Home} />
-          <Stack.Screen name="ProductDetail" component={ProductDetail} />
-          <Stack.Screen
-            name="SignUp"
-            component={SignUp}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen name="Chat" component={Chat} />
-
           <Stack.Screen
             name="Profile"
             component={Profile}
