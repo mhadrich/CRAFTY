@@ -18,7 +18,8 @@ import { useAuth } from "../../components/Authprovider/Authprovider";
 
 export default function SignUp({ navigation }) {
   const inputs = "mb-4 w-96 h-16 pl-3 bg-white rounded-md";
-  const inputsError = "mb-4 w-96 h-16 pl-3 bg-white rounded-md border border-red-500  "
+  const inputsError =
+    "mb-4 w-96 h-16 pl-3 bg-white rounded-md border border-red-500  ";
   const {
     control,
     handleSubmit,
@@ -32,16 +33,22 @@ export default function SignUp({ navigation }) {
     console.log("🚀 ~ file: SignUp.js:25 ~ register ~ data:", data);
 
     console.log("register", data);
-   const res = await onSignUp(data.Email,data.Password,data.Name,"guedri","USER")
-   console.log("🚀 ~ file: SignUp.js:28 ~ register ~ res:", res)
-   if(res===201){
-    console.log("hello")
-    navigation.navigate("Login")
-   } else {
-     alert(res)
-   }
-  }    
-  
+    const res = await onSignUp(
+      data.Email,
+      data.Password,
+      data.Name,
+      "",
+      "USER"
+    );
+    console.log("🚀 ~ file: SignUp.js:28 ~ register ~ res:", res);
+    if (res === 201) {
+      console.log("hello");
+      navigation.navigate("Login");
+    } else {
+      alert(res);
+    }
+  };
+
   return (
     <SafeAreaView className="flex-1 bg-[f9f9f9] items-center w-screen h-screen  ">
       <KeyboardAvoidingView
@@ -90,7 +97,7 @@ export default function SignUp({ navigation }) {
         <View className="-mt-40 -top-44 items-center justify-center w-full">
           <View className="">
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-              <Text className="font-bold pointer-events-none text-4xl mb-2">
+              <Text className="font-bold pointer-events-none text-4xl mb-2 rounded-">
                 Sign Up
               </Text>
             </TouchableWithoutFeedback>
@@ -103,13 +110,19 @@ export default function SignUp({ navigation }) {
                 field: { value, onChange, onBlur },
                 fieldState: { error },
               }) => (
-                <TextInput
-                  value={value}
-                  onChangeText={onChange}
-                  onBlur={onBlur}
-                  className={error ? inputsError : inputs}
-                  placeholder={"Name"}
-                />
+                <>
+                  
+                  <TextInput
+                    value={value}
+                    onChangeText={onChange}
+                    onBlur={onBlur}
+                    className={error ? inputsError : inputs}
+                    placeholder={"Name"}
+                  />
+                  {error && (
+                    <Text className="text-red-500">{error.message}</Text>
+                  )}
+                </>
               )}
             />
 
@@ -120,22 +133,26 @@ export default function SignUp({ navigation }) {
                 required: "email is required",
                 pattern: {
                   value: Email_rgex,
-                  message:
-                    " Invalid email address. Please enter a valid email.",
+                  message: " Invalid email address. Please enter a valid email.",
                 },
               }}
               render={({
                 field: { value, onChange, onBlur },
                 fieldState: { error },
               }) => (
-                <><TextInput
-                  value={value}
-                  onChangeText={onChange}
-                  onBlur={onBlur}
-                  className={error ?  inputsError : inputs}
-                  placeholder={"Email"}
-                />
-              {error &&<Text className="text-red-500">{error.message}</Text>}</> )}
+                <>
+                  <TextInput
+                    value={value}
+                    onChangeText={onChange}
+                    onBlur={onBlur}
+                    className={error ? inputsError : inputs}
+                    placeholder={"Email"}
+                  />
+                  {error && (
+                    <Text className="text-red-500">{error.message}</Text>
+                  )}
+                </>
+              )}
             />
 
             <Controller
@@ -153,14 +170,19 @@ export default function SignUp({ navigation }) {
                 field: { value, onChange, onBlur },
                 fieldState: { error },
               }) => (
-                <TextInput
-                  value={value}
-                  onChangeText={onChange}
-                  onBlur={onBlur}
-                  className={error ? inputsError : inputs}
-                  placeholder="Password"
-                  secureTextEntry
-                />
+                <>
+                  <TextInput
+                    value={value}
+                    onChangeText={onChange}
+                    onBlur={onBlur}
+                    className={error ? inputsError : inputs}
+                    placeholder="Password"
+                    secureTextEntry
+                  />
+                  {error && (
+                    <Text className="text-red-500">{error.message}</Text>
+                  )}
+                </>
               )}
             />
           </View>
@@ -194,7 +216,7 @@ export default function SignUp({ navigation }) {
             <Text className="mt-4">Continue without an account</Text>
           </TouchableOpacity>
         </View>
-     </KeyboardAvoidingView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }

@@ -1,10 +1,10 @@
 
 import React, {
-  Component,
+  
   createContext,
   useContext,
   useEffect,
-  useReducer,
+  
   useState,
 } from "react";
 import * as secureStore from "expo-secure-store";
@@ -14,11 +14,14 @@ export const Authprovider = ({ children }) => {
   const [authState, setAuthState] = useState({
     token: null,
     authenticated: false,
+    userId: null,
   });
 
   useEffect(() => {
     const getToken = async () => {
-      const token = await secureStore.getItemAsync(Token_Key);
+      const token = await secureStore.getItemAsync(Token_Key)
+      const ID = await secureStore.getItemAsync(Userid_Key);
+      console.log("🚀 ~ file: Authprovider.js:24 ~ getToken ~ ID:", ID)
       console.log("🚀 ~ file: Authprovider.js:14 ~ getToken ~ token:", token);
       if (token) {
         axios.defaults.headers.common[
@@ -27,6 +30,7 @@ export const Authprovider = ({ children }) => {
         setAuthState({
           token: token,
           authenticated: true,
+          userId : ID
         });
       }
     };
@@ -35,7 +39,7 @@ export const Authprovider = ({ children }) => {
 
   const SignUp = async (email, password, name, lastname, role) => {
     try {
-    const  res=  await axios.post(`http://${ADRESS_API}:4000/auth/signup`, {
+    const  res=  await axios.post(`http:/${ADRESS_API}:4000/auth/signup`, {
         role:role,
         name: name,
         password: password,
@@ -64,11 +68,13 @@ export const Authprovider = ({ children }) => {
           setAuthState({
             token: response.data.token,
             authenticated: true,
+            userId : response.data.id
           });
           axios.defaults.headers.common[
             "Authorization"
           ] = `bearer ${response.data.token}`;
           await secureStore.setItemAsync(Token_Key, response.data.token);
+          await secureStore.setItemAsync(Userid_Key, `${response.data.id}`)
           return response.status
         }
         else {
@@ -83,7 +89,7 @@ export const Authprovider = ({ children }) => {
     const Logout = async () => {
       await secureStore.deleteItemAsync(Token_Key);
       axios.defaults.headers.common["Authorization"] = ``;
-      setAuthState({ token: null, authenticated: false });
+      setAuthState({ token: null, authenticated: false ,userId :null });
     };
 
     const value = {
@@ -98,6 +104,7 @@ export const Authprovider = ({ children }) => {
 };
 
 const Token_Key = "my-jwt";
+const Userid_Key ="user-id"
 const Authcontext = createContext({});
 
 export const useAuth = () => {

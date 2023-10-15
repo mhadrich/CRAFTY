@@ -1,4 +1,5 @@
 import React from "react";
+import Chat from "./screens/Chat";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Welcomepage from "./screens/Welcomepage";
@@ -9,7 +10,8 @@ import ForgetPassword from "./screens/Auth/ForgetPassword";
 import CodeConfirmation from "./screens/Auth/CodeConfirmation";
 import UpdatePassword from "./screens/Auth/UpdatePassword";
 import Authprovider from "./components/Authprovider/Authprovider";
-import Chat from "./screens/chat";
+
+import Conversation from "./screens/Conversation";
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -29,7 +31,7 @@ export default function App() {
           options={{ headerShown: false }}
         />
         <Stack.Screen name="Chat" component={Chat}/>
-
+        <Stack.Screen name="Conversation" component={Conversation} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="ForgetPassword" component={ForgetPassword} />
         <Stack.Screen name="CodeConfirmation" component={CodeConfirmation} />
