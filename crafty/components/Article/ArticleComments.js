@@ -29,6 +29,8 @@ const ArticleComments = ({ close }) => {
           </ScrollView>
         </View>
         <View className="bottom-64 z-10 items-end">
+
+          
           <TouchableOpacity
             onPress={() => {
               setWriting(true)
