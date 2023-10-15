@@ -22,7 +22,15 @@ import ShippingAddresses from "./screens/Cart/ShippingAddresses";
 import PaymentMethod from "./screens/Cart/PaymentMethod";
 import Success from "./screens/Cart/Success";
 import ArticleView from "./screens/Article/ArticleView";
-import ProductDetail from "./screens/ProductDetail"
+import ProductDetail from "./screens/ProductDetail";
+import myOrders from "./screens/myOrders";
+import Reviews from "./components/ProdDetail/Reviews";
+import ArtComCard from "./components/Article/ArtComCard";
+import ItemReviewCard from "./components/ProdDetail/ItemReviewCard";
+import profile from "./screens/profile";
+import ArticleComments from "./components/Article/ArticleComments";
+import ItemReviewsList from "./components/ProdDetail/ItemReviewsList"
+
 
 const Stack = createStackNavigator();
 
@@ -150,11 +158,18 @@ export default function App() {
             <Stack.Screen
               name="ArticleView"
               component={ArticleView}
-              options={{ headerTitle: "", headerTintColor: "#8C633F", headerTransparent: true }}
+              options={{
+                headerTitle: "",
+                headerTintColor: "#8C633F",
+                headerTransparent: true,
+              }}
             />
           </>
-<Stack.Screen name="ProductDetail" component={ProductDetail} />
+          <Stack.Screen name="ProductDetail" component={ProductDetail} />
+          <Stack.Screen name="Reviews" component={Reviews} />
           <Stack.Screen name="Chat" component={Chat} />
+          <Stack.Screen name="ArticleComments" component={ArticleComments} />
+          <Stack.Screen name="ItemReviewsList" component={ItemReviewsList} />
         </Stack.Navigator>
       </Authprovider>
     </NavigationContainer>

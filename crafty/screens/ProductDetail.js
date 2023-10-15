@@ -2,7 +2,8 @@ import {
   Text,
   ScrollView,
   TouchableOpacity,
-  View
+  View,
+  Pressable,
 } from "react-native";
 import React, { useState } from "react";
 import Karousel from "../components/Home/Carousel";
@@ -12,6 +13,8 @@ import ProdCard from "../components/ProdCard";
 import HeartIcon from "../components/HeartIcon";
 import BagIcon from "../components/BagIcon";
 import { Rating, AirbnbRating } from "react-native-ratings";
+import Reviews from "../components/ProdDetail/Reviews";
+import BottomSheet from "react-native-simple-bottom-sheet";
 
 const ProductDetail = ({ navigation }) => {
   const [like, setLike] = useState(false);
@@ -19,8 +22,10 @@ const ProductDetail = ({ navigation }) => {
     <ScrollView className="">
       <Karousel />
       <View className=" flex flex-row justify-between  mt-2 px-2 items-center">
-        <TouchableOpacity className="h-12 w-72 rounded-lg border-1 border-slate-400  bg-white " 
-        onPress={() => navigation.navigate("Reviews")}>
+        <TouchableOpacity
+          className="h-12 w-72 rounded-lg border-1 border-slate-400  bg-white "
+        
+        >
           <Svg
             className="rotate-45 w-7 h-8 absolute ml-60 mt-2"
             viewBox="0 0 32 32"
@@ -37,7 +42,7 @@ const ProductDetail = ({ navigation }) => {
         <View>
           <HeartIcon state={like} />
         </View>
-        <View >
+        <View>
           <BagIcon />
         </View>
       </View>
@@ -60,6 +65,17 @@ const ProductDetail = ({ navigation }) => {
         />
         <Text className="text-neutral-400 text-xs ml-2 ">(10)</Text>
       </View>
+
+      <ScrollView horizontal={true}>
+        <Reviews />
+        <Reviews />
+        <Reviews />
+      </ScrollView>
+      <Pressable>
+        <Text className=" text-center text-neutral-400 text-xs font-normal ">
+          View More Reviews
+        </Text>
+      </Pressable>
       <View>
         <Accordion />
       </View>
