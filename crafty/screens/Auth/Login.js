@@ -10,27 +10,31 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { Path, Svg } from "react-native-svg";
-import {useForm, Controller} from 'react-hook-form';
+import { useForm, Controller } from "react-hook-form";
 import { useAuth } from "../../components/Authprovider/Authprovider";
 import ADRESS_API from "../../Api";
 export default function Login({ navigation }) {
   const inputs = "mb-4 w-96 h-16 pl-3 bg-white rounded-md";
-  const inputsError = "mb-4 w-96 h-16 pl-3 bg-white rounded-md border border-red-500  "
+  const inputsError =
+    "mb-4 w-96 h-16 pl-3 bg-white rounded-md border border-red-500  ";
   const Email_rgex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
-  const { control, handleSubmit, formState: { errors } } = useForm()
-  const { onLogin, onSignUp } = useAuth()
-  const LoginFunc = async(data) => {
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const { onLogin, onSignUp } = useAuth();
+  const LoginFunc = async (data) => {
     console.log("register", data);
-   const res = await onLogin(data.Email,data.Password)
-   console.log("🚀 ~ file: SignUp.js:28 ~ Login ~ res:", res)
-   if(res===200){
-    console.log("hello")
-    navigation.navigate("Home")
-   } else {
-     alert(res)
-   }
-        
-  }
+    const res = await onLogin(data.Email, data.Password);
+    console.log("🚀 ~ file: SignUp.js:28 ~ Login ~ res:", res);
+    if (res === 200) {
+      console.log("hello");
+      navigation.navigate("Home");
+    } else {
+      alert(res);
+    }
+  };
   return (
     <SafeAreaView className="flex-1 bg-[f9f9f9] items-center w-screen h-screen">
       <KeyboardAvoidingView
@@ -84,24 +88,59 @@ export default function Login({ navigation }) {
               </Text>
             </TouchableWithoutFeedback>
             <Controller
-                control={control}
-                name="Email"
-                rules={{
-                  required:  "email is required" ,
-                   pattern: { value: Email_rgex, message: " Invalid email address. Please enter a valid email." }
-                }}
-                render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (<><TextInput value={value} onChangeText={onChange} onBlur={onBlur} className={ error ? inputsError :inputs } placeholder={"Email"} />
-                {error &&<Text className="text-red-500">{error.message}</Text>}</> )} />
-                <Controller
-                control={control}
-                name="Password"
-                rules={{
-                  required:  "password  is required" ,
-                  
-                }}
-                render={({ field: { value, onChange, onBlur }, fieldState: { error } }) => (<><TextInput value={value} onChangeText={onChange} onBlur={onBlur} className={error ? inputsError :inputs} placeholder="Password" secureTextEntry />
-                {error &&<Text className="text-red-500">{error.message}</Text>}</>   )} />
-             
+              control={control}
+              name="Email"
+              rules={{
+                required: "email is required",
+                pattern: {
+                  value: Email_rgex,
+                  message:
+                    " Invalid email address. Please enter a valid email.",
+                },
+              }}
+              render={({
+                field: { value, onChange, onBlur },
+                fieldState: { error },
+              }) => (
+                <>
+                  <TextInput
+                    value={value}
+                    onChangeText={onChange}
+                    onBlur={onBlur}
+                    className={error ? inputsError : inputs}
+                    placeholder={"Email"}
+                  />
+                  {error && (
+                    <Text className="text-red-500">{error.message}</Text>
+                  )}
+                </>
+              )}
+            />
+            <Controller
+              control={control}
+              name="Password"
+              rules={{
+                required: "password  is required",
+              }}
+              render={({
+                field: { value, onChange, onBlur },
+                fieldState: { error },
+              }) => (
+                <>
+                  <TextInput
+                    value={value}
+                    onChangeText={onChange}
+                    onBlur={onBlur}
+                    className={error ? inputsError : inputs}
+                    placeholder="Password"
+                    secureTextEntry
+                  />
+                  {error && (
+                    <Text className="text-red-500">{error.message}</Text>
+                  )}
+                </>
+              )}
+            />
           </View>
           <TouchableOpacity
             className="flex pt-4 flex-row gap-2 pl-48 items-center"

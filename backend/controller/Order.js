@@ -49,13 +49,13 @@ const GET = async (req, res) => {
 /*GET Article By ID */
 const GETById = async (req, { params }) => {
   try {
-    if (!params || !params.id) {
-      throw new Error("ID parameter is missing");
+    if (!params || !params.userId) {
+      throw new Error("userId parameter is missing");
     }
 
-    const { id } = params;
-    const Order = await prisma.Order.findUnique({
-      where: { id },
+    const { userId } = params;
+    const Order = await prisma.order.findUnique({
+      where: { userId },
     });
 
     if (!user) {

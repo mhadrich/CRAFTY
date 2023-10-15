@@ -2,11 +2,11 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Svg, Path } from "react-native-svg";
 
-export default myOrders = () => {
+export default MyOrders = () => {
   return (
-    <View className="h-[812px] w-[375px] bg-[rgba(249,249,249,1)] flex flex-col gap-y-0">
-      <View className="h-[140px] w-[375px] flex flex-col gap-y-0">
-        <Text className="w-[175px] h-[34px] text-left text-[rgba(34,34,34,1)] text-[34px] font-bold tracking-[0] ">{`My Orders`}</Text>
+    <View className=" bg-[rgba(249,249,249,1)] flex flex-col gap-y-0 mt-9">
+      <View className=" flex flex-col gap-y-0">
+        <Text className="text-left text-[rgba(34,34,34,1)] text-[34px] font-bold tracking-[0] ">{`My Orders`}</Text>
       </View>
       <View className="h-6 w-6 flex flex-col gap-y-0 ">
         <Svg
