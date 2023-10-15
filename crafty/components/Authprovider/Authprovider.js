@@ -1,4 +1,3 @@
-
 import React, {
   
   createContext,
@@ -16,7 +15,6 @@ export const Authprovider = ({ children }) => {
     authenticated: false,
     userId: null,
   });
-
   useEffect(() => {
     const getToken = async () => {
       const token = await secureStore.getItemAsync(Token_Key)
@@ -24,9 +22,7 @@ export const Authprovider = ({ children }) => {
       console.log("🚀 ~ file: Authprovider.js:24 ~ getToken ~ ID:", ID)
       console.log("🚀 ~ file: Authprovider.js:14 ~ getToken ~ token:", token);
       if (token) {
-        axios.defaults.headers.common[
-          "Authorization"
-        ] = `bearer ${token}`;
+        axios.defaults.headers.common["Authorization"] = `bearer ${token}`;
         setAuthState({
           token: token,
           authenticated: true,
@@ -44,13 +40,12 @@ export const Authprovider = ({ children }) => {
         name: name,
         password: password,
         lastName: lastname,
-        email: email
+        email: email,
       });
-      if (res.status===205){
-        return "email Allready exist"
+      if (res.status === 205) {
+        return "email Allready exist";
       }
-      return res.status
-      
+      return res.status;
     } catch (err) {
       return err;
     }}
@@ -92,14 +87,12 @@ export const Authprovider = ({ children }) => {
       setAuthState({ token: null, authenticated: false ,userId :null });
     };
 
-    const value = {
-      onSignUp :SignUp,
-     onLogin: Login,
-      onLogout: Logout,
-      authState,
-    };
-  ;
-
+  const value = {
+    onSignUp: SignUp,
+    onLogin: Login,
+    onLogout: Logout,
+    authState,
+  };
   return <Authcontext.Provider value={value}>{children}</Authcontext.Provider>;
 };
 

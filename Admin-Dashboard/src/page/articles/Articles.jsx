@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { rows } from "./data";
 import { useTheme } from "@mui/material";
 import { Box, Typography } from "@mui/material";
 import Header from "../../components/Header";
@@ -11,16 +10,41 @@ import Autocomplete from "@mui/material/Autocomplete";
 import { useNavigate } from "react-router-dom";
 import { Tostify } from "../Tostify/ToastyFy";
 import { toast } from "react-toastify";
+import axios from "axios";
 
 function Articles() {
   const [comment, setComment] = useState([]);
   const [selectedValue, setSelectedValue] = useState(null); // State to track selected value
-  let filterRows = rows.filter((e, i) => {
+  const [trigger, setTrigger] = useState(false);
+  const [title, settitle] = useState("");
+  const [data, setdata] = useState([]);
+  useEffect(() => {
+    const endpoints = ["http://localhost:4000/article/getarticles"];
+    Promise.all(endpoints.map((endpoint) => axios.get(endpoint)))
+      .then((results) => {
+        setdata(results[0].data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [trigger]);
+  const not = (idUser, comment) => {
+    let body = { title: title, body: comment };
+    axios
+      .post(
+        `http://localhost:4000/notification/addnotification/${idUser}`,
+        body
+      )
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  let filterRows = data.filter((e, i) => {
     return e.status === false;
   });
   const navigate = useNavigate();
-  // regles
-  const regles = [
+  // Reasons
+  const Reasons = [
     {
       label: " syntax errors.",
     },
@@ -57,14 +81,39 @@ function Articles() {
         return row.id === e.id;
       });
     if (comm.length === 0) {
-      toast.error("Please choose a regle for your reject");
+      toast.error("Please choose a Reason for rejecting the article.");
     } else {
-      // add axios fn
+      axios
+        .put(`http://localhost:4000/article/deletearticle/${row.id}`)
+        .then((res) => {
+          not(row.id, comm);
+          setTrigger(!trigger);
+          toast.success("The article has been successfully rejected.");
+        })
+        .catch((error) => {
+          toast.error("An error occurred. Please try again later.");
+        });
     }
   };
   const accept = (row) => {
-    toast.success("Accepted");
-    // add axios fn
+    let body = {
+      id: row.id,
+      status: true,
+      title: row.title,
+      description: row.description,
+      coverImage: row.coverImage,
+      userId: row.userId,
+    };
+    axios
+      .put(`http://localhost:4000/article/updatearticle/${row.id}`, body)
+      .then((res) => {
+        not(row.id);
+        setTrigger(!trigger);
+        toast.success("The article has been accepted.");
+      })
+      .catch((error) => {
+        toast.error("An error occurred. Please try again later.");
+      });
   };
   // field ==> Reqird
   const columns = [
@@ -80,7 +129,7 @@ function Articles() {
       field: "title",
       headerName: "Title",
       align: "center",
-      
+
       headerAlign: "center",
     },
     {
@@ -125,6 +174,7 @@ function Articles() {
                 mr: 5,
               }}
               onClick={() => {
+                settitle(`article accepted ${row.id}`);
                 accept(row);
               }}
             >
@@ -150,6 +200,7 @@ function Articles() {
                 backgroundColor: "#8C3A3A",
               }}
               onClick={() => {
+                settitle(`article rejected ${row.id}`);
                 reject(row);
               }}
             >
@@ -179,9 +230,9 @@ function Articles() {
             <Autocomplete
               disablePortal
               id="combo-box-demo"
-              options={regles}
+              options={Reasons}
               sx={{ width: 300 }}
-              renderInput={(params) => <TextField {...params} label="Regles" />}
+              renderInput={(params) => <TextField {...params} label="Reasons" />}
               onChange={(event, newValue) => {
                 setComment([...comment, { id: row.id, label: newValue.label }]);
                 setSelectedValue(true);

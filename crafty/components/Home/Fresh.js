@@ -14,16 +14,18 @@ const Fresh = ({ navigation }) => {
           </Text>
         </View>
         <View className="-left-12">
-          <TouchableOpacity
-          // onPress={() => navigation.navigate("ForgetPassword")}
-          >
+          <TouchableOpacity onPress={() => navigation.navigate("AllProd")}>
             <Text className="text-xs font-normal">View all</Text>
           </TouchableOpacity>
         </View>
       </View>
       <View className="flex flex-row items-start justify-start">
-        <ScrollView className="pl-4" horizontal={true}> 
-          <ProdCard /> 
+        <ScrollView
+          className="pl-4"
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+        >
+          <ProdCard />
           <ProdCard />
           <ProdCard />
           <ProdCard />

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Text,
   View,
@@ -33,22 +33,16 @@ export default function SignUp({ navigation }) {
     console.log("🚀 ~ file: SignUp.js:25 ~ register ~ data:", data);
 
     console.log("register", data);
-    const res = await onSignUp(
-      data.Email,
-      data.Password,
-      data.Name,
-      "",
-      "USER"
-    );
-    console.log("🚀 ~ file: SignUp.js:28 ~ register ~ res:", res);
-    if (res === 201) {
-      console.log("hello");
-      navigation.navigate("Login");
-    } else {
-      alert(res);
-    }
-  };
-
+   const res = await onSignUp(data.Email,data.Password,data.Name,"guedri","USER")
+   console.log("🚀 ~ file: SignUp.js:28 ~ register ~ res:", res)
+   if(res===201){
+    console.log("hello")
+    navigation.navigate("Login")
+   } else {
+     alert(res)
+   }
+  }    
+  
   return (
     <SafeAreaView className="flex-1 bg-[f9f9f9] items-center w-screen h-screen  ">
       <KeyboardAvoidingView

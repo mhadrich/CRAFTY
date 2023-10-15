@@ -21,7 +21,7 @@ const ChatRoute = require('./Routes/chatRoute.js')
 
 
 const socket_io = require("socket.io");
-const http = require('http');
+const http = require("http");
 const app = express();
 const PORT = 4000;
 
@@ -104,3 +104,5 @@ app.use("/chat",ChatRoute);
 server.listen(PORT, () => {
   console.log(`listening on port :  ${PORT}`);
 });
+
+module.exports = { io };

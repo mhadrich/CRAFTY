@@ -30,6 +30,7 @@ export default function ForgetPassword({ navigation }) {
           }}
         
    
+
   return (
     <SafeAreaView className="flex-1 bg-[f9f9f9]  ">
       <KeyboardAvoidingView
@@ -48,7 +49,15 @@ export default function ForgetPassword({ navigation }) {
               </Text>
             </View>
           </TouchableWithoutFeedback>
-          <TextInput className={inputs} placeholder="Email" onChangeText={(e)=>{setemail(e)}}/>
+          <TextInput
+            inputMode="email"
+            autoCapitalize="none"
+            className={inputs}
+            placeholder="Email"
+            onChangeText={(e) => {
+              setemail(e);
+            }}
+          />
           <TouchableOpacity
             className="bg-[#BF9B7A] justify-center text-white w-96 h-12 p-2 mt-7 rounded-full items-center"
             onPress={sendEmail}

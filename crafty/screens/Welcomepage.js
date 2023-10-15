@@ -1,4 +1,4 @@
-import { View, Image, TouchableOpacity } from "react-native";
+import { View, Image } from "react-native";
 import React, { useEffect } from "react";
 const Logoimg = require("../assets/crafty.gif");
 

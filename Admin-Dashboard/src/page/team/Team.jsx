@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import {rows} from "./data"
 import { useTheme } from "@mui/material";
 import { Box, Typography } from "@mui/material";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
@@ -9,26 +8,37 @@ import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import Header from "../../components/Header";
 import DeleteOutlineTwoToneIcon from "@mui/icons-material/DeleteOutlineTwoTone";
 import UpdateIcon from "@mui/icons-material/Update";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { Tostify } from "../Tostify/ToastyFy";
+import { useNavigate } from "react-router-dom";
 const Team = () => {
   const theme = useTheme();
-  const deleteOne = (rowToDelete) => {
-    console.log(rowToDelete);
-    // Find the index of the row to delete
-    const rowIndex = rows.findIndex((row) => row.id === rowToDelete.id);
-
-    if (rowIndex !== -1) {
-      // Create a new array without the deleted row
-      const updatedRows = [
-        ...rows.slice(0, rowIndex),
-        ...rows.slice(rowIndex + 1),
-      ];
-
-      // Update the rows variable with the new data
-      rows = updatedRows;
-    }
+  const navigate = useNavigate();
+  const [trigger, setTrigger] = useState(false);
+  const [data, setdata] = useState([]);
+  useEffect(() => {
+    const endpoints = ["http://localhost:4000/user/getusers"];
+    Promise.all(endpoints.map((endpoint) => axios.get(endpoint)))
+      .then((results) => {
+        setdata(results[0].data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [trigger]);
+  const deleteOne = (id) => {
+    axios
+      .delete(`http://localhost:4000/user/deleteuser/${id}`)
+      .then(() => {
+        toast.success("Deleted successfully.");
+        setTrigger(!trigger);
+      })
+      .catch(() => {
+        toast.error("An error occurred. Please try again.");
+      });
   };
 
-  // field ==> Reqird
   const columns = [
     {
       field: "id",
@@ -51,19 +61,19 @@ const Team = () => {
       headerAlign: "center",
     },
     {
-      field: "phone",
-      headerName: "phone",
+      field: "buisnessName",
+      headerName: "buisnessName",
       flex: 1,
       align: "center",
       headerAlign: "center",
     },
     {
-      field: "access",
-      headerName: "access",
+      field: "role",
+      headerName: "Role",
       flex: 1,
       align: "center",
       headerAlign: "center",
-      renderCell: ({ row: { access } }) => {
+      renderCell: ({ row: { role } }) => {
         return (
           <Box
             sx={{
@@ -74,27 +84,27 @@ const Team = () => {
               display: "flex",
               justifyContent: "space-evenly",
               backgroundColor:
-                access === "Admin"
+                role === "Admin"
                   ? "#262401 "
-                  : access === "Crafter"
+                  : role === "Crafter"
                   ? "#8c633f"
                   : "#707324",
             }}
           >
-            {access === "Admin" && (
+            {role === "admin" && (
               <AdminPanelSettingsIcon sx={{ color: "#fff" }} fontSize="small" />
             )}
 
-            {access === "Crafter" && (
+            {role === "crafter" && (
               <ShoppingBagIcon sx={{ color: "#fff" }} fontSize="small" />
             )}
 
-            {access === "User" && (
+            {role === "user" && (
               <GroupIcon sx={{ color: "#fff" }} fontSize="small" />
             )}
 
             <Typography sx={{ fontSize: "13px", color: "#fff" }}>
-              {access}
+              {role}
             </Typography>
           </Box>
         );
@@ -122,9 +132,11 @@ const Team = () => {
                 mr: 5,
               }}
               onClick={() => {
-                deleteOne(row);
+                navigate("/updateTeam", { state: { rowData: row } });
               }}
             >
+              <Tostify />
+
               <Typography sx={{ fontSize: "13px", color: "#fff" }}>
                 <UpdateIcon
                   sx={{
@@ -146,7 +158,7 @@ const Team = () => {
                 backgroundColor: "#8C3A3A",
               }}
               onClick={() => {
-                deleteOne(row);
+                deleteOne(row.id);
               }}
             >
               <Typography sx={{ fontSize: "13px", color: "#fff" }}>
@@ -168,7 +180,7 @@ const Team = () => {
       <Header title={"TEAM"} subTitle={"Managing the Team Members"} />
       <Box sx={{ height: 600, mx: "auto" }}>
         <DataGrid
-          rows={rows}
+          rows={data}
           // @ts-ignore
           columns={columns}
         />
