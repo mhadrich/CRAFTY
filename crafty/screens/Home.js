@@ -6,15 +6,15 @@ import { ScrollView } from "react-native-gesture-handler";
 import Recent from "../components/Home/Recent";
 import Articles from "../components/Home/Articles";
 
-const Home = () => {
+const Home = ({ navigation }) => {
   return (
     <View className="bg-[f9f9f9] justify-between items-center">
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <Karousel />
-        <Fresh />
+        <Fresh navigation={navigation} />
         <Recent />
         <View className="pb-6"></View>
-        <Articles />
+        <Articles navigation={navigation} />
         <View className="pb-20"></View>
       </ScrollView>
     </View>

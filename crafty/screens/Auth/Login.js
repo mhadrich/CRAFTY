@@ -104,6 +104,8 @@ export default function Login({ navigation }) {
               }) => (
                 <>
                   <TextInput
+                    inputMode="email"
+                    autoCapitalize="none"
                     value={value}
                     onChangeText={onChange}
                     onBlur={onBlur}

@@ -15,19 +15,22 @@ const Articles = ({ navigation }) => {
         </View>
         <View className="-left-12">
           <TouchableOpacity
-          // onPress={() => navigation.navigate("ForgetPassword")}
+          onPress={() => navigation.navigate("AllArticles")}
           >
             <Text className="text-xs font-normal">View all</Text>
           </TouchableOpacity>
         </View>
       </View>
       <View className="flex flex-row items-start justify-start">
-        <ScrollView className="pl-4"  horizontal={true}> 
-          <ArticleCard />
-          <ArticleCard />
-          <ArticleCard />
-          <ArticleCard />
-          <ArticleCard />
+        <ScrollView
+          className="pl-4"
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+        >
+          <ArticleCard navigation={navigation} />
+          <ArticleCard navigation={navigation} />
+          <ArticleCard navigation={navigation} />
+          <ArticleCard navigation={navigation} />
         </ScrollView>
       </View>
     </View>

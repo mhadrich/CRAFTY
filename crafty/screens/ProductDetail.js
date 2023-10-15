@@ -1,18 +1,31 @@
-import { Text, ScrollView, TouchableOpacity, View } from "react-native";
-import React from "react";
+import {
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  View,
+  Pressable,
+} from "react-native";
+import React, { useState } from "react";
 import Karousel from "../components/Home/Carousel";
 import Svg, { Path } from "react-native-svg";
-import Accordion from "../components/Accordion";
+import Accordion from "../components/ProdDetail/Accordion";
 import ProdCard from "../components/ProdCard";
 import HeartIcon from "../components/HeartIcon";
 import BagIcon from "../components/BagIcon";
+import { Rating, AirbnbRating } from "react-native-ratings";
+import Reviews from "../components/ProdDetail/Reviews";
+import BottomSheet from "react-native-simple-bottom-sheet";
 
-const ProductDetail = () => {
+const ProductDetail = ({ navigation }) => {
+  const [like, setLike] = useState(false);
   return (
     <ScrollView className="">
       <Karousel />
       <View className=" flex flex-row justify-between  mt-2 px-2 items-center">
-        <TouchableOpacity className="h-12 w-72 rounded-lg border-1 border-slate-400  bg-white ">
+        <TouchableOpacity
+          className="h-12 w-72 rounded-lg border-1 border-slate-400  bg-white "
+        
+        >
           <Svg
             className="rotate-45 w-7 h-8 absolute ml-60 mt-2"
             viewBox="0 0 32 32"
@@ -26,12 +39,12 @@ const ProductDetail = () => {
 
           <Text className="mt-2 ml-2"> Message seller</Text>
         </TouchableOpacity>
-      <View className="w-9 h-10">
-          <HeartIcon />
-          </View>
-       
+        <View>
+          <HeartIcon state={like} />
+        </View>
+        <View>
           <BagIcon />
-       
+        </View>
       </View>
       <View className="flex  flex-row  ml-3 mt-4 space-x-48">
         <Text className="font-semibold text-2xl">A&C</Text>
@@ -40,14 +53,36 @@ const ProductDetail = () => {
       <Text className=" text-xs font-normal ml-3 text-slate-300">
         Item Name
       </Text>
-      <Text className=" text-xs font-normal ml-3 text-yellow-300">* * * *</Text>
+      <View className="flex flex-row pb-1">
+        <Rating
+          startingValue={3} //THIS TO UPDATE THE VALUES
+          type="custom"
+          ratingColor="#FFBA49"
+          tintColor="#f4f4f4"
+          ratingBackgroundColor="#d5d5d5"
+          readonly={true}
+          imageSize={16}
+        />
+        <Text className="text-neutral-400 text-xs ml-2 ">(10)</Text>
+      </View>
+
+      <ScrollView horizontal={true}>
+        <Reviews />
+        <Reviews />
+        <Reviews />
+      </ScrollView>
+      <Pressable>
+        <Text className=" text-center text-neutral-400 text-xs font-normal ">
+          View More Reviews
+        </Text>
+      </Pressable>
       <View>
-      <Accordion/> 
+        <Accordion />
       </View>
       <Text className="text-lg font-medium mt-4 ">You can also like this</Text>
       <View className="flex flex-row items-start justify-start">
-        <ScrollView className="pl-4" horizontal={true}> 
-          <ProdCard /> 
+        <ScrollView className="pl-4" horizontal={true}>
+          <ProdCard />
           <ProdCard />
           <ProdCard />
           <ProdCard />

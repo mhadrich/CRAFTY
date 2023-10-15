@@ -18,8 +18,12 @@ const Recent = ({ navigation }) => {
           ></TouchableOpacity>
         </View>
       </View>
-      <View className="flex flex-row items-start justify-start"> 
-        <ScrollView className="pl-4 gap-4" horizontal={true}> 
+      <View className="flex flex-row items-start justify-start">
+        <ScrollView
+          className="pl-4 gap-4"
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+        >
           <Image
             className="w-36 h-36 rounded-lg"
             src="https://i.etsystatic.com/40322965/r/il/2401a1/4719730318/il_1588xN.4719730318_79d9.jpg"

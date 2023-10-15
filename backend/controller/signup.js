@@ -10,6 +10,7 @@ require("dotenv").config()
       console.log(body,"boodyyy");
       
       const { 
+
         role,
         name,
         lastName,
@@ -23,7 +24,7 @@ require("dotenv").config()
         },
       })
      
-      if (user?.email)   return res.status(205).send({ message: " email allready exist !" });
+      if (user?.Email)   return res.status(205).send({ message: " email allready exist !" });
       console.log(body);
       const salt = await bcrypt.genSalt(10);
       var hashedpassowrd = await bcrypt.hash(password, salt)
