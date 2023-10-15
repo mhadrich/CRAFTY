@@ -8,15 +8,18 @@ import { useAuth } from '../components/Authprovider/Authprovider.js';
 const Conversation = ({ navigation }) => {
   const [Data, setDate] = useState([])
   const { authState } = useAuth()
+  
 
 
   const getConversation = async () => {
-
+    console.log("🚀 ~ file: Conversation.js:11 ~ Conversation ~ authState:", authState)
 
     try {
-      const res = await axios.post(`http://${ADRESS_API}:4000/chat/conversation`, { userId: authState.userId * 1 })
+      const res = await axios.post(`http://${ADRESS_API}:4000/chat/conversation`, { userId: 4 })
       console.log(res.data)
       if (res) {
+        console.log("🚀 ~ file: Conversation.js:20 ~ getConversation ~ res:", res)
+        
         setDate(res.data)
       }
 
@@ -28,7 +31,7 @@ const Conversation = ({ navigation }) => {
   }
   useEffect(() => {
 
-
+ console.log("hello")
     getConversation();
   }, [])
 

@@ -162,25 +162,7 @@ export default function App() {
           <Stack.Screen name="Conversation" component={Conversation} />
           </>
         </Stack.Navigator>
-      <Stack.Navigator initialRouteName="Welcomepage">
-        <Stack.Screen
-          name="Welcomepage"
-          component={Welcomepage}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen
-          name="SignUp"
-          component={SignUp}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen name="Chat" component={Chat}/>
-        <Stack.Screen name="Conversation" component={Conversation} />
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="ForgetPassword" component={ForgetPassword} />
-        <Stack.Screen name="CodeConfirmation" component={CodeConfirmation} />
-        <Stack.Screen name="UpdatePassword" component={UpdatePassword} />
-      </Stack.Navigator>
+    
       </Authprovider>
     </NavigationContainer>
   );
