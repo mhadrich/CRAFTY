@@ -7,7 +7,7 @@ const  {POST,GET,GETById,UPDATE,DELETE}= require("../controller/Order");
 
 router.post("/addorder",POST);
 router.get("/getorders",GET);
-router.get("/getorder",GETById);
+router.get("/getorderbyuserId/:userId",GETById);
 router.put("/updateorder",UPDATE);
 router.delete("/deleteorder",DELETE) 
 
