@@ -38,6 +38,29 @@ const GETBYEMAIL = async (req, res) => {
   }
 };
 
+/*GET User by id*/
+const GETBYID = async (req, { params }) => {
+  try {
+    const { id } = req.params;
+    if (!id) {
+      return res.status(400).json({ error: "id parameter is missing" });
+    }
+    const user = await prisma.user.findFirst({
+      where: {
+        id:id ,
+      },
+    });
+
+    return res.status(200).json(user);
+  } catch (error) {
+    const message =
+      error instanceof Error ? error.message : "An unknown error occurred";
+    return res
+      .status(500)
+      .json({ message: "Error fetching user by id", error: message });
+  }
+};
+
 /*UPDATE User*/
 
 const UPDATE = async (req, { params }) => {
@@ -101,4 +124,4 @@ const DELETE = async (req, { params }) => {
   }
 };
 
-module.exports = { GET, GETBYEMAIL, UPDATE, DELETE };
+module.exports = { GET, GETBYEMAIL,GETBYID, UPDATE, DELETE };

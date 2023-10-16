@@ -1,22 +1,17 @@
 const prisma = require("../lib/prisma.js");
 require("dotenv").config();
- 
+
 /* Create Adress */
 const POST = async (req, res) => {
   if (req.method === "POST") {
-    try {     
-      const {
-        street,
-        city,
-        postalCode,
-        userId
-      } = req.body;
+    try {
+      const { street, city, postalCode, userId } = req.body;
       const Adress = await prisma.Adress.create({
         data: {
-            street,
-            city,
-            postalCode,
-            userId
+          street,
+          city,
+          postalCode,
+          userId,
         },
       });
 
@@ -41,6 +36,29 @@ const GET = async (req, res) => {
     return res
       .status(500)
       .send({ message: "Error fetching Adresss", error: message });
+  }
+};
+
+/*GET adress by id*/
+const GETBYID = async (req, { params }) => {
+  try {
+    const { userId } = req.params;
+    if (!userId) {
+      return res.status(400).json({ error: "userId parameter is missing" });
+    }
+    const adress = await prisma.adress.findFirst({
+      where: {
+        userId: userId,
+      },
+    });
+
+    return res.status(200).json(adress);
+  } catch (error) {
+    const message =
+      error instanceof Error ? error.message : "An unknown error occurred";
+    return res
+      .status(500)
+      .json({ message: "Error fetching adress by user id", error: message });
   }
 };
 
@@ -96,4 +114,4 @@ const DELETE = async (req, { params }) => {
   }
 };
 
-module.exports = { POST, GET,  UPDATE, DELETE };
+module.exports = { POST, GET, GETBYID, UPDATE, DELETE };

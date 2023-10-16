@@ -9,13 +9,16 @@ import ForgetPassword from "./screens/Auth/ForgetPassword";
 import CodeConfirmation from "./screens/Auth/CodeConfirmation";
 import UpdatePassword from "./screens/Auth/UpdatePassword";
 import Authprovider from "./components/Authprovider/Authprovider";
+import Profile from "./screens/profile";
+import MyOrders from "./components/profile/MyOrders";
+import ProductDetail from "./screens/ProductDetail";
+import Chat from "./screens/chat";
 import HomeNavSearch from "./components/Home/HomeNavSearch";
 import HomeSearch from "./components/Home/HomeSearch";
 import SearchNav from "./components/Home/SearchNav";
 import AllProd from "./screens/AllProd";
 import AllArticles from "./screens/AllArticles";
 import SearchFilters from "./components/Home/SearchFilters";
-import Chat from "./screens/Chat.js";
 import Conversation from "./screens/Conversation";
 import Checkout from "./screens/Cart/Checkout";
 import MyBag from "./screens/Cart/MyBag";
@@ -23,15 +26,11 @@ import ShippingAddresses from "./screens/Cart/ShippingAddresses";
 import PaymentMethod from "./screens/Cart/PaymentMethod";
 import Success from "./screens/Cart/Success";
 import ArticleView from "./screens/Article/ArticleView";
-import ProductDetail from "./screens/ProductDetail";
-import myOrders from "./screens/myOrders";
 import Reviews from "./components/ProdDetail/Reviews";
 import ArtComCard from "./components/Article/ArtComCard";
 import ItemReviewCard from "./components/ProdDetail/ItemReviewCard";
-import profile from "./screens/profile";
 import ArticleComments from "./components/Article/ArticleComments";
-import ItemReviewsList from "./components/ProdDetail/ItemReviewsList"
-
+import ItemReviewsList from "./components/ProdDetail/ItemReviewsList";
 
 const Stack = createStackNavigator();
 
@@ -39,10 +38,20 @@ export default function App() {
   return (
     <NavigationContainer>
       <Authprovider>
-        <Stack.Navigator initialRouteName="Welcomepage">
+        <Stack.Navigator initialRouteName="Profile">
           <Stack.Screen
             name="Welcomepage"
             component={Welcomepage}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Profile"
+            component={Profile}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="MyOrders"
+            component={MyOrders}
             options={{ headerShown: false }}
           />
           {/* LOGIN */}
@@ -166,9 +175,11 @@ export default function App() {
               }}
             />
           </>
-
+{/*Product-Detail */}
+<>
 <Stack.Screen name="ProductDetail" component={ProductDetail} />
 <Stack.Screen name="ItemReviewsList" component={ItemReviewsList} />
+ </>
           {/* Chat screens */}
           <>
           <Stack.Screen name="Chat" component={Chat} />
