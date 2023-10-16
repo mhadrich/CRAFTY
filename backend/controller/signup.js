@@ -4,7 +4,7 @@ require("dotenv").config()
 
 
  const SignUp = async  (req,res) =>{
-   
+    const image="https://t4.ftcdn.net/jpg/03/46/93/61/360_F_346936114_RaxE6OQogebgAWTalE1myseY1Hbb5qPM.jpg"
     try {
       const body =  await req.body;
       console.log(body,"boodyyy");
@@ -38,6 +38,7 @@ require("dotenv").config()
             email: email,
             dateOfBirth: dateOfBirth  ,
             password: hashedpassowrd ,
+            image : image ,
         },
       });
       if(!newData)  return res.status(208).send({ message: " failed to signup" });

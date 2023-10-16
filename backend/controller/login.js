@@ -29,7 +29,7 @@ const login = async (req, res) => {
 
 
 
-      return res.status(200).json({ message: " Successfully logged in ", token: token })
+      return res.status(200).json({ message: " Successfully logged in ", token: token ,id:user.id })
     } else {
       return res.status(205).json({ message: " Wrong password " })
 

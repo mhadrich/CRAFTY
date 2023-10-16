@@ -18,6 +18,7 @@ import SearchNav from "./components/Home/SearchNav";
 import AllProd from "./screens/AllProd";
 import AllArticles from "./screens/AllArticles";
 import SearchFilters from "./components/Home/SearchFilters";
+import Conversation from "./screens/Conversation";
 import Checkout from "./screens/Cart/Checkout";
 import MyBag from "./screens/Cart/MyBag";
 import ShippingAddresses from "./screens/Cart/ShippingAddresses";
@@ -169,38 +170,47 @@ export default function App() {
               }}
             />
           </>
-          <Stack.Screen name="ProductDetail" component={ProductDetail} />
-          <Stack.Screen name="Reviews" component={Reviews} />
-          <Stack.Screen name="Chat" component={Chat} />
-          <Stack.Screen name="ArticleComments" component={ArticleComments} />
-          <Stack.Screen name="ItemReviewsList" component={ItemReviewsList} />
+          {/*Product-Detail */}
+          <>
+            <Stack.Screen name="ProductDetail" component={ProductDetail} />
+            <Stack.Screen name="ItemReviewsList" component={ItemReviewsList} />
+          </>
+          {/* Chat screens */}
+          <>
+            <Stack.Screen name="Chat" component={Chat} />
+            <Stack.Screen name="ArticleComments" component={ArticleComments} />
+            <Stack.Screen name="ItemReviewsList" component={ItemReviewsList} />
+            <Stack.Screen name="Conversation" component={Conversation} />
+          </>
 
           {/* profile */}
-          <Stack.Screen
-            name="Profile"
-            component={Profile}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="MyOrders"
-            component={MyOrders}
-            options={{ headerTitle: "" }}
-          />
-          <Stack.Screen
-            name="OrderDetails"
-            component={OrderDetails}
-            options={{ headerTitle: "OrderDetails" }}
-          />
-          <Stack.Screen
-            name="Settings"
-            component={Settings}
-            options={{ headerTitle: "" }}
-          />
-          <Stack.Screen
-            name="ChangePassword"
-            component={ChangePassword}
-            options={{ headerTitle: "" }}
-          />
+          <>
+            <Stack.Screen
+              name="Profile"
+              component={Profile}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="MyOrders"
+              component={MyOrders}
+              options={{ headerTitle: "" }}
+            />
+            <Stack.Screen
+              name="OrderDetails"
+              component={OrderDetails}
+              options={{ headerTitle: "OrderDetails" }}
+            />
+            <Stack.Screen
+              name="Settings"
+              component={Settings}
+              options={{ headerTitle: "" }}
+            />
+            <Stack.Screen
+              name="ChangePassword"
+              component={ChangePassword}
+              options={{ headerTitle: "" }}
+            />
+          </>
         </Stack.Navigator>
       </Authprovider>
     </NavigationContainer>
