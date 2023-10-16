@@ -12,14 +12,14 @@ import Authprovider from "./components/Authprovider/Authprovider";
 import Profile from "./screens/profile";
 import MyOrders from "./components/profile/MyOrders";
 import ProductDetail from "./screens/ProductDetail";
-import Chat from "./screens/chat";
+import Chat from "./screens/Chat";
+import Conversation from "./screens/Conversation";
 import HomeNavSearch from "./components/Home/HomeNavSearch";
 import HomeSearch from "./components/Home/HomeSearch";
 import SearchNav from "./components/Home/SearchNav";
 import AllProd from "./screens/AllProd";
 import AllArticles from "./screens/AllArticles";
 import SearchFilters from "./components/Home/SearchFilters";
-import Conversation from "./screens/Conversation";
 import Checkout from "./screens/Cart/Checkout";
 import MyBag from "./screens/Cart/MyBag";
 import ShippingAddresses from "./screens/Cart/ShippingAddresses";
@@ -38,7 +38,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Authprovider>
-        <Stack.Navigator initialRouteName="Profile">
+        <Stack.Navigator initialRouteName="Welcomepage">
           <Stack.Screen
             name="Welcomepage"
             component={Welcomepage}
@@ -175,19 +175,21 @@ export default function App() {
               }}
             />
           </>
-{/*Product-Detail */}
-<>
-<Stack.Screen name="ProductDetail" component={ProductDetail} />
-<Stack.Screen name="ItemReviewsList" component={ItemReviewsList} />
- </>
+          {/*Product-Detail */}
+          <>
+            <Stack.Screen
+              name="ProductDetail"
+              component={ProductDetail}
+              options={{ headerTitle: "Product Details", headerTintColor: "#8C633F" }}
+            />
+            <Stack.Screen name="ItemReviewsList" component={ItemReviewsList} />
+          </>
           {/* Chat screens */}
           <>
-          <Stack.Screen name="Chat" component={Chat} />
-          <Stack.Screen name="Conversation" component={Conversation} />
+            <Stack.Screen name="Chat" component={Chat} />
+            <Stack.Screen name="Conversation" component={Conversation} />
           </>
-
         </Stack.Navigator>
-    
       </Authprovider>
     </NavigationContainer>
   );
