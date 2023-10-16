@@ -45,9 +45,35 @@ const GET = async (req, res) => {
       .send({ message: "Error fetching Orders", error: message });
   }
 };
-
-/*GET Article By ID */
+/*GET Article By UserID */
 const GETById = async (req, { params }) => {
+  try {
+    if (!params || !params.Id) {
+      throw new Error("userId parameter is missing");
+    }
+    const { Id } = params;
+    const Order = await prisma.order.findUnique({
+      where: { id: Id },
+    });
+
+    if (!user) {
+      return new Response(JSON.stringify({ error: "Order not found" }), {
+        status: 404,
+      });
+    }
+
+    return new Response(JSON.stringify(Order));
+  } catch (error) {
+    const message =
+      error instanceof Error ? error.message : "An unknown error occurred";
+    return new Response(
+      JSON.stringify({ message: "Error fetching Order", error: message }),
+      { status: 500 }
+    );
+  }
+};
+/*GET Article By UserID */
+const GETByUserId = async (req, { params }) => {
   try {
     if (!params || !params.userId) {
       throw new Error("userId parameter is missing");
@@ -126,4 +152,4 @@ const DELETE = async (req, { params }) => {
   }
 };
 
-module.exports = { POST, GET, GETById, UPDATE, DELETE };
+module.exports = { POST, GET, GETById, GETByUserId, UPDATE, DELETE };
