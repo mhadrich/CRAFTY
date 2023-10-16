@@ -9,8 +9,7 @@ import ForgetPassword from "./screens/Auth/ForgetPassword";
 import CodeConfirmation from "./screens/Auth/CodeConfirmation";
 import UpdatePassword from "./screens/Auth/UpdatePassword";
 import Authprovider from "./components/Authprovider/Authprovider";
-import Profile from "./screens/profile";
-import MyOrders from "./components/profile/MyOrders";
+
 import ProductDetail from "./screens/ProductDetail";
 import Chat from "./screens/chat";
 import HomeNavSearch from "./components/Home/HomeNavSearch";
@@ -31,6 +30,11 @@ import ItemReviewCard from "./components/ProdDetail/ItemReviewCard";
 import ArticleComments from "./components/Article/ArticleComments";
 import ItemReviewsList from "./components/ProdDetail/ItemReviewsList";
 
+import Profile from "./screens/profile";
+import MyOrders from "./components/profile/MyOrders";
+import OrderDetails from "./components/profile/OrderDetails";
+import Settings from "./components/profile/Settings";
+import ChangePassword from "./components/profile/ChangePassword";
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -43,16 +47,7 @@ export default function App() {
             component={Welcomepage}
             options={{ headerShown: false }}
           />
-          <Stack.Screen
-            name="Profile"
-            component={Profile}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="MyOrders"
-            component={MyOrders}
-            options={{ headerShown: false }}
-          />
+
           {/* LOGIN */}
           <>
             <Stack.Screen
@@ -179,6 +174,33 @@ export default function App() {
           <Stack.Screen name="Chat" component={Chat} />
           <Stack.Screen name="ArticleComments" component={ArticleComments} />
           <Stack.Screen name="ItemReviewsList" component={ItemReviewsList} />
+
+          {/* profile */}
+          <Stack.Screen
+            name="Profile"
+            component={Profile}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="MyOrders"
+            component={MyOrders}
+            options={{ headerTitle: "" }}
+          />
+          <Stack.Screen
+            name="OrderDetails"
+            component={OrderDetails}
+            options={{ headerTitle: "OrderDetails" }}
+          />
+          <Stack.Screen
+            name="Settings"
+            component={Settings}
+            options={{ headerTitle: "" }}
+          />
+          <Stack.Screen
+            name="ChangePassword"
+            component={ChangePassword}
+            options={{ headerTitle: "" }}
+          />
         </Stack.Navigator>
       </Authprovider>
     </NavigationContainer>

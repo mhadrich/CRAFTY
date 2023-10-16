@@ -1,0 +1,62 @@
+.card {
+  display: flex;
+  gap: 1rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+}
+
+.card .min-w-max {
+  min-width: max-content;
+}
+
+.card .card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.card .card-heading {
+  font-size: 22px;
+
+  font-weight: 600;
+}
+
+.card .card-description {
+  line-height: 1.5;
+
+  color: black;
+
+  margin-top: -2%;
+}
+
+.card-icon {
+  font-size: 2.5rem;
+
+  color: #9e6f21;
+}
+
+.bg-fcf4ff {
+  background-color: #f2ead3;
+}
+
+.bg-fefaf0 {
+  background-color: #ffeeb3;
+}
+
+.bg-fff4f4 {
+  background-color: #fffbe9;
+}
+
+.bg-f3faff {
+  background-color: #dfd7bf;
+}
+
+/* Grid layout */
+
+.grid-container {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(2, 1fr);
+  margin-bottom: 2%;
+}
