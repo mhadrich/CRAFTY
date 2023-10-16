@@ -1,5 +1,4 @@
 import React from "react";
-import Chat from "./screens/Chat.js"
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Welcomepage from "./screens/Welcomepage";
@@ -20,7 +19,7 @@ import SearchNav from "./components/Home/SearchNav";
 import AllProd from "./screens/AllProd";
 import AllArticles from "./screens/AllArticles";
 import SearchFilters from "./components/Home/SearchFilters";
-
+import Conversation from "./screens/Conversation";
 import Checkout from "./screens/Cart/Checkout";
 import MyBag from "./screens/Cart/MyBag";
 import ShippingAddresses from "./screens/Cart/ShippingAddresses";
@@ -176,19 +175,16 @@ export default function App() {
               }}
             />
           </>
-
+{/*Product-Detail */}
+<>
 <Stack.Screen name="ProductDetail" component={ProductDetail} />
+<Stack.Screen name="ItemReviewsList" component={ItemReviewsList} />
+ </>
           {/* Chat screens */}
           <>
           <Stack.Screen name="Chat" component={Chat} />
           <Stack.Screen name="Conversation" component={Conversation} />
           </>
-
-          
-        
-    
-        
-        
 
         </Stack.Navigator>
     

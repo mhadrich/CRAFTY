@@ -15,6 +15,7 @@ import BagIcon from "../components/BagIcon";
 import { Rating, AirbnbRating } from "react-native-ratings";
 import Reviews from "../components/ProdDetail/Reviews";
 import BottomSheet from "react-native-simple-bottom-sheet";
+import ItemReviewsList from "../components/ProdDetail/ItemReviewsList";
 
 const ProductDetail = ({ navigation }) => {
   const [like, setLike] = useState(false);
@@ -42,8 +43,10 @@ const ProductDetail = ({ navigation }) => {
         <View>
           <HeartIcon state={like} />
         </View>
-        <View>
-          <BagIcon />
+        <View >
+          <Pressable onPress={() => navigation.navigate("MyBag")}>
+          <BagIcon  />
+          </Pressable>
         </View>
       </View>
       <View className="flex  flex-row  ml-3 mt-4 space-x-48">
@@ -71,7 +74,7 @@ const ProductDetail = ({ navigation }) => {
         <Reviews />
         <Reviews />
       </ScrollView>
-      <Pressable>
+      <Pressable onPress={() => navigation.navigate("ItemReviewsList")}>
         <Text className=" text-center text-neutral-400 text-xs font-normal ">
           View More Reviews
         </Text>
