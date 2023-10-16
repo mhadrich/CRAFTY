@@ -2,7 +2,7 @@ import { Text, View, Image } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../components/Authprovider/Authprovider";
 import axios from "axios";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { TouchableOpacity, ScrollView } from "react-native-gesture-handler";
 import ADRESS_API from "../Api";
 
 const Profile = ({ navigation }) => {
@@ -43,157 +43,171 @@ const Profile = ({ navigation }) => {
       alert(res);
     }
   };
-  if (authenticated ===false) {
+  if (authenticated === false) {
     return (
-      <View className=" mt-[18%]">
-        <Text className="text-4xl font-bold ml-5 mb-2">My Profile</Text>
-        <View className=" flex flex-row items-center mt-[50pw] p-5  ">
-          <Image
-            className="w-[70px] h-[70px] rounded-[200px] mr-5"
-            source={{
-              uri: "https://www.bootdey.com/img/Content/avatar/avatar6.png",
-            }}
-          />
-          <View>
-            <Text className="text-2xl font-bold">
-              {"John Doe" || data.name}
-            </Text>
-            <Text className="text-[#999] text-base">
-              {"@johndoe" || data.email}
-            </Text>
-          </View>
-        </View>
-        <View className="divide-y divide-slate-200">
-          <View>
-            <View className="flex justify-between ml-4 mb-3 mt-3 ">
-              <TouchableOpacity onPress={() => navigation.navigate("MyOrders")}>
-                <View className="flex flex-row justify-between">
-                  <Text className="text-base font-bold">My Orders</Text>
-                  <Image
-                    className="w-[18px] h-[18px] mt-2 mr-2"
-                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAnUlEQVR4nO3aQQrCQBBE0X+R6cYbSTQrvf85RBjBjQt31UU9yD7FTyAhgQgpDZzADVgMdgLPfTz2sJHuX0NGj6l98tZjLgxUGSOqUkZUpYyoShlRKaMqZVSljCqrMv1jzMJkzMFAFkPa4dJqh5u9M0JESqhICRUpoSIlVKSEis6zk4h2KLFcPoYeDiPYfzyMH/G5tN5VrtPesSP4zwsjFlWYroy7PAAAAABJRU5ErkJggg=="
-                  ></Image>
-                </View>
-
-                <Text className="text-[#999] text-s">
-                  Already have {orders.length} orders
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-          <View>
-            <View className="flex justify-between ml-4 mb-3 mt-3 ">
-              <TouchableOpacity
-                onPress={() => navigation.navigate("Chat")}
-              >
-                <View className="flex flex-row justify-between">
-                  <Text className="text-base font-bold">My Conversations</Text>
-                  <Image
-                    className="w-[18px] h-[18px] mt-2 mr-2"
-                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAnUlEQVR4nO3aQQrCQBBE0X+R6cYbSTQrvf85RBjBjQt31UU9yD7FTyAhgQgpDZzADVgMdgLPfTz2sJHuX0NGj6l98tZjLgxUGSOqUkZUpYyoShlRKaMqZVSljCqrMv1jzMJkzMFAFkPa4dJqh5u9M0JESqhICRUpoSIlVKSEis6zk4h2KLFcPoYeDiPYfzyMH/G5tN5VrtPesSP4zwsjFlWYroy7PAAAAABJRU5ErkJggg=="
-                  ></Image>
-                </View>
-
-                <Text className="text-[#999] text-s">
-                  Already have 6 conversations
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-          <View>
-            <View className="flex justify-between ml-4 mb-3 mt-3">
-              <TouchableOpacity onPress={() => navigation.navigate("ShippingAddresses")}>
-                <View className="flex flex-row justify-between">
-                  <Text className="text-base font-bold">
-                    Shipping Addresses
-                  </Text>
-                  <Image
-                    className="w-[18px] h-[18px] mt-2 mr-2"
-                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAnUlEQVR4nO3aQQrCQBBE0X+R6cYbSTQrvf85RBjBjQt31UU9yD7FTyAhgQgpDZzADVgMdgLPfTz2sJHuX0NGj6l98tZjLgxUGSOqUkZUpYyoShlRKaMqZVSljCqrMv1jzMJkzMFAFkPa4dJqh5u9M0JESqhICRUpoSIlVKSEis6zk4h2KLFcPoYeDiPYfzyMH/G5tN5VrtPesSP4zwsjFlWYroy7PAAAAABJRU5ErkJggg=="
-                  ></Image>
-                </View>
-                <Text className="text-[#999] text-s">
-                  {address.length} Adresses
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-          <View>
-            <View className="flex justify-between ml-4 mb-3 mt-3">
-              <TouchableOpacity onPress={() => navigation.navigate("PaymentMethod")}>
-                <View className="flex flex-row justify-between">
-                  <Text className="text-base font-bold">Payment methods</Text>
-                  <Image
-                    className="w-[18px] h-[18px] mt-2 mr-2"
-                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAnUlEQVR4nO3aQQrCQBBE0X+R6cYbSTQrvf85RBjBjQt31UU9yD7FTyAhgQgpDZzADVgMdgLPfTz2sJHuX0NGj6l98tZjLgxUGSOqUkZUpYyoShlRKaMqZVSljCqrMv1jzMJkzMFAFkPa4dJqh5u9M0JESqhICRUpoSIlVKSEis6zk4h2KLFcPoYeDiPYfzyMH/G5tN5VrtPesSP4zwsjFlWYroy7PAAAAABJRU5ErkJggg=="
-                  ></Image>
-                </View>
-
-                <Text className="text-[#999] text-s">There is no methods for now</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-          <View>
-            <View className="flex justify-between ml-4 mb-3 mt-3">
-              <TouchableOpacity onPress={() => navigation.navigate("")}>
-                <View className="flex flex-row justify-between">
-                  <Text className="text-base font-bold">PromoCodes</Text>
-                  <Image
-                    className="w-[18px] h-[18px] mt-2 mr-2"
-                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAnUlEQVR4nO3aQQrCQBBE0X+R6cYbSTQrvf85RBjBjQt31UU9yD7FTyAhgQgpDZzADVgMdgLPfTz2sJHuX0NGj6l98tZjLgxUGSOqUkZUpYyoShlRKaMqZVSljCqrMv1jzMJkzMFAFkPa4dJqh5u9M0JESqhICRUpoSIlVKSEis6zk4h2KLFcPoYeDiPYfzyMH/G5tN5VrtPesSP4zwsjFlWYroy7PAAAAABJRU5ErkJggg=="
-                  ></Image>
-                </View>
-
-                <Text className="text-[#999] text-s">
-                  You have special promocodes
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-          <View>
-            <View className="flex justify-between ml-4 mb-3 mt-3">
-              <TouchableOpacity onPress={() => navigation.navigate("Reviews")}>
-                <View className="flex flex-row justify-between">
-                  <Text className="text-base font-bold">My reviews</Text>
-                  <Image
-                    className="w-[18px] h-[18px] mt-2 mr-2"
-                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAnUlEQVR4nO3aQQrCQBBE0X+R6cYbSTQrvf85RBjBjQt31UU9yD7FTyAhgQgpDZzADVgMdgLPfTz2sJHuX0NGj6l98tZjLgxUGSOqUkZUpYyoShlRKaMqZVSljCqrMv1jzMJkzMFAFkPa4dJqh5u9M0JESqhICRUpoSIlVKSEis6zk4h2KLFcPoYeDiPYfzyMH/G5tN5VrtPesSP4zwsjFlWYroy7PAAAAABJRU5ErkJggg=="
-                  ></Image>
-                </View>
-
-                <Text className="text-[#999] text-s">reviews from 4 items</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-          <View>
-            <View className="flex justify-between ml-4 mb-3 mt-3">
-              <TouchableOpacity onPress={() => navigation.navigate("")}>
-                <View className="flex flex-row justify-between">
-                  <Text className="text-base font-bold">Settings</Text>
-                  <Image
-                    className="w-[18px] h-[18px] mt-2 mr-2"
-                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAnUlEQVR4nO3aQQrCQBBE0X+R6cYbSTQrvf85RBjBjQt31UU9yD7FTyAhgQgpDZzADVgMdgLPfTz2sJHuX0NGj6l98tZjLgxUGSOqUkZUpYyoShlRKaMqZVSljCqrMv1jzMJkzMFAFkPa4dJqh5u9M0JESqhICRUpoSIlVKSEis6zk4h2KLFcPoYeDiPYfzyMH/G5tN5VrtPesSP4zwsjFlWYroy7PAAAAABJRU5ErkJggg=="
-                  ></Image>
-                </View>
-
-                <Text className="text-[#999] text-s">
-                  Notifications , Password ...
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-          <View>
-            <View className=" flex items-center justify-center mt-5">
-              <Text
-                className="text-base font-bold text-red-500"
-                onPress={() => handleLogout()}
-              >
-                LogOut
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View className=" mt-[18%]">
+          <Text className="text-4xl font-bold ml-5 mb-2">My Profile</Text>
+          <View className=" flex flex-row items-center mt-[50pw] p-5  ">
+            <Image
+              className="w-[70px] h-[70px] rounded-[200px] mr-5"
+              source={{
+                uri: "https://www.bootdey.com/img/Content/avatar/avatar6.png",
+              }}
+            />
+            <View>
+              <Text className="text-2xl font-bold">
+                {"John Doe" || data.name}
+              </Text>
+              <Text className="text-[#999] text-base">
+                {"@johndoe" || data.email}
               </Text>
             </View>
           </View>
+          <View className="divide-y divide-slate-200">
+            <View>
+              <View className="flex justify-between ml-4 mb-3 mt-3 ">
+                <TouchableOpacity
+                  onPress={() => navigation.navigate("MyOrders")}
+                >
+                  <View className="flex flex-row justify-between">
+                    <Text className="text-base font-bold">My Orders</Text>
+                    <Image
+                      className="w-[18px] h-[18px] mt-2 mr-2"
+                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAnUlEQVR4nO3aQQrCQBBE0X+R6cYbSTQrvf85RBjBjQt31UU9yD7FTyAhgQgpDZzADVgMdgLPfTz2sJHuX0NGj6l98tZjLgxUGSOqUkZUpYyoShlRKaMqZVSljCqrMv1jzMJkzMFAFkPa4dJqh5u9M0JESqhICRUpoSIlVKSEis6zk4h2KLFcPoYeDiPYfzyMH/G5tN5VrtPesSP4zwsjFlWYroy7PAAAAABJRU5ErkJggg=="
+                    ></Image>
+                  </View>
+
+                  <Text className="text-[#999] text-s">
+                    Already have {orders.length} orders
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+            <View>
+              <View className="flex justify-between ml-4 mb-3 mt-3 ">
+                <TouchableOpacity onPress={() => navigation.navigate("Chat")}>
+                  <View className="flex flex-row justify-between">
+                    <Text className="text-base font-bold">
+                      My Conversations
+                    </Text>
+                    <Image
+                      className="w-[18px] h-[18px] mt-2 mr-2"
+                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAnUlEQVR4nO3aQQrCQBBE0X+R6cYbSTQrvf85RBjBjQt31UU9yD7FTyAhgQgpDZzADVgMdgLPfTz2sJHuX0NGj6l98tZjLgxUGSOqUkZUpYyoShlRKaMqZVSljCqrMv1jzMJkzMFAFkPa4dJqh5u9M0JESqhICRUpoSIlVKSEis6zk4h2KLFcPoYeDiPYfzyMH/G5tN5VrtPesSP4zwsjFlWYroy7PAAAAABJRU5ErkJggg=="
+                    ></Image>
+                  </View>
+
+                  <Text className="text-[#999] text-s">
+                    Already have 6 conversations
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+            <View>
+              <View className="flex justify-between ml-4 mb-3 mt-3">
+                <TouchableOpacity
+                  onPress={() => navigation.navigate("ShippingAddresses")}
+                >
+                  <View className="flex flex-row justify-between">
+                    <Text className="text-base font-bold">
+                      Shipping Addresses
+                    </Text>
+                    <Image
+                      className="w-[18px] h-[18px] mt-2 mr-2"
+                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAnUlEQVR4nO3aQQrCQBBE0X+R6cYbSTQrvf85RBjBjQt31UU9yD7FTyAhgQgpDZzADVgMdgLPfTz2sJHuX0NGj6l98tZjLgxUGSOqUkZUpYyoShlRKaMqZVSljCqrMv1jzMJkzMFAFkPa4dJqh5u9M0JESqhICRUpoSIlVKSEis6zk4h2KLFcPoYeDiPYfzyMH/G5tN5VrtPesSP4zwsjFlWYroy7PAAAAABJRU5ErkJggg=="
+                    ></Image>
+                  </View>
+                  <Text className="text-[#999] text-s">
+                    {address.length} Adresses
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+            <View>
+              <View className="flex justify-between ml-4 mb-3 mt-3">
+                <TouchableOpacity
+                  onPress={() => navigation.navigate("PaymentMethod")}
+                >
+                  <View className="flex flex-row justify-between">
+                    <Text className="text-base font-bold">Payment methods</Text>
+                    <Image
+                      className="w-[18px] h-[18px] mt-2 mr-2"
+                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAnUlEQVR4nO3aQQrCQBBE0X+R6cYbSTQrvf85RBjBjQt31UU9yD7FTyAhgQgpDZzADVgMdgLPfTz2sJHuX0NGj6l98tZjLgxUGSOqUkZUpYyoShlRKaMqZVSljCqrMv1jzMJkzMFAFkPa4dJqh5u9M0JESqhICRUpoSIlVKSEis6zk4h2KLFcPoYeDiPYfzyMH/G5tN5VrtPesSP4zwsjFlWYroy7PAAAAABJRU5ErkJggg=="
+                    ></Image>
+                  </View>
+
+                  <Text className="text-[#999] text-s">
+                    There is no methods for now
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+            <View>
+              <View className="flex justify-between ml-4 mb-3 mt-3">
+                <TouchableOpacity onPress={() => navigation.navigate("")}>
+                  <View className="flex flex-row justify-between">
+                    <Text className="text-base font-bold">PromoCodes</Text>
+                    <Image
+                      className="w-[18px] h-[18px] mt-2 mr-2"
+                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAnUlEQVR4nO3aQQrCQBBE0X+R6cYbSTQrvf85RBjBjQt31UU9yD7FTyAhgQgpDZzADVgMdgLPfTz2sJHuX0NGj6l98tZjLgxUGSOqUkZUpYyoShlRKaMqZVSljCqrMv1jzMJkzMFAFkPa4dJqh5u9M0JESqhICRUpoSIlVKSEis6zk4h2KLFcPoYeDiPYfzyMH/G5tN5VrtPesSP4zwsjFlWYroy7PAAAAABJRU5ErkJggg=="
+                    ></Image>
+                  </View>
+
+                  <Text className="text-[#999] text-s">
+                    You have special promocodes
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+            <View>
+              <View className="flex justify-between ml-4 mb-3 mt-3">
+                <TouchableOpacity
+                  onPress={() => navigation.navigate("Reviews")}
+                >
+                  <View className="flex flex-row justify-between">
+                    <Text className="text-base font-bold">My reviews</Text>
+                    <Image
+                      className="w-[18px] h-[18px] mt-2 mr-2"
+                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAnUlEQVR4nO3aQQrCQBBE0X+R6cYbSTQrvf85RBjBjQt31UU9yD7FTyAhgQgpDZzADVgMdgLPfTz2sJHuX0NGj6l98tZjLgxUGSOqUkZUpYyoShlRKaMqZVSljCqrMv1jzMJkzMFAFkPa4dJqh5u9M0JESqhICRUpoSIlVKSEis6zk4h2KLFcPoYeDiPYfzyMH/G5tN5VrtPesSP4zwsjFlWYroy7PAAAAABJRU5ErkJggg=="
+                    ></Image>
+                  </View>
+
+                  <Text className="text-[#999] text-s">
+                    reviews from 4 items
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+            <View>
+              <View className="flex justify-between ml-4 mb-3 mt-3">
+                <TouchableOpacity onPress={() => navigation.navigate("Settings")}>
+                  <View className="flex flex-row justify-between">
+                    <Text className="text-base font-bold">Settings</Text>
+                    <Image
+                      className="w-[18px] h-[18px] mt-2 mr-2"
+                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAnUlEQVR4nO3aQQrCQBBE0X+R6cYbSTQrvf85RBjBjQt31UU9yD7FTyAhgQgpDZzADVgMdgLPfTz2sJHuX0NGj6l98tZjLgxUGSOqUkZUpYyoShlRKaMqZVSljCqrMv1jzMJkzMFAFkPa4dJqh5u9M0JESqhICRUpoSIlVKSEis6zk4h2KLFcPoYeDiPYfzyMH/G5tN5VrtPesSP4zwsjFlWYroy7PAAAAABJRU5ErkJggg=="
+                    ></Image>
+                  </View>
+
+                  <Text className="text-[#999] text-s">
+                    Notifications , Password ...
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+            <View>
+              <View className=" flex items-center justify-center mt-5">
+                <Text
+                  className="text-base font-bold text-red-500"
+                  onPress={() => handleLogout()}
+                >
+                  LogOut
+                </Text>
+              </View>
+            </View>
+          </View>
         </View>
-      </View>
+      </ScrollView>
     );
   } else {
     return (

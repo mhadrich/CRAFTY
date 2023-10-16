@@ -4,6 +4,7 @@ import {
   ImageBackground,
   Pressable,
   KeyboardAvoidingView,
+ 
 } from "react-native";
 import React, { useRef, useState } from "react";
 import { ScrollView } from "react-native-gesture-handler";
@@ -16,14 +17,6 @@ const PaymentMethod = ({ navigation, route }) => {
   const data = route.params;
   return (
     <View className="flex-1">
-      <View
-        pointerEvents="none"
-        className={
-          bsOpen
-            ? "bg-black w-screen h-screen absolute z-20 opacity-20 transition-all"
-            : "bg-black w-screen h-screen absolute z-20 opacity-0 transition-all"
-        }
-      ></View>
       <ScrollView>
         <View className="py-8 gap-4  mb-10 items-center">
           {data &&
