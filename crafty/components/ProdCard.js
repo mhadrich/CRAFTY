@@ -3,14 +3,16 @@ import React, { useState } from "react";
 import HeartIcon from "./HeartIcon";
 import { Rating } from "react-native-ratings";
 
-const ProdCard = () => {
+const ProdCard = ({ navigation }) => {
   const [like, setLike] = useState(false);
   return (
     <View className="pr-4">
-      <Image
-        className="w-40 h-44 rounded-lg"
-        src="https://i.etsystatic.com/22703156/r/il/8f4019/3358914263/il_1588xN.3358914263_dlpj.jpg"
-      />
+      <Pressable onPress={()=>navigation.navigate("ProductDetail")}>
+        <Image
+          className="w-40 h-44 rounded-lg"
+          src="https://i.etsystatic.com/22703156/r/il/8f4019/3358914263/il_1588xN.3358914263_dlpj.jpg"
+        />
+      </Pressable>
       <Pressable
         onPressOut={() => setLike(!like)}
         className="-top-5 -right-32 "
