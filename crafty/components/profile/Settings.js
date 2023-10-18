@@ -39,7 +39,6 @@ const Settings = ({ navigation }) => {
           <Text className="text-left text-[rgba(34,34,34,1)] text-[34px] font-bold tracking-[0] ">{`Settings`}</Text>
         </View>
         <Text className=" text-lg  font-semibold mt-5 mb-5">
-          {" "}
           Personal Information
         </Text>
         <View>
