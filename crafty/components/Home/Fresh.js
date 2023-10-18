@@ -25,11 +25,11 @@ const Fresh = ({ navigation }) => {
           horizontal={true}
           showsHorizontalScrollIndicator={false}
         >
-          <ProdCard />
-          <ProdCard />
-          <ProdCard />
-          <ProdCard />
-          <ProdCard />
+          <ProdCard navigation={navigation}/>
+          <ProdCard navigation={navigation}/>
+          <ProdCard navigation={navigation}/>
+          <ProdCard navigation={navigation}/>
+          <ProdCard navigation={navigation}/>
         </ScrollView>
       </View>
     </View>
