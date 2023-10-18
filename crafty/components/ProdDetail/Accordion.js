@@ -3,20 +3,23 @@ import { Text, View, TouchableOpacity } from "react-native";
 // import data from "data.json";
 import { Svg, Path } from "react-native-svg";
 
-const data=[
+const data = [
   {
-    "Title":"Item Details",
-    "Description":"These high quality personalized marble acrylic /mango wood coasters will make unique and one of a kind gifts for a wedding , anniversary , housewarming, bridal shower, wedding favors , or any occasion that needs personal touch. "
+    Title: "Item Details",
+    Description:
+      "These high quality personalized marble acrylic /mango wood coasters will make unique and one of a kind gifts for a wedding , anniversary , housewarming, bridal shower, wedding favors , or any occasion that needs personal touch. ",
   },
   {
-    "Title":"Shipping Infos",
-    "Description":"These high quality personalized marble acrylic /mango wood coasters will make unique and one of a kind gifts for a wedding , anniversary , housewarming, bridal shower, wedding favors , or any occasion that needs personal touch. "
+    Title: "Shipping Infos",
+    Description:
+      "These high quality personalized marble acrylic /mango wood coasters will make unique and one of a kind gifts for a wedding , anniversary , housewarming, bridal shower, wedding favors , or any occasion that needs personal touch. ",
   },
   {
-    "Title":"Support",
-    "Description":"These high quality personalized marble acrylic /mango wood coasters will make unique and one of a kind gifts for a wedding , anniversary , housewarming, bridal shower, wedding favors , or any occasion that needs personal touch. "
-  }
-]
+    Title: "Support",
+    Description:
+      "These high quality personalized marble acrylic /mango wood coasters will make unique and one of a kind gifts for a wedding , anniversary , housewarming, bridal shower, wedding favors , or any occasion that needs personal touch. ",
+  },
+];
 
 export default function Accordion() {
   const [currentIndex, setCurrentIndex] = React.useState(null);
@@ -28,7 +31,7 @@ export default function Accordion() {
 
   return (
     <View>
-      <View className="flex-1 bg-f9f9f9 justify-center mt-4">
+      <View className="flex-1 bg-f9f9f9 justify-center">
         {data.map(({ Title, Description }, index) => {
           return (
             <TouchableOpacity
@@ -37,18 +40,14 @@ export default function Accordion() {
                 setCurrentIndex(index === currentIndex ? null : index);
               }}
               activeOpacity={0.9}
-              
             >
-              
               <View className="flex-grow">
-                <View className="flex flex-row ml-2 ">
-                  <Text className="text-base tracking-wide items-center justify-center mb-1">
+                <View className="flex flex-row p-4 justify-between items-center">
+                  <Text className="text-base tracking-wide items-center justify-between">
                     {Title}
                   </Text>
                   <Svg
-                    className={`w-4 h-4 mt-3 absolute right-4 ${
-                      isRotated ? "rotate-90" : ""
-                    }`}
+                    className={`w-4 h-4 ${isRotated ? "rotate-90" : ""}`}
                     viewBox="0 0 6 8"
                     fill="none"
                     onPress={toggleRotation}
@@ -58,20 +57,22 @@ export default function Accordion() {
                       fill="#222222"
                     />
                   </Svg>
-                  
                 </View>
-                <View className="border-t opacity-25"></View>
+                
                 {index === currentIndex && (
-                  <View className="mt-9 ml-2">
-                    <Text className="text-sky-500 underline underline-offset-4">Tag1-Tag2-Tag3</Text>
+                  <View className="px-4">
+                    <Text className="text-sky-500 mb-2 underline underline-offset-4">
+                      Tag1-Tag2-Tag3
+                    </Text>
                     <Text
                       key={Description}
-                      className="text-sm leading-6 text-left"
+                      className="text-sm leading-6 text-left mb-6"
                     >
                       {Description}
                     </Text>
                   </View>
                 )}
+                <View className="border-t opacity-25"/>
               </View>
             </TouchableOpacity>
           );

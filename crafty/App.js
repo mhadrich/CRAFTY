@@ -11,14 +11,14 @@ import UpdatePassword from "./screens/Auth/UpdatePassword";
 import Authprovider from "./components/Authprovider/Authprovider";
 
 import ProductDetail from "./screens/ProductDetail";
-import Chat from "./screens/chat";
+import Chat from "./screens/Chat";
+import Conversation from "./screens/Conversation";
 import HomeNavSearch from "./components/Home/HomeNavSearch";
 import HomeSearch from "./components/Home/HomeSearch";
 import SearchNav from "./components/Home/SearchNav";
 import AllProd from "./screens/AllProd";
 import AllArticles from "./screens/AllArticles";
 import SearchFilters from "./components/Home/SearchFilters";
-import Conversation from "./screens/Conversation";
 import Checkout from "./screens/Cart/Checkout";
 import MyBag from "./screens/Cart/MyBag";
 import ShippingAddresses from "./screens/Cart/ShippingAddresses";
@@ -30,6 +30,7 @@ import ArtComCard from "./components/Article/ArtComCard";
 import ItemReviewCard from "./components/ProdDetail/ItemReviewCard";
 import ArticleComments from "./components/Article/ArticleComments";
 import ItemReviewsList from "./components/ProdDetail/ItemReviewsList";
+import WriteArticle from "./screens/Article/WriteArticle";
 
 import Profile from "./screens/profile";
 import MyOrders from "./components/profile/MyOrders";
@@ -42,7 +43,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Authprovider>
-        <Stack.Navigator initialRouteName="Profile">
+        <Stack.Navigator initialRouteName="Welcomepage">
           <Stack.Screen
             name="Welcomepage"
             component={Welcomepage}
@@ -110,7 +111,10 @@ export default function App() {
             <Stack.Screen
               name="AllProd"
               component={AllProd}
-              options={{ headerTitle: "", headerTintColor: "#8C633F" }}
+              options={{
+                headerTitle: "",
+                headerTintColor: "#8C633F",
+              }}
             />
             <Stack.Screen
               name="AllArticles"
@@ -169,20 +173,32 @@ export default function App() {
                 headerTransparent: true,
               }}
             />
+            <Stack.Screen
+              name="WriteArticle"
+              component={WriteArticle}
+              options={{
+                headerTitle: "Write an article",
+                headerTintColor: "#8C633F",
+              }}
+            />
           </>
           {/*Product-Detail */}
           <>
-            <Stack.Screen name="ProductDetail" component={ProductDetail} />
+            <Stack.Screen
+              name="ProductDetail"
+              component={ProductDetail}
+              options={{
+                headerTitle: "Product Details",
+                headerTintColor: "#8C633F",
+              }}
+            />
             <Stack.Screen name="ItemReviewsList" component={ItemReviewsList} />
           </>
           {/* Chat screens */}
           <>
             <Stack.Screen name="Chat" component={Chat} />
-            <Stack.Screen name="ArticleComments" component={ArticleComments} />
-            <Stack.Screen name="ItemReviewsList" component={ItemReviewsList} />
             <Stack.Screen name="Conversation" component={Conversation} />
           </>
-
           {/* profile */}
           <>
             <Stack.Screen

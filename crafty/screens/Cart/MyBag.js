@@ -23,6 +23,13 @@ const MyBag = ({ navigation }) => {
           showsVerticalScrollIndicator={false}
         >
           <CartItem total={setCartTotal} current={cartTotal} />
+          <CartItem total={setCartTotal} current={cartTotal} />
+          <CartItem total={setCartTotal} current={cartTotal} />
+          <CartItem total={setCartTotal} current={cartTotal} />
+          <CartItem total={setCartTotal} current={cartTotal} />
+          <CartItem total={setCartTotal} current={cartTotal} />
+          <CartItem total={setCartTotal} current={cartTotal} />
+          <CartItem total={setCartTotal} current={cartTotal} />
           <CartItem />
         </ScrollView>
       </TouchableWithoutFeedback>

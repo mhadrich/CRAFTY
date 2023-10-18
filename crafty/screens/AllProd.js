@@ -5,7 +5,7 @@ import FilteringButtons from "../components/Home/FilteringButtons";
 import { ScrollView } from "react-native-gesture-handler";
 import ProdCard from "../components/ProdCard";
 
-const AllProd = () => {
+const AllProd = ({ navigation }) => {
   const categories = [
     "Decor",
     "Kitchen",
@@ -15,32 +15,41 @@ const AllProd = () => {
     "Living",
   ];
   return (
-    <View className="justify-center items-center" >
+    <View className="justify-center items-center">
       <View className="bg-white w-screen h-24 py-3 items-center justify-start">
         <CategoryPill category={categories} />
         <FilteringButtons />
       </View>
-      <ScrollView className=" w-screen pl-7 pt-9 " showsVerticalScrollIndicator={false}>
+      <ScrollView
+        className=" w-screen pl-7 pt-9 "
+        showsVerticalScrollIndicator={false}
+      >
         <View className="flex flex-row">
-          <ProdCard />
+          <ProdCard navigation={navigation}/>
           <View className="p-4" />
-          <ProdCard />
+          <ProdCard navigation={navigation}/>
         </View>
         <View className="flex flex-row">
-          <ProdCard />
+          <ProdCard navigation={navigation}/>
           <View className="p-4" />
-          <ProdCard />
+          <ProdCard navigation={navigation}/>
         </View>
         <View className="flex flex-row">
-          <ProdCard />
+          <ProdCard navigation={navigation}/>
           <View className="p-4" />
-          <ProdCard />
+          <ProdCard navigation={navigation}/>
         </View>
         <View className="flex flex-row">
-          <ProdCard />
+          <ProdCard navigation={navigation}/>
           <View className="p-4" />
-          <ProdCard />
+          <ProdCard navigation={navigation}/>
         </View>
+        <View className="flex flex-row">
+          <ProdCard navigation={navigation}/>
+          <View className="p-4" />
+          <ProdCard navigation={navigation}/>
+        </View>
+       
       </ScrollView>
     </View>
   );
