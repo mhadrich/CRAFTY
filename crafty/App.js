@@ -37,6 +37,7 @@ import MyOrders from "./components/profile/MyOrders";
 import OrderDetails from "./components/profile/OrderDetails";
 import Settings from "./components/profile/Settings";
 import ChangePassword from "./components/profile/ChangePassword";
+import AddItem from "./screens/AddItem";
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -227,6 +228,14 @@ export default function App() {
               options={{ headerTitle: "" }}
             />
           </>
+          <Stack.Screen
+            name="AddItem"
+            component={AddItem}
+            options={{
+              headerTitle: "Add your craft",
+              headerTintColor: "#8C633F",
+            }}
+          />
         </Stack.Navigator>
       </Authprovider>
     </NavigationContainer>
