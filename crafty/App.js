@@ -30,6 +30,7 @@ import ArtComCard from "./components/Article/ArtComCard";
 import ItemReviewCard from "./components/ProdDetail/ItemReviewCard";
 import ArticleComments from "./components/Article/ArticleComments";
 import ItemReviewsList from "./components/ProdDetail/ItemReviewsList";
+import WriteArticle from "./screens/Article/WriteArticle";
 
 import Profile from "./screens/profile";
 import MyOrders from "./components/profile/MyOrders";
@@ -110,7 +111,10 @@ export default function App() {
             <Stack.Screen
               name="AllProd"
               component={AllProd}
-              options={{ headerTitle: "", headerTintColor: "#8C633F" }}
+              options={{
+                headerTitle: "",
+                headerTintColor: "#8C633F",
+              }}
             />
             <Stack.Screen
               name="AllArticles"
@@ -169,13 +173,24 @@ export default function App() {
                 headerTransparent: true,
               }}
             />
+            <Stack.Screen
+              name="WriteArticle"
+              component={WriteArticle}
+              options={{
+                headerTitle: "Write an article",
+                headerTintColor: "#8C633F",
+              }}
+            />
           </>
           {/*Product-Detail */}
           <>
             <Stack.Screen
               name="ProductDetail"
               component={ProductDetail}
-              options={{ headerTitle: "Product Details", headerTintColor: "#8C633F" }}
+              options={{
+                headerTitle: "Product Details",
+                headerTintColor: "#8C633F",
+              }}
             />
             <Stack.Screen name="ItemReviewsList" component={ItemReviewsList} />
           </>
@@ -184,10 +199,6 @@ export default function App() {
             <Stack.Screen name="Chat" component={Chat} />
             <Stack.Screen name="Conversation" component={Conversation} />
           </>
-            <Stack.Screen name="ArticleComments" component={ArticleComments} />
-            <Stack.Screen name="ItemReviewsList" component={ItemReviewsList} />
-          </>
-
           {/* profile */}
           <>
             <Stack.Screen
