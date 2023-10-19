@@ -4,7 +4,7 @@ import {
   TouchableOpacity,
   View,
   Pressable,
-} from "react-native";
+} from "react-native"; 
 import React, { useState, useRef } from "react";
 import Karousel from "../components/Home/Carousel";
 import Svg, { Path } from "react-native-svg";
@@ -16,7 +16,6 @@ import { Rating } from "react-native-ratings";
 import Reviews from "../components/ProdDetail/Reviews";
 import BottomSheet from "react-native-simple-bottom-sheet";
 import ItemReviewsList from "../components/ProdDetail/ItemReviewsList";
-
 
 const ProductDetail = ({ navigation }) => {
   const [like, setLike] = useState(false);
@@ -68,6 +67,17 @@ const ProductDetail = ({ navigation }) => {
         <Reviews />
       </ScrollView>
 
+      <TouchableOpacity
+        onPress={() => {
+          setBSOpen(true);
+        }}
+      >
+        <Text className=" text-center text-neutral-400 text-xs font-normal ">
+          View More Reviews
+        </Text>
+      </TouchableOpacity>
+      
+
       <View>
         <Accordion />
       </View>
@@ -88,16 +98,6 @@ const ProductDetail = ({ navigation }) => {
           <ProdCard />
         </ScrollView>
       </View>
-
-      <TouchableOpacity
-        onPress={() => {
-          setBSOpen(true);
-        }}
-      >
-        <Text className=" text-center text-neutral-400 text-xs font-normal ">
-          View More Reviews
-        </Text>
-      </TouchableOpacity>
       {bsOpen && (
         <View className="z-50 ">
           <BottomSheet
@@ -108,11 +108,11 @@ const ProductDetail = ({ navigation }) => {
             ref={(ref) => (panelRef.current = ref)}
           >
             <ItemReviewsList close={setBSOpen} />
-          </BottomSheet> 
+          </BottomSheet>
         </View>
       )}
     </ScrollView>
-  );
+  ); 
 };
 
 export default ProductDetail;
