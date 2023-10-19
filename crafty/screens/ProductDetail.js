@@ -5,20 +5,23 @@ import {
   View,
   Pressable,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Karousel from "../components/Home/Carousel";
 import Svg, { Path } from "react-native-svg";
 import Accordion from "../components/ProdDetail/Accordion";
 import ProdCard from "../components/ProdCard";
 import HeartIcon from "../components/HeartIcon";
 import BagIcon from "../components/BagIcon";
-import { Rating, AirbnbRating } from "react-native-ratings";
+import { Rating } from "react-native-ratings";
 import Reviews from "../components/ProdDetail/Reviews";
 import BottomSheet from "react-native-simple-bottom-sheet";
 import ItemReviewsList from "../components/ProdDetail/ItemReviewsList";
 
+
 const ProductDetail = ({ navigation }) => {
   const [like, setLike] = useState(false);
+  const panelRef = useRef(null);
+  const [bsOpen, setBSOpen] = useState(false);
   return (
     <ScrollView className="">
       <Karousel />
@@ -64,17 +67,20 @@ const ProductDetail = ({ navigation }) => {
         <Reviews />
         <Reviews />
       </ScrollView>
-      <Pressable onPress={() => navigation.navigate("ItemReviewsList")}>
-        <Text className=" text-center text-neutral-400 text-xs font-normal ">
-          View More Reviews
-        </Text>
-      </Pressable>
+
       <View>
         <Accordion />
       </View>
-      <Text className="text-lg font-medium p-4 mt-2">You can also like this</Text>
+
+      <Text className="text-lg font-medium p-4 mt-2">
+        You can also like this
+      </Text>
       <View className="flex flex-row mb-4 items-start justify-start">
-        <ScrollView className="px-4" showsHorizontalScrollIndicator={false} horizontal={true}>
+        <ScrollView
+          className="px-4"
+          showsHorizontalScrollIndicator={false}
+          horizontal={true}
+        >
           <ProdCard />
           <ProdCard />
           <ProdCard />
@@ -82,6 +88,29 @@ const ProductDetail = ({ navigation }) => {
           <ProdCard />
         </ScrollView>
       </View>
+
+      <TouchableOpacity
+        onPress={() => {
+          setBSOpen(true);
+        }}
+      >
+        <Text className=" text-center text-neutral-400 text-xs font-normal ">
+          View More Reviews
+        </Text>
+      </TouchableOpacity>
+      {bsOpen && (
+        <View className="z-50 ">
+          <BottomSheet
+            isOpen={true}
+            onClose={() => setBSOpen(false)}
+            sliderMinHeight={0}
+            sliderMaxHeight={650}
+            ref={(ref) => (panelRef.current = ref)}
+          >
+            <ItemReviewsList close={setBSOpen} />
+          </BottomSheet> 
+        </View>
+      )}
     </ScrollView>
   );
 };
