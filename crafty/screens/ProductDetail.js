@@ -4,7 +4,7 @@ import {
   TouchableOpacity,
   View,
   Pressable,
-} from "react-native";
+} from "react-native"; 
 import React, { useState, useRef } from "react";
 import Karousel from "../components/Home/Carousel";
 import Svg, { Path } from "react-native-svg";
@@ -76,19 +76,7 @@ const ProductDetail = ({ navigation }) => {
           View More Reviews
         </Text>
       </TouchableOpacity>
-      {bsOpen && (
-        <View className="z-50 ">
-          <BottomSheet
-            isOpen={true}
-            onClose={() => setBSOpen(false)}
-            sliderMinHeight={0}
-            sliderMaxHeight={650}
-            ref={(ref) => (panelRef.current = ref)}
-          >
-            <ItemReviewsList close={setBSOpen} />
-          </BottomSheet>
-        </View>
-      )}
+      
 
       <View>
         <Accordion />
@@ -110,8 +98,21 @@ const ProductDetail = ({ navigation }) => {
           <ProdCard />
         </ScrollView>
       </View>
+      {bsOpen && (
+        <View className="z-50 ">
+          <BottomSheet
+            isOpen={true}
+            onClose={() => setBSOpen(false)}
+            sliderMinHeight={0}
+            sliderMaxHeight={650}
+            ref={(ref) => (panelRef.current = ref)}
+          >
+            <ItemReviewsList close={setBSOpen} />
+          </BottomSheet>
+        </View>
+      )}
     </ScrollView>
-  );
+  ); 
 };
 
 export default ProductDetail;

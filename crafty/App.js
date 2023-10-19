@@ -38,6 +38,8 @@ import OrderDetails from "./components/profile/OrderDetails";
 import Settings from "./components/profile/Settings";
 import ChangePassword from "./components/profile/ChangePassword";
 import AddItem from "./screens/AddItem";
+import Favorites from "./screens/Favorites";
+import FavNavSearch from "./components/Favorites.js/FavNavSearch"
 const Stack = createStackNavigator();
 
 export default function App() {
@@ -128,6 +130,7 @@ export default function App() {
               options={{ headerTintColor: "#8C633F" }}
             />
             <Stack.Screen name="SearchFilters" component={SearchFilters} />
+            
           </>
           {/* CART */}
           <>
@@ -236,6 +239,12 @@ export default function App() {
               headerTintColor: "#8C633F",
             }}
           />
+          <Stack.Screen name="Favorites" component={Favorites} options={({ navigation }) => ({
+                headerLeft: null,
+                headerTitle: (props) => (
+                  <FavNavSearch navigation={navigation} />
+                ),
+              })} />
         </Stack.Navigator>
       </Authprovider>
     </NavigationContainer>
