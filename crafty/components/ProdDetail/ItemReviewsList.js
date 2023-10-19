@@ -57,7 +57,7 @@ const ItemReviewsList = ({ close }) => {
         </View>
       </View>
       {/* WRITING  Reviws */}
-      <View className={writing ? "mb-10" : "mb-10 hidden"}>
+      <View className={writing ? "mb-0" : "mb-0 hidden"}>
         <View className="bg-[f9f9f9]">
           <ScrollView className="px-4" showsHorizontalScrollIndicator={false}>
             <View className="justify-center items-center  mt-1">

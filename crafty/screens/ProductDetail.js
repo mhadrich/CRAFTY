@@ -17,7 +17,6 @@ import Reviews from "../components/ProdDetail/Reviews";
 import BottomSheet from "react-native-simple-bottom-sheet";
 import ItemReviewsList from "../components/ProdDetail/ItemReviewsList";
 
-
 const ProductDetail = ({ navigation }) => {
   const [like, setLike] = useState(false);
   const panelRef = useRef(null);
@@ -68,6 +67,29 @@ const ProductDetail = ({ navigation }) => {
         <Reviews />
       </ScrollView>
 
+      <TouchableOpacity
+        onPress={() => {
+          setBSOpen(true);
+        }}
+      >
+        <Text className=" text-center text-neutral-400 text-xs font-normal ">
+          View More Reviews
+        </Text>
+      </TouchableOpacity>
+      {bsOpen && (
+        <View className="z-50 ">
+          <BottomSheet
+            isOpen={true}
+            onClose={() => setBSOpen(false)}
+            sliderMinHeight={0}
+            sliderMaxHeight={650}
+            ref={(ref) => (panelRef.current = ref)}
+          >
+            <ItemReviewsList close={setBSOpen} />
+          </BottomSheet>
+        </View>
+      )}
+
       <View>
         <Accordion />
       </View>
@@ -88,29 +110,6 @@ const ProductDetail = ({ navigation }) => {
           <ProdCard />
         </ScrollView>
       </View>
-
-      <TouchableOpacity
-        onPress={() => {
-          setBSOpen(true);
-        }}
-      >
-        <Text className=" text-center text-neutral-400 text-xs font-normal ">
-          View More Reviews
-        </Text>
-      </TouchableOpacity>
-      {bsOpen && (
-        <View className="z-50 ">
-          <BottomSheet
-            isOpen={true}
-            onClose={() => setBSOpen(false)}
-            sliderMinHeight={0}
-            sliderMaxHeight={650}
-            ref={(ref) => (panelRef.current = ref)}
-          >
-            <ItemReviewsList close={setBSOpen} />
-          </BottomSheet> 
-        </View>
-      )}
     </ScrollView>
   );
 };

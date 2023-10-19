@@ -43,7 +43,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Authprovider>
-        <Stack.Navigator initialRouteName="Profile">
+        <Stack.Navigator initialRouteName="Welcomepage">
           <Stack.Screen
             name="Welcomepage"
             component={Welcomepage}
