@@ -26,7 +26,7 @@ export default function Login({ navigation }) {
     console.log("🚀 ~ file: SignUp.js:28 ~ Login ~ res:", res);
     if (res === 200) {
       console.log("hello");
-      navigation.navigate("Home");
+      navigation.navigate("Conversation");
     } else {
       alert(res);
     }

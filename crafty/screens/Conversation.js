@@ -61,6 +61,14 @@ const Conversation = ({ navigation }) => {
 
           )
         })}
+         <Pressable
+                  className=" flex-row bg-[#f9f9f9] text-[#262406] w-screen  h-[25vw]    items-center  justify-between    border-b-2"
+                  onPress={() => { navigation.navigate("Chat", { userId: 1, otherUserId: 2}) }}>
+                  
+
+                     < Image className=" w-[16vw]  h-16 rounded-[300px] ml-[10vw]  " source={{ uri: "https://t4.ftcdn.net/jpg/02/15/84/43/240_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg" }}  />
+                  <Text className="text-center text-[#262406] font-bold text-3xl mr-[42vw] ">{"test1" }</Text>
+                </Pressable>
       </View>
     </SafeAreaView>
 
