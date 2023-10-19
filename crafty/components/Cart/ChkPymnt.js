@@ -9,7 +9,7 @@ const ChkPymnt = ({ navigation, data, render }) => {
       onPress={() => navigation.navigate("PaymentMethod", data)}
     >
       <Text className="text-base font-medium">Payment</Text>
-      <View className="w-fit h-28 p-6 rounded-lg shadow">
+      <View className="w-fit h-28 p-6 rounded-lg">
         <View className="flex flex-row justify-between items-center pb-2">
           <View className="flex flex-row items-center gap-2">
             <View className="w-16 h-9 bg-white rounded-lg justify-center items-center shadow">
