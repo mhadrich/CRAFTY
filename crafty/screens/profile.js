@@ -11,7 +11,7 @@ const Profile = ({ navigation }) => {
   const [data, setData] = useState({});
   const [orders, setOrders] = useState([]);
   const [address, setAddress] = useState([]);
-
+  const [reviews, setReviews] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -27,6 +27,10 @@ const Profile = ({ navigation }) => {
           `${ADRESS_API}:4000/adress/getadressByUserId/${userId}`
         );
         setAddress(userAddress.data);
+        const userReviews = await axios.get(
+          `${ADRESS_API}:4000/review/getreviewbyuseId/${userId}`
+        );
+        setReviews(userReviews.data);
       } catch (error) {
         console.log(error);
       }
@@ -98,7 +102,7 @@ const Profile = ({ navigation }) => {
                   </View>
 
                   <Text className="text-[#999] text-s">
-                    Already have 6 conversations
+                    Already have 0 conversations
                   </Text>
                 </TouchableOpacity>
               </View>
@@ -173,14 +177,16 @@ const Profile = ({ navigation }) => {
                   </View>
 
                   <Text className="text-[#999] text-s">
-                    reviews from 4 items
+                    reviews from {reviews.length} items
                   </Text>
                 </TouchableOpacity>
               </View>
             </View>
             <View>
               <View className="flex justify-between ml-4 mb-3 mt-3">
-                <TouchableOpacity onPress={() => navigation.navigate("Settings")}>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate("Settings")}
+                >
                   <View className="flex flex-row justify-between">
                     <Text className="text-base font-bold">Settings</Text>
                     <Image

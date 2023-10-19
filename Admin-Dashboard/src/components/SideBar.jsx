@@ -14,11 +14,10 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import ArticleIcon from "@mui/icons-material/Article";
-import AddIcon from "@mui/icons-material/Add";
 import { useLocation, useNavigate } from "react-router-dom";
 import { grey } from "@mui/material/colors";
 import LogoutIcon from "@mui/icons-material/Logout";
-import Craftysvg from "../page/Craftysvg.jsx";
+import Craftysvg from "../../public/Craftysvg";
 import { database } from "../components/login/firebasecofig.js";
 import { signOut } from "firebase/auth";
 import axios from "axios";
@@ -76,7 +75,6 @@ const Array1 = [{ text: "Dashboard", icon: <HomeOutlinedIcon />, path: "/" }];
 
 const Array2 = [
   { text: "Manage Team", icon: <PeopleOutlinedIcon />, path: "/team" },
-  { text: "Add People", icon: <AddIcon />, path: "/form" },
   { text: "Manage articles", icon: <ArticleIcon />, path: "/articles" },
 ];
 
@@ -145,9 +143,7 @@ const SideBar = ({ open, handleDrawerClose, setUser }) => {
       >
         Admin
       </Typography>
-
       <Divider />
-
       <List>
         {Array1.map((item) => (
           <ListItem key={item.path} disablePadding sx={{ display: "block" }}>
