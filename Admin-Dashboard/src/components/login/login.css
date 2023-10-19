@@ -1,21 +1,26 @@
 ::selection {
   background-color: gray;
 }
+body {
+  background-color: #f9f9f9;
+}
+.logodiv {
+  margin: 10% 0% 0 42%;
+}
 
+.logo {
+  height: 60%;
+  width: 30%;
+}
 .container {
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin: -4% 0% 0 40%;
 }
 
 .form {
   margin-top: 10%;
   width: 400px;
   height: 400px;
-  background-image: url("https://i.ibb.co/wR7TB3s/Crafty-Crafty-Crafty-Crafty-Crafty-Crafty-Crafty-Crafty-Crafty-Crafty-Crafty-Crafty-Crafty-Crafty-Cr.png");
   display: flex;
-  align-items: center;
   flex-direction: column;
   border-radius: 0.5rem;
   background-position: 50% 50%;
@@ -24,15 +29,15 @@
 
 .title {
   color: black;
-  margin: 3rem 0;
   font-size: 2rem;
+  margin-bottom: -1%;
 }
 
 .input {
   margin: 0.5rem 0;
   padding: 1rem 0.5rem;
   width: 20rem;
-  background-color: inherit;
+  background-color: white;
   color: black;
   border: none;
   outline: none;
@@ -60,10 +65,10 @@
   height: 3rem;
   width: 20rem;
   margin-top: 3rem;
-  background-color: black;
-  border-radius: 0.5rem;
+  background-color: #bf9b7a;
+  border-radius: 1.5rem;
   border: none;
-  font-size: 1.2rem;
+  font-size: 1rem;
   transition: all 400ms;
   box-shadow: 0 0 10px antiquewhite, 0 0 10px antiquewhite;
   color: white;

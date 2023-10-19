@@ -12,25 +12,26 @@ function login({ setUser }) {
   const roleVerification = async (email) => {
     console.log(email);
     try {
-      const res = await axios.get(`http://localhost:4000/user/getuserByEmail/${email}`);
+      const res = await axios.get(
+        `http://localhost:4000/user/getuserByEmail/${email}`
+      );
       const role = res.data.role;
       console.log("Role:", role);
-  
+
       return role === "admin" ? true : role === "user" ? "other role" : false;
     } catch (error) {
       console.log(error);
       return false;
     }
   };
-  
 
   const login = async (e) => {
     e.preventDefault();
     if (password.length < 6) {
-      setMsg("Password must be at least 6 characters long")
+      setMsg("Password must be at least 6 characters long");
     } else {
       const verifRole = await roleVerification(email);
-      console.log(verifRole , "verif");
+      console.log(verifRole, "verif");
       if (verifRole === true) {
         signInWithEmailAndPassword(database, email, password)
           .then((result) => {
@@ -56,45 +57,50 @@ function login({ setUser }) {
     }
   };
   return (
-    <div className="container">
-      <form className="form" action="">
-        <p className="title">Login Form</p>
-        <input
-          placeholder="email"
-          className="email input"
-          type="text"
-          value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
-        />
-        <Tostify />
-        <input
-          placeholder="Password"
-          className="password input"
-          type="password"
-          value={password}
-          onChange={(e) => {
-            setPassword(e.target.value);
-            setMsg("");
-          }}
-        />
-        {msg && (
-          <p className="password-validation-msg">
-            {msg}
-            <span> *</span>
-          </p>
-        )}
-        <button
-          className="btn"
-          type="submit"
-          onClick={(e) => {
-            login(e);
-          }}
-        >
-          Login
-        </button>
-      </form>
+    <div>
+      <div className="logodiv">
+        <img className="logo" src="https://i.ibb.co/MR7WXFm/crafty.png" />
+      </div>
+      <div className="container">
+        <form className="form" action="">
+          <p className="title">Login</p>
+          <input
+            placeholder="Email"
+            className="email input"
+            type="text"
+            value={email}
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+          />
+          <Tostify />
+          <input
+            placeholder="Password"
+            className="password input"
+            type="password"
+            value={password}
+            onChange={(e) => {
+              setPassword(e.target.value);
+              setMsg("");
+            }}
+          />
+          {msg && (
+            <p className="password-validation-msg">
+              {msg}
+              <span> *</span>
+            </p>
+          )}
+          <button
+            className="btn"
+            type="submit"
+            onClick={(e) => {
+              login(e);
+            }}
+          >
+            LOGIN
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
