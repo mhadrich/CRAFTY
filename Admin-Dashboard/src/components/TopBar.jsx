@@ -130,7 +130,7 @@ const TopBar = ({ open, handleDrawerOpen, setMode }) => {
 
       open={open}
       sx={{
-        backgroundColor: "#8c633f",
+        backgroundColor: "#bf9b7a",
       }}
     >
       <Toolbar>

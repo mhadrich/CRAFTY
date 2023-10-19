@@ -1,8 +1,2 @@
-
-
-
-
-const ADRESS_API="192.168.104.14"
-
-
+const ADRESS_API="192.168.43.224"
 export default ADRESS_API;

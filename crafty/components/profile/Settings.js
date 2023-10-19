@@ -7,9 +7,9 @@ import BottomSheet from "react-native-simple-bottom-sheet";
 import ChangePassword from "./ChangePassword";
 const Settings = ({ navigation }) => {
   const [newInformation, setnewInformation] = useState({
-    name: "",
-    dateOfBirth: "",
-    password: "",
+    name: "Amine",
+    dateOfBirth: "2003-07-16",
+    password: "*********",
   });
   const [salesEnabled, setSalesEnabled] = useState(false);
   const [newArrivalsEnabled, setNewArrivalsEnabled] = useState(false);
@@ -32,29 +32,38 @@ const Settings = ({ navigation }) => {
 
   const [bsOpen, setBSOpen] = useState(false);
   const panelRef = useRef(null);
+
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
+      <View
+        pointerEvents="none"
+        className={
+          bsOpen
+            ? "bg-black w-screen h-screen absolute z-20 opacity-20 transition-all"
+            : "bg-black w-screen h-screen absolute z-20 opacity-0 transition-all"
+        }
+      ></View>
       <View className=" bg-[rgba(249,249,249,1)] flex flex-col  mt-[10%] ml-4 ">
         <View className=" flex flex-col  ">
           <Text className="text-left text-[rgba(34,34,34,1)] text-[34px] font-bold tracking-[0] ">{`Settings`}</Text>
         </View>
         <Text className=" text-lg  font-semibold mt-5 mb-5">
-          {" "}
           Personal Information
         </Text>
         <View>
           <TextInput
+            editable={false}
             className={inputs}
             placeholder={"Full name"}
             onChangeText={(query) => handleInputChange("name", query)}
             value={newInformation.name}
           />
           <TextInput
+            editable={false}
             className={inputs}
             placeholder={"Date of Birth"}
             onChangeText={(query) => handleInputChange("dateOfBirth", query)}
             value={newInformation.dateOfBirth}
-            defaultValue="1989-12-12"
             type="date"
             keyboardType="numeric"
           />
@@ -64,7 +73,9 @@ const Settings = ({ navigation }) => {
           <TouchableOpacity onPress={() => setBSOpen(!bsOpen)}>
             <Text
               className="text-gray-500 mr-5 "
-              onPress={() => navigation.navigate("ChangePassword")}
+              onPress={() => {
+                setBSOpen(true);
+              }}
             >
               Change
             </Text>
@@ -75,8 +86,8 @@ const Settings = ({ navigation }) => {
             editable={false}
             className={inputs}
             placeholder={"Password"}
+            value={newInformation.password}
             onChangeText={(query) => handleInputChange("password", query)}
-            defaultValue="**********"
             secureTextEntry={true}
           />
         </View>
@@ -117,15 +128,19 @@ const Settings = ({ navigation }) => {
           />
         </View>
       </View>
-      <BottomSheet
-        isOpen={bsOpen}
-        sliderMinHeight={0}
-        ref={(ref) => (panelRef.current = ref)}
-      >
-        <View className="flex bg-[#fff] p-[16%]">
-          <ChangePassword />
+      {bsOpen && (
+        <View className="z-50">
+          <BottomSheet
+            isOpen={true}
+            onClose={() => setBSOpen(false)}
+            sliderMinHeight={0}
+            sliderMaxHeight={450}
+            ref={(ref) => (panelRef.current = ref)}
+          >
+            <ChangePassword />
+          </BottomSheet>
         </View>
-      </BottomSheet>
+      )}
     </ScrollView>
   );
 };
