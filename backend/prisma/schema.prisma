@@ -55,19 +55,19 @@ model Article {
 model Tag {
   id     Int    @id @default(autoincrement())
   tag    String
-  itemId Int
-  item   Item   @relation(fields: [itemId], references: [id])
+  
+  item   Item   []
 }
 
 model Image {
   id        Int     @id @default(autoincrement())
   url       String
-  reviewId  Int
-  review    Review  @relation(fields: [reviewId], references: [id])
-  itemId    Int
-  item      Item    @relation(fields: [itemId], references: [id])
-  articleId Int
-  article   Article @relation(fields: [articleId], references: [id])
+  
+  review    Review  []
+ 
+  item      Item   []
+  
+  article   Article []
 }
 
 model Review {
@@ -95,11 +95,12 @@ model Order {
   model Item {
     id           Int             @id @default(autoincrement())
     name         String
-    materials    Material[]
-    description  String
+   
+
+    description  String 
     price        Int
     images       Image[]
-    tags         Tag[]
+    tags         Tag[] 
     
     userId       Int
     user         User            @relation(fields: [userId], references: [id])
@@ -110,13 +111,6 @@ model Order {
     order        Order    []      
     favoriteItem FavouriteItem[]
   }
-
-model Material {
-  id           Int    @id @default(autoincrement())
-  materialUsed String
-  itemId       Int
-  items        Item[]
-}
 
 model Comment {
   id        Int     @id @default(autoincrement())

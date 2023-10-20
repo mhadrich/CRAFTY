@@ -7,56 +7,62 @@ const POST = async (req, res) => {
     try {
       const {
         name,
-          materials,
-          description,
-          price,
-          reviewId,
-          images,
-          userId,
-          comments,
-          wishList,
-          reviews,
-          orderId,
-          favoriteItem
+        description,
+        price,
+        imageUrls, 
+        tagNames, 
+        userId,
       } = req.body;
-      const Item = await prisma.Item.create({
+
+    
+      const createdItem = await prisma.item.create({
         data: {
           name,
-          materials,
           description,
           price,
-          reviewId,
-          images,
           userId,
-          comments,
-          wishList,
-          reviews,
-          orderId,
-          favoriteItem
-      
+          images: {
+            create: imageUrls.map((url) => ({ url })),
+          },
+          tags: {
+            create: tagNames.map((tagName) => ({ tag: tagName })),
+          },
+        },
+        include: {
+          images: true,
+          tags: true,
         },
       });
 
-      return res.status(201).json({ Item });
+      return res.status(201).json({ item: createdItem });
     } catch (error) {
       console.error(error);
       return res.status(500).json({ error: "Cannot Create Item" });
-    } 
+    }
   } else {
     return res.status(405).json({ error: "Method not allowed" });
   }
 };
 
+
 /* Get Items */
-const GET = async (req,res) => {
+const GET = async (req, res) => {
   try {
-    const Items = await prisma.Item.findMany();
-    return res.status(200).json(Items)
+    const Items = await prisma.item.findMany({
+      include: {
+        images: true,
+        tags: true,
+        reviews:true ,
+        user :true ,
+      },
+    });
+
+    return res.status(200).json(Items);
   } catch (error) {
     const message =
       error instanceof Error ? error.message : "An unknown error occurred";
-    return res.status(500).send({ message: "Error fetching Items", error: message })
-  } 
+    return res.status(500).send({ message: "Error fetching Items", error: message });
+  }
 };
 
 /*GET Item By ID */

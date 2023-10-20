@@ -17,7 +17,7 @@ import Reviews from "../components/ProdDetail/Reviews";
 import BottomSheet from "react-native-simple-bottom-sheet";
 import ItemReviewsList from "../components/ProdDetail/ItemReviewsList";
 
-const ProductDetail = ({ navigation }) => {
+const ProductDetail = ({ navigation,data }) => {
   const [like, setLike] = useState(false);
   const panelRef = useRef(null);
   const [bsOpen, setBSOpen] = useState(false);

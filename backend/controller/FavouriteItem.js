@@ -6,7 +6,7 @@ const POST = async (req, res) => {
   if (req.method === "POST") {
     try {
       const { userId, itemId } = req.body;
-      const FavouriteItem = await prisma.FavouriteItem.create({
+      const FavouriteItem = await prisma.favouriteItem.create({
         data: {
           userId,
           itemId,
@@ -26,7 +26,7 @@ const POST = async (req, res) => {
 /* Get FavouriteItems */
 const GET = async (req, res) => {
   try {
-    const FavouriteItems = await prisma.FavouriteItem.findMany();
+    const FavouriteItems = await prisma.favouriteItem.findMany();
     return res.status(200).json(FavouriteItems);
   } catch (error) {
     const message =
@@ -45,7 +45,7 @@ const GETById = async (req, { params }) => {
     }
 
     const { id } = params;
-    const FavouriteItem = await prisma.FavouriteItem.findUnique({
+    const FavouriteItem = await prisma.favouriteItem.findUnique({
       where: { id },
     });
 
@@ -106,7 +106,7 @@ const DELETE = async (req, { params }) => {
     }
 
     const { id } = params;
-    await prisma.FavouriteItem.delete({
+    await prisma.favouriteItem.delete({
       where: { id },
     });
 
