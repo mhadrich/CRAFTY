@@ -1,9 +1,18 @@
 import { View, Text } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import ProdCard from "../ProdCard";
+import axios from "axios";
+import ADRESS_API from "../../Api";
 
 const Fresh = ({ navigation }) => {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    axios
+      .get(`http://${ADRESS_API}:4000/item/getitems`)
+      .then((response) => setData(response.data))
+      .catch((err) => console.log(err));
+  }, []);
   return (
     <View>
       <View className="w-screen flex flex-row p-4 items-center">
@@ -25,11 +34,11 @@ const Fresh = ({ navigation }) => {
           horizontal={true}
           showsHorizontalScrollIndicator={false}
         >
-          <ProdCard navigation={navigation}/>
-          <ProdCard navigation={navigation}/>
-          <ProdCard navigation={navigation}/>
-          <ProdCard navigation={navigation}/>
-          <ProdCard navigation={navigation}/>
+          <ProdCard navigation={navigation} />
+          <ProdCard navigation={navigation} />
+          <ProdCard navigation={navigation} />
+          <ProdCard navigation={navigation} />
+          <ProdCard navigation={navigation} />
         </ScrollView>
       </View>
     </View>
