@@ -7,7 +7,7 @@ const bcrypt = require("bcrypt")
 const CLIENT_ID = "158506994862-p6mi7ndl4m8f576p7fcbpq3kjq4v3kkb.apps.googleusercontent.com"
 const CLIENT_SECRET = "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";
 const REDIRECT_URI = "https://developers.google.com/oauthplayground";
-const REFRESH_TOKEN = "1//04kWQxOm5RGDxCgYIARAAGAQSNwF-L9IriYp4zn0EY4gK3cOVQuWE2fDoeN577qKiXziJoIVrPuiILS4lPuOBvh02A5oPtQhffNk";
+const REFRESH_TOKEN = "1//04fRQRpLJ0KTnCgYIARAAGAQSNwF-L9IrzYhf-QAVXapR3Ay_c4kB_7gnN0NCZRt6aABGauaffzl94cCfOTrokm65yO8f6YVywK8";
 const oAuth2Client = new OAuth2(
     CLIENT_ID,
     CLIENT_SECRET,
@@ -22,7 +22,7 @@ const transporter = nodemailer.createTransport({
         clientId: CLIENT_ID,
         clientSecret: CLIENT_SECRET,
         refreshToken: REFRESH_TOKEN,
-        accessToken: "ya29.a0AfB_byCSXiCLTIRkyHx-7ffgVjp-LPJxiVB2KkGff8w4UeJhtrnCPtxV6t_23VcRxXjrlU92U-dwMSujOKS2E7QJ9RsoINhCh68GqQAA2IZ2udQdtZfu6L6FKONMyIp1fPWWYtCjMzguO2zF5GnB7hEWl_i9S5rYGZ_vaCgYKAR0SARISFQGOcNnCcYNOuxwZbhsDv0WDnj5ySw0171",
+        accessToken: "ya29.a0AfB_byAD-bb4UZH1MO2MCjNoRAqHhC3i3XQfBgogxth2PT3kuX9-lCl39pWWBi8d48I9KAJhoJhaHpCuq9e0pRcvZRu9My4KHaxqCM5_WJBUexxvy-2QQLmaam4226vMOaMfkPG-Dpim_unHVQCood25AQ1i6Lqbswq3aCgYKAX4SARISFQGOcNnCVhqNvryRMRpgluguBBNRCA0171",
     },
 });
 const verificationCodeMap = new Map();
