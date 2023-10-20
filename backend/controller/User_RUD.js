@@ -4,7 +4,7 @@ require("dotenv").config();
 /* Get Users */
 const GET = async (req, res) => {
   try {
-    const Users = await prisma.User.findMany();
+    const Users = await prisma.user.findMany();
     return res.status(200).json(Users);
   } catch (error) {
     const message =
@@ -47,7 +47,7 @@ const GETBYID = async (req, { params }) => {
     }
     const user = await prisma.user.findFirst({
       where: {
-        id:id ,
+        id: id,
       },
     });
 
@@ -63,65 +63,64 @@ const GETBYID = async (req, { params }) => {
 
 /*UPDATE User*/
 
-const UPDATE = async (req, { params }) => {
+const UPDATE = async (req, res) => {
   try {
-    if (!params || !params.id) {
+    const { id } = req.params;
+    if (!id) {
       throw new Error("ID parameter is missing");
     }
-    const body = await req.json();
 
-    const { id } = params;
-    let hashedPassword;
-    if (body.password) {
-      hashedPassword = await hash(body.password, 12);
+    const { role, name, lastName, email } = req.body;
+
+    const updateData = {};
+    if (role) {
+      updateData.role = role;
+    }
+    if (name) {
+      updateData.name = name;
+    }
+    if (lastName) {
+      updateData.lastName = lastName;
+    }
+    if (email) {
+      updateData.email = email;
     }
 
-    const updateData = { ...body };
-    if (hashedPassword) {
-      updateData.password = hashedPassword;
-    } else {
-      delete updateData.password;
-    }
-    console.log(updateData);
     const updatedUser = await prisma.user.update({
-      where: { id },
+      where: { id: parseInt(id) },
       data: updateData,
     });
 
-    return new Response(JSON.stringify(updatedUser));
+    return res.status(200).json(updatedUser);
   } catch (error) {
     const message =
       error instanceof Error ? error.message : "An unknown error occurred";
-    return new Response(
-      JSON.stringify({ message: "Error updating user", error: message }),
-      { status: 500 }
-    );
+    return res
+      .status(500)
+      .json({ message: "Error updating user", error: message });
   }
 };
 
 /*DELETE User */
-const DELETE = async (req, { params }) => {
+const DELETE = async (req, res) => {
   try {
-    if (!params || !params.id) {
+    const { id } = req.params;
+    if (!id) {
       throw new Error("ID parameter is missing");
     }
 
-    const { id } = params;
     await prisma.user.delete({
-      where: { id },
+      where: { id: parseInt(id) },
     });
 
-    return new Response(
-      JSON.stringify({ message: "User deleted successfully" })
-    );
+    return res.status(200).json({ message: "User deleted successfully" });
   } catch (error) {
     const message =
       error instanceof Error ? error.message : "An unknown error occurred";
-    return new Response(
-      JSON.stringify({ message: "Error deleting User", error: message }),
-      { status: 500 }
-    );
+    return res
+      .status(500)
+      .json({ message: "Error deleting User", error: message });
   }
 };
 
-module.exports = { GET, GETBYEMAIL,GETBYID, UPDATE, DELETE };
+module.exports = { GET, GETBYEMAIL, GETBYID, UPDATE, DELETE };
