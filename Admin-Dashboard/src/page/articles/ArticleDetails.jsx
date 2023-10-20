@@ -7,6 +7,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { Tostify } from "../Tostify/ToastyFy";
 import { toast } from "react-toastify";
 import axios from "axios";
+import Reasons from "./Reasons";
+
 function ArticleDetails(props) {
   const [comment, setComment] = useState([]);
   const navigate = useNavigate();
@@ -26,46 +28,23 @@ function ArticleDetails(props) {
       });
   };
 
-  const Reasons = [
-    {
-      label: " syntax errors.",
-    },
-    {
-      label: "incorrect formatting.",
-    },
-    {
-      label: "off-topic.",
-    },
-    {
-      label: "offensive content.",
-    },
-    {
-      label: "The article is too short.",
-    },
-    {
-      label: "The article is too long.",
-    },
-    {
-      label: "not well-structured.",
-    },
-    {
-      label: "The article violates copyright laws.",
-    },
-    {
-      label: "Other",
-    },
-  ];
   const reject = (row) => {
-    if (comment.length === 0) {
+    let comm =
+      comment &&
+      comment.filter((e, i) => {
+        return row.id === e.id;
+      });
+    if (comm.length === 0) {
       toast.error("Please choose a Reason for rejecting the article.");
     } else {
       axios
-        .put(`http://localhost:4000/article/deletearticle/${row.id}`)
+        .delete(`http://localhost:4000/article/deletearticle/${row.id}`)
         .then((res) => {
-          not(row.id, comment);
-          toast.success(`Article rejected with Reason: "${comment}".`);
+          not(row.id, comm);
+
+          toast.success("The article has been successfully rejected.");
           setTimeout(() => {
-            navigate("/Articles");
+            navigate("/articles");
           }, 1100);
         })
         .catch((error) => {
@@ -75,20 +54,20 @@ function ArticleDetails(props) {
   };
   const accept = (row) => {
     let body = {
-      id: row.id,
       status: true,
       title: row.title,
       description: row.description,
       coverImage: row.coverImage,
       userId: row.userId,
     };
+    console.log(body);
     axios
       .put(`http://localhost:4000/article/updatearticle/${row.id}`, body)
       .then((res) => {
         not(row.id);
-        toast.success("Article accepted.");
+        toast.success("The article has been accepted.");
         setTimeout(() => {
-          navigate("/Articles");
+          navigate("/articles");
         }, 1100);
       })
       .catch((error) => {

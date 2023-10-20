@@ -1,3 +1,4 @@
+import { LinearGradient } from "expo-linear-gradient";
 import * as React from "react";
 import { Dimensions, Image, Text, View } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
@@ -35,8 +36,13 @@ function Karousel() {
         renderItem={({ item }) => (
           <View className="flex-1">
             <Image source={{ uri: item.uri }} className="flex-1" />
-            <View className="absolute top-3/4 bottom-0 left-0 right-0 justify-center items-center  bg-black  bg-opacity-40">
-              <Text className="text-white font-bold text-3xl">{item.text}</Text>
+            <View className="absolute top-3/4 bottom-0 left-0 right-0 justify-center items-center">
+              <LinearGradient
+                pointerEvents="none"
+                colors={["rgba(0,0,0,0)", "rgba(0,0,0,1)"]}
+                className="w-screen top-4 h-28"
+              />
+              <Text className="text-white bottom-14 font-bold text-3xl">{item.text}</Text>
             </View>
           </View>
         )}

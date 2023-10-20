@@ -11,10 +11,10 @@ import { useNavigate } from "react-router-dom";
 import { Tostify } from "../Tostify/ToastyFy";
 import { toast } from "react-toastify";
 import axios from "axios";
-
+import Reasons from "./Reasons";
 function Articles() {
   const [comment, setComment] = useState([]);
-  const [selectedValue, setSelectedValue] = useState(null); // State to track selected value
+  const [selectedValue, setSelectedValue] = useState(null); 
   const [trigger, setTrigger] = useState(false);
   const [title, settitle] = useState("");
   const [data, setdata] = useState([]);
@@ -43,36 +43,7 @@ function Articles() {
     return e.status === false;
   });
   const navigate = useNavigate();
-  // Reasons
-  const Reasons = [
-    {
-      label: " syntax errors.",
-    },
-    {
-      label: "incorrect formatting.",
-    },
-    {
-      label: "off-topic.",
-    },
-    {
-      label: "offensive content.",
-    },
-    {
-      label: "The article is too short.",
-    },
-    {
-      label: "The article is too long.",
-    },
-    {
-      label: "not well-structured.",
-    },
-    {
-      label: "The article violates copyright laws.",
-    },
-    {
-      label: "Other",
-    },
-  ];
+
   const theme = useTheme();
   const reject = (row) => {
     let comm =
@@ -84,7 +55,7 @@ function Articles() {
       toast.error("Please choose a Reason for rejecting the article.");
     } else {
       axios
-        .put(`http://localhost:4000/article/deletearticle/${row.id}`)
+        .delete(`http://localhost:4000/article/deletearticle/${row.id}`)
         .then((res) => {
           not(row.id, comm);
           setTrigger(!trigger);
@@ -97,13 +68,13 @@ function Articles() {
   };
   const accept = (row) => {
     let body = {
-      id: row.id,
       status: true,
       title: row.title,
       description: row.description,
       coverImage: row.coverImage,
       userId: row.userId,
     };
+    console.log(body);
     axios
       .put(`http://localhost:4000/article/updatearticle/${row.id}`, body)
       .then((res) => {

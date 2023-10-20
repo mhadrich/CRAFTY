@@ -1,25 +1,34 @@
-import { View, Text, TouchableOpacity } from "react-native";
-import React, { useState } from "react";
+import { View, Text, TouchableOpacity, useColorScheme } from "react-native";
+import React, { useEffect, useState } from "react";
 import ArtComCard from "./ArtComCard";
 import { ScrollView, TextInput } from "react-native-gesture-handler";
 import { LinearGradient } from "expo-linear-gradient";
 import { Svg, Path } from "react-native-svg";
 
 const ArticleComments = ({ close }) => {
+  const color = useColorScheme();
   const [writing, setWriting] = useState(false);
   return (
     <View>
       {/* READING COMMENTS */}
       <View className={writing ? "hidden mb-96" : "mb-96"}>
-        <Text className="text-2xl bottom-4 font-semibold leading-snug">
+        <Text className="text-2xl dark:text-white bottom-4 font-semibold leading-snug">
           8 Comments
         </Text>
-        <LinearGradient
-          colors={["rgba(255,255,255,1)", "rgba(255,255,255,0)"]}
-          className="w-[1000px] -left-8 bottom-4 h-20 z-10"
-        />
+        {color === "light" && (
+          <LinearGradient
+            colors={["rgba(255,255,255,1)", "rgba(255,255,255,0)"]}
+            className="w-[1000px] -left-8 bottom-4 h-20 z-10"
+          />
+        )}
+        {color === "dark" && (
+          <LinearGradient
+            colors={["rgba(51,51,51,1)", "rgba(51,51,51,0)"]}
+            className="w-[1000px] -left-8 bottom-4 h-20 z-10"
+          />
+        )}
         <View className="bottom-20">
-          <ScrollView className="pt-6">
+          <ScrollView showsVerticalScrollIndicator={false} className="pt-6">
             <ArtComCard />
             <ArtComCard />
             <ArtComCard />
@@ -29,11 +38,9 @@ const ArticleComments = ({ close }) => {
           </ScrollView>
         </View>
         <View className="bottom-64 z-10 items-end">
-
-          
           <TouchableOpacity
             onPress={() => {
-              setWriting(true)
+              setWriting(true);
               console.log("liked");
             }}
             className="w-32 h-9 bg-[#BF9B7A] bottom-16 z-10 rounded-3xl flex flex-row items-center justify-center"
@@ -56,24 +63,33 @@ const ArticleComments = ({ close }) => {
               Write a review
             </Text>
           </TouchableOpacity>
-          <LinearGradient
-            pointerEvents="none"
-            colors={["rgba(255,255,255,0.2)", "rgba(255,255,255,1)"]}
-            className="w-[1000px] left-10 bottom-32 h-28"
-          />
+          {color === "light" && (
+            <LinearGradient
+              pointerEvents="none"
+              colors={["rgba(255,255,255,0.2)", "rgba(255,255,255,1)"]}
+              className="w-[1000px] left-10 bottom-32 h-28"
+            />
+          )}
+          {color === "dark" && (
+            <LinearGradient
+              pointerEvents="none"
+              colors={["rgba(51,51,51,0)", "rgba(51,51,51,1)"]}
+              className="w-[1000px] left-10 bottom-32 h-28"
+            />
+          )}
         </View>
       </View>
       {/* WRITING  COMMENTS */}
       <View className={writing ? "mb-10" : "mb-10 hidden"}>
         <View className="justify-center items-center gap-10">
-          <Text className="text-center text-neutral-800 text-lg font-semibold leading-snug">
+          <Text className="text-center dark:text-white text-lg font-semibold leading-snug">
             Let us and others know what{"\n"}you liked about this read.
           </Text>
           <TextInput
             placeholder="Your Review..."
             multiline={true}
             numberOfLines={20}
-            className="p-6 w-96 h-96 bg-[#f9f9f9] rounded-lg shadow"
+            className="p-6 w-96 h-96 bg-[#f9f9f9] dark:bg-[#111111] dark:text-white rounded-lg shadow"
           ></TextInput>
           <TouchableOpacity
             onPress={() => {

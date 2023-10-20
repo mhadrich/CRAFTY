@@ -16,7 +16,7 @@ const AddCreditCard = ({ navigation }) => {
     });
   };
 
-  const inputs = "w-fit h-16 pl-3 bg-[#f9f9f9] rounded-md shadow-sm";
+  const inputs = "w-fit h-16 pl-3 bg-[#f9f9f9] dark:bg-[#111111] dark:text-white rounded-md shadow-sm";
   return (
     <View className="w-fit h-screen gap-4">
       <TextInput

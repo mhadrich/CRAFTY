@@ -13,13 +13,15 @@ const FAQ = () => {
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
+
   return (
-<Box>
-  
-      <Header title="Settings" subTitle="Here you can manage your app settings" />
-  
-      <Stack direction={"column"} gap={2}>
-  
+    <Box>
+      <Header
+        title="Settings"
+        subTitle="Configure and manage your application settings here"
+      />
+
+      <Stack direction="column" spacing={2}>
         <Accordion defaultExpanded onChange={handleChange("panel1")}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
@@ -27,22 +29,21 @@ const FAQ = () => {
             id="panel1bh-header"
           >
             <Typography sx={{ width: "33%", flexShrink: 0 }}>
-              General settings
+              General Settings
             </Typography>
             <Typography sx={{ color: "text.secondary" }}>
-              Manage Crafty application
+              Configure the basic application settings
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
-              Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat.
-              Aliquam eget maximus est, id dignissim quam.
+              Adjust various general settings of the application to customize
+              its behavior and appearance according to your preferences.
             </Typography>
           </AccordionDetails>
         </Accordion>
-  
+
         <Accordion
-          // @ts-ignore
           expanded={expanded === "panel2"}
           onChange={handleChange("panel2")}
         >
@@ -51,44 +52,47 @@ const FAQ = () => {
             aria-controls="panel2bh-content"
             id="panel2bh-header"
           >
-            <Typography sx={{ width: "33%", flexShrink: 0 }}>Users</Typography>
+            <Typography sx={{ width: "33%", flexShrink: 0 }}>
+              User Management
+            </Typography>
             <Typography sx={{ color: "text.secondary" }}>
-            Manage Users
+              Manage and administer user accounts
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
-              Donec placerat, lectus sed mattis semper, neque lectus feugiat
-              lectus, varius pulvinar diam eros in elit. Pellentesque convallis
-              laoreet laoreet.
+              Efficiently handle user accounts, access rights, and permissions
+              to ensure smooth and secure user interactions within the
+              application.
             </Typography>
           </AccordionDetails>
         </Accordion>
+
         <Accordion
-          // @ts-ignore
           expanded={expanded === "panel6"}
           onChange={handleChange("panel6")}
         >
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel2bh-content"
-            id="panel2bh-header"
+            aria-controls="panel6bh-content"
+            id="panel6bh-header"
           >
-            <Typography sx={{ width: "33%", flexShrink: 0 }}>Crafters</Typography>
+            <Typography sx={{ width: "33%", flexShrink: 0 }}>
+              Crafters Management
+            </Typography>
             <Typography sx={{ color: "text.secondary" }}>
-              Manage Crafters
+              Manage the details and operations related to crafters
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
-              Donec placerat, lectus sed mattis semper, neque lectus feugiat
-              lectus, varius pulvinar diam eros in elit. Pellentesque convallis
-              laoreet laoreet.
+              Effectively handle crafters' profiles, services, and operations to
+              ensure seamless interactions and quality services for users.
             </Typography>
           </AccordionDetails>
         </Accordion>
+
         <Accordion
-          // @ts-ignore
           expanded={expanded === "panel3"}
           onChange={handleChange("panel3")}
         >
@@ -98,21 +102,21 @@ const FAQ = () => {
             id="panel3bh-header"
           >
             <Typography sx={{ width: "33%", flexShrink: 0 }}>
-              Advanced settings
+              Advanced Settings
             </Typography>
             <Typography sx={{ color: "text.secondary" }}>
-              
+              Access and manage advanced configurations
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
-              Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer
-              sit amet egestas eros, vitae egestas augue. Duis vel est augue.
+              Explore and manage advanced configurations and settings for a more
+              tailored and powerful experience within the application.
             </Typography>
           </AccordionDetails>
         </Accordion>
+
         <Accordion
-          // @ts-ignore
           expanded={expanded === "panel4"}
           onChange={handleChange("panel4")}
         >
@@ -122,19 +126,18 @@ const FAQ = () => {
             id="panel4bh-header"
           >
             <Typography sx={{ width: "33%", flexShrink: 0 }}>
-              Personal data
+              Personal Data Management
             </Typography>
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
-              Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer
-              sit amet egestas eros, vitae egestas augue. Duis vel est augue.
+              Manage personal data and privacy settings to ensure compliance
+              with data protection regulations and user privacy preferences.
             </Typography>
           </AccordionDetails>
         </Accordion>
-  
       </Stack>
-</Box>
+    </Box>
   );
 };
 

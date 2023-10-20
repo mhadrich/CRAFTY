@@ -10,7 +10,7 @@ import TabNav from "../components/TabNav/TabNav";
 const Home = ({ navigation }) => {
 
   return (
-    <View className="justify-between items-center">
+    <View className=" dark:bg-[#111111] justify-between items-center">
       <TabNav navigation={navigation}/>
       <ScrollView showsVerticalScrollIndicator={false}>
         <Karousel />
