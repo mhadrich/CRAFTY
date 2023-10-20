@@ -4,8 +4,9 @@ import HeartIcon from "./HeartIcon";
 import { Rating } from "react-native-ratings";
 
 
-const ProdCard = ({ navigation }) => {
+const ProdCard = ({ navigation ,data}) => {
   const [like, setLike] = useState(false);
+  
   return (
     <View className="pr-4">
       <Pressable onPress={()=>navigation.navigate("ProductDetail")}>

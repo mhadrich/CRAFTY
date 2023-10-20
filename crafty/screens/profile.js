@@ -20,7 +20,7 @@ const Profile = ({ navigation }) => {
         );
         setData(userData.data);
         const userOrders = await axios.get(
-          `${ADRESS_API}:4000/order/getorderbyuserId/${userId}`
+          `http//${ADRESS_API}:4000/order/getorderbyuserId/${userId}`
         );
         setOrders(userOrders.data);
         const userAddress = await axios.get(
@@ -47,7 +47,7 @@ const Profile = ({ navigation }) => {
       alert(res);
     }
   };
-  if (authenticated === false) {
+  if (authenticated === true) {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
         <View className=" mt-[18%]">

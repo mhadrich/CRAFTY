@@ -15,10 +15,10 @@ const Conversation = ({ navigation }) => {
     console.log("🚀 ~ file: Conversation.js:11 ~ Conversation ~ authState:", authState)
 
     try {
-      const res = await axios.post(`http://${ADRESS_API}:4000/chat/conversation`, { userId: 4 })
+      const res = await axios.post(`http://${ADRESS_API}:4000/chat/conversation`, { userId: authState.userId*1 })
       console.log(res.data)
       if (res) {
-        console.log("🚀 ~ file: Conversation.js:20 ~ getConversation ~ res:", res)
+        console.log("🚀 ~ file: Conversation.js:20 ~ getConversation ~ res.data:", res.data)
         
         setDate(res.data)
       }
@@ -35,7 +35,7 @@ const Conversation = ({ navigation }) => {
     getConversation();
   }, [])
 
-  return (
+ return (
     <SafeAreaView>
 
       <View className ="flex ">
@@ -46,14 +46,19 @@ const Conversation = ({ navigation }) => {
           
 
           return (
+            
             <View  >
               <ScrollView className="flex-col col-revers w-screen  " >
                 <Pressable
                   className=" flex-row bg-[#f9f9f9] text-[#262406] w-screen  h-[25vw]    items-center  justify-between    border-b-2"
-                  onPress={() => { navigation.navigate("Chat", { userId: authState * 1, otherUserId: conv.participants[1].id }) }}>
-                  {conv && conv.participants[1].image ?
+                  onPress={() => {
+                    const userId = authState.userId * 1;
+                    const otherUserId = conv.participants[0].id !== userId ? conv.participants[0].id : conv.participants[1].id;
+                    navigation.navigate("Chat", { userId, otherUserId });
+                  }}>
+                   {conv && conv.participants[1].image ?
 
-                    <Image source={{ uri: conv.participants[1].image }} className=" w-[16vw]  h-16 rounded-[300px] ml-[10vw]" /> : < Image className=" w-[16vw]  h-16 rounded-[300px] ml-[10vw]  " source={{ uri: "https://t4.ftcdn.net/jpg/02/15/84/43/240_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg" }}  />}
+                    <Image source={{ uri: conv.participants[0].image }} className=" w-[16vw]  h-16 rounded-[300px] ml-[10vw]" /> : < Image className=" w-[16vw]  h-16 rounded-[300px] ml-[10vw]  " source={{ uri: "https://t4.ftcdn.net/jpg/02/15/84/43/240_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg" }}  />}
                   <Text className="text-center text-[#262406] font-bold text-3xl mr-[42vw] ">{conv.participants[1].name }</Text>
                 </Pressable>
               </ScrollView>
@@ -61,18 +66,10 @@ const Conversation = ({ navigation }) => {
 
           )
         })}
-         <Pressable
-                  className=" flex-row bg-[#f9f9f9] text-[#262406] w-screen  h-[25vw]    items-center  justify-between    border-b-2"
-                  onPress={() => { navigation.navigate("Chat", { userId: 1, otherUserId: 2}) }}>
-                  
-
-                     < Image className=" w-[16vw]  h-16 rounded-[300px] ml-[10vw]  " source={{ uri: "https://t4.ftcdn.net/jpg/02/15/84/43/240_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg" }}  />
-                  <Text className="text-center text-[#262406] font-bold text-3xl mr-[42vw] ">{"test1" }</Text>
-                </Pressable>
-      </View>
+     </View>
     </SafeAreaView>
 
-  )
+  ) 
 }
 
 export default Conversation

@@ -44,7 +44,7 @@ const ItemReviewCard = () => {
             unique. The couple was blown away and absolutely loves them! They
             asked me where I got them from, they wanted more similar items 😉
           </Text>
-          <TouchableOpacity onPress={toggleLike} >
+          <TouchableOpacity onPress={toggleLike}>
             <View className="flex flex-row ml-22 ml-[210px] ">
               <Text className="text-neutral-400 text-s "> Helpful </Text>
               <Svg

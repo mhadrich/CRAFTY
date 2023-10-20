@@ -34,7 +34,7 @@ function Chat({ route }) {
     }
   };
 
-  const getMessage = async (userId, otherUserId) => {
+  const getMessage = async ( otherUserId) => {
     
 
     try {
@@ -52,12 +52,12 @@ function Chat({ route }) {
   };
   useEffect(() => {
     
-    
+    ScrollViewRef.current.scrollToEnd({ animated: true })
     socket.emit("joinChat", { userid, otherUserId });
 
     getChatID(userid, otherUserId);
-    getMessage(userid, otherUserId);
-    
+    getMessage( otherUserId);
+      
     return () => {
       socket.emit("leaveChat", { userid, otherUserId });
     };
@@ -74,10 +74,11 @@ function Chat({ route }) {
       text: newMessage,
     });
     setNewMessage("");
-    ScrollViewRef.current.scrollToEnd({ animated: true })
+   
   };
   socket.on("message", (message) => {
     setMessages([...messages, message]);
+    ScrollViewRef.current.scrollToEnd({ animated: true })
   });
 
   return (
