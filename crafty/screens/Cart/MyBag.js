@@ -12,6 +12,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import TabNav from "../../components/TabNav/TabNav";
 
 const MyBag = ({ navigation }) => {
+  
   const [cartTotal, setCartTotal] = useState(90);
   const scrollViewRef = useRef();
   return (
@@ -20,7 +21,7 @@ const MyBag = ({ navigation }) => {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <Text className="text-4xl pb-6 font-bold">My Bag</Text>
         <ScrollView
-          className="max-h-80"
+          className="max-h-96"
           ref={scrollViewRef}
           showsVerticalScrollIndicator={false}
         >

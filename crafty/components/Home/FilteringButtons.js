@@ -3,9 +3,9 @@ import React from "react";
 import { Path, Svg } from "react-native-svg";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-const FilteringButtons = () => {
+const FilteringButtons = ({ open, sort }) => {
   return (
-    <TouchableOpacity className="flex flex-row justify-center items-center">
+    <TouchableOpacity onPress={()=>open(true)} className="flex flex-row justify-center items-center">
       <Svg
         width="24"
         height="24"
@@ -18,7 +18,7 @@ const FilteringButtons = () => {
           fill="#222222"
         />
       </Svg>
-      <Text className=" text-xs font-normal">Price: lowest to high</Text>
+      <Text className=" text-xs font-normal">{sort ? sort : "Select a sorting method"}</Text>
     </TouchableOpacity>
   );
 };
