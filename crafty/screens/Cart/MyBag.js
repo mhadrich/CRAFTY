@@ -9,12 +9,14 @@ import {
 } from "react-native-gesture-handler";
 import { Svg, Path } from "react-native-svg";
 import { SafeAreaView } from "react-native-safe-area-context";
+import TabNav from "../../components/TabNav/TabNav";
 
 const MyBag = ({ navigation }) => {
   const [cartTotal, setCartTotal] = useState(90);
   const scrollViewRef = useRef();
   return (
     <SafeAreaView className="w-screen h-screen p-4 ">
+      <TabNav navigation={navigation}/>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <Text className="text-4xl pb-6 font-bold">My Bag</Text>
         <ScrollView
@@ -22,6 +24,13 @@ const MyBag = ({ navigation }) => {
           ref={scrollViewRef}
           showsVerticalScrollIndicator={false}
         >
+          <CartItem total={setCartTotal} current={cartTotal} />
+          <CartItem total={setCartTotal} current={cartTotal} />
+          <CartItem total={setCartTotal} current={cartTotal} />
+          <CartItem total={setCartTotal} current={cartTotal} />
+          <CartItem total={setCartTotal} current={cartTotal} />
+          <CartItem total={setCartTotal} current={cartTotal} />
+          <CartItem total={setCartTotal} current={cartTotal} />
           <CartItem total={setCartTotal} current={cartTotal} />
           <CartItem />
         </ScrollView>

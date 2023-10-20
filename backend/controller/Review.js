@@ -69,6 +69,34 @@ const GETById = async (req, { params }) => {
     );
   }
 };
+/*GET Review By UserId */
+const GETByUserId = async (req, { params }) => {
+  try {
+    if (!params || !params.userId) {
+      throw new Error("userId parameter is missing");
+    }
+
+    const { userId } = params;
+    const Review = await prisma.Review.findUnique({
+      where: { userId },
+    });
+
+    if (!user) {
+      return new Response(JSON.stringify({ error: "Review not found" }), {
+        status: 404,
+      });
+    }
+
+    return new Response(JSON.stringify(Review));
+  } catch (error) {
+    const message =
+      error instanceof Error ? error.message : "An unknown error occurred";
+    return new Response(
+      JSON.stringify({ message: "Error fetching Review", error: message }),
+      { status: 500 }
+    );
+  }
+};
 /*UPDATE Review*/
 const UPDATE = async (req, { params }) => {
   try {
@@ -76,16 +104,12 @@ const UPDATE = async (req, { params }) => {
       throw new Error("ID parameter is missing");
     }
     const body = await req.json();
-
     const { id } = params;
-
     const updateData = { ...body };
-
     const updatedReview = await prisma.Review.update({
       where: { id },
       data: updateData,
     });
-
     return new Response(JSON.stringify(updatedReview));
   } catch (error) {
     const message =
@@ -121,4 +145,4 @@ const DELETE = async (req, { params }) => {
   }
 };
 
-module.exports = { POST, GET, GETById, UPDATE, DELETE };
+module.exports = { POST, GET, GETById, GETByUserId, UPDATE, DELETE };

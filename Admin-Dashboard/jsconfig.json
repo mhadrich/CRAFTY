@@ -7,7 +7,7 @@
   },
   "include": [
     "src"
-  ],
+, "public/Craftysvg.jsx"  ],
   "exclude": [
     "node_modules",
     "build"
