@@ -66,122 +66,199 @@ const Profile = ({ navigation }) => {
               <Text className="text-[#999] text-base">
                 {"@johndoe" || data.email}
               </Text>
+              <Text className="text-[#999] text-base">
+                {"user/crafter" || data.role}
+              </Text>
             </View>
           </View>
           <View className="divide-y divide-slate-200">
-            <View>
-              <View className="flex justify-between ml-4 mb-3 mt-3 ">
-                <TouchableOpacity
-                  onPress={() => navigation.navigate("MyOrders")}
-                >
-                  <View className="flex flex-row justify-between">
-                    <Text className="text-base font-bold">My Orders</Text>
-                    <Image
-                      className="w-[18px] h-[18px] mt-2 mr-2"
-                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAnUlEQVR4nO3aQQrCQBBE0X+R6cYbSTQrvf85RBjBjQt31UU9yD7FTyAhgQgpDZzADVgMdgLPfTz2sJHuX0NGj6l98tZjLgxUGSOqUkZUpYyoShlRKaMqZVSljCqrMv1jzMJkzMFAFkPa4dJqh5u9M0JESqhICRUpoSIlVKSEis6zk4h2KLFcPoYeDiPYfzyMH/G5tN5VrtPesSP4zwsjFlWYroy7PAAAAABJRU5ErkJggg=="
-                    ></Image>
-                  </View>
+            {/* User settings */}
 
-                  <Text className="text-[#999] text-s">
-                    Already have {orders.length} orders
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-            <View>
-              <View className="flex justify-between ml-4 mb-3 mt-3 ">
-                <TouchableOpacity onPress={() => navigation.navigate("Chat")}>
-                  <View className="flex flex-row justify-between">
-                    <Text className="text-base font-bold">
-                      My Conversations
+            {data.role === "user" && (
+              <View>
+                <View className="flex justify-between ml-4 mb-3 mt-3 ">
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate("MyOrders")}
+                  >
+                    <View className="flex flex-row justify-between">
+                      <Text className="text-base font-bold">My Orders</Text>
+                      <Image
+                        className="w-[18px] h-[18px] mt-2 mr-2"
+                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAnUlEQVR4nO3aQQrCQBBE0X+R6cYbSTQrvf85RBjBjQt31UU9yD7FTyAhgQgpDZzADVgMdgLPfTz2sJHuX0NGj6l98tZjLgxUGSOqUkZUpYyoShlRKaMqZVSljCqrMv1jzMJkzMFAFkPa4dJqh5u9M0JESqhICRUpoSIlVKSEis6zk4h2KLFcPoYeDiPYfzyMH/G5tN5VrtPesSP4zwsjFlWYroy7PAAAAABJRU5ErkJggg=="
+                      ></Image>
+                    </View>
+
+                    <Text className="text-[#999] text-s">
+                      Already have {orders.length} orders
                     </Text>
-                    <Image
-                      className="w-[18px] h-[18px] mt-2 mr-2"
-                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAnUlEQVR4nO3aQQrCQBBE0X+R6cYbSTQrvf85RBjBjQt31UU9yD7FTyAhgQgpDZzADVgMdgLPfTz2sJHuX0NGj6l98tZjLgxUGSOqUkZUpYyoShlRKaMqZVSljCqrMv1jzMJkzMFAFkPa4dJqh5u9M0JESqhICRUpoSIlVKSEis6zk4h2KLFcPoYeDiPYfzyMH/G5tN5VrtPesSP4zwsjFlWYroy7PAAAAABJRU5ErkJggg=="
-                    ></Image>
-                  </View>
-
-                  <Text className="text-[#999] text-s">
-                    Already have 0 conversations
-                  </Text>
-                </TouchableOpacity>
+                  </TouchableOpacity>
+                </View>
               </View>
-            </View>
-            <View>
-              <View className="flex justify-between ml-4 mb-3 mt-3">
-                <TouchableOpacity
-                  onPress={() => navigation.navigate("ShippingAddresses")}
-                >
-                  <View className="flex flex-row justify-between">
-                    <Text className="text-base font-bold">
-                      Shipping Addresses
+            )}
+
+            {data.role === "user" && (
+              <View>
+                <View className="flex justify-between ml-4 mb-3 mt-3 ">
+                  <TouchableOpacity onPress={() => navigation.navigate("Chat")}>
+                    <View className="flex flex-row justify-between">
+                      <Text className="text-base font-bold">
+                        My Conversations
+                      </Text>
+                      <Image
+                        className="w-[18px] h-[18px] mt-2 mr-2"
+                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAnUlEQVR4nO3aQQrCQBBE0X+R6cYbSTQrvf85RBjBjQt31UU9yD7FTyAhgQgpDZzADVgMdgLPfTz2sJHuX0NGj6l98tZjLgxUGSOqUkZUpYyoShlRKaMqZVSljCqrMv1jzMJkzMFAFkPa4dJqh5u9M0JESqhICRUpoSIlVKSEis6zk4h2KLFcPoYeDiPYfzyMH/G5tN5VrtPesSP4zwsjFlWYroy7PAAAAABJRU5ErkJggg=="
+                      ></Image>
+                    </View>
+
+                    <Text className="text-[#999] text-s">
+                      Already have 0 conversations
                     </Text>
-                    <Image
-                      className="w-[18px] h-[18px] mt-2 mr-2"
-                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAnUlEQVR4nO3aQQrCQBBE0X+R6cYbSTQrvf85RBjBjQt31UU9yD7FTyAhgQgpDZzADVgMdgLPfTz2sJHuX0NGj6l98tZjLgxUGSOqUkZUpYyoShlRKaMqZVSljCqrMv1jzMJkzMFAFkPa4dJqh5u9M0JESqhICRUpoSIlVKSEis6zk4h2KLFcPoYeDiPYfzyMH/G5tN5VrtPesSP4zwsjFlWYroy7PAAAAABJRU5ErkJggg=="
-                    ></Image>
-                  </View>
-                  <Text className="text-[#999] text-s">
-                    {address.length} Adresses
-                  </Text>
-                </TouchableOpacity>
+                  </TouchableOpacity>
+                </View>
               </View>
-            </View>
-            <View>
-              <View className="flex justify-between ml-4 mb-3 mt-3">
-                <TouchableOpacity
-                  onPress={() => navigation.navigate("PaymentMethod")}
-                >
-                  <View className="flex flex-row justify-between">
-                    <Text className="text-base font-bold">Payment methods</Text>
-                    <Image
-                      className="w-[18px] h-[18px] mt-2 mr-2"
-                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAnUlEQVR4nO3aQQrCQBBE0X+R6cYbSTQrvf85RBjBjQt31UU9yD7FTyAhgQgpDZzADVgMdgLPfTz2sJHuX0NGj6l98tZjLgxUGSOqUkZUpYyoShlRKaMqZVSljCqrMv1jzMJkzMFAFkPa4dJqh5u9M0JESqhICRUpoSIlVKSEis6zk4h2KLFcPoYeDiPYfzyMH/G5tN5VrtPesSP4zwsjFlWYroy7PAAAAABJRU5ErkJggg=="
-                    ></Image>
-                  </View>
+            )}
+            {data.role === "user" && (
+              <View>
+                <View className="flex justify-between ml-4 mb-3 mt-3">
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate("ShippingAddresses")}
+                  >
+                    <View className="flex flex-row justify-between">
+                      <Text className="text-base font-bold">
+                        Shipping Addresses
+                      </Text>
+                      <Image
+                        className="w-[18px] h-[18px] mt-2 mr-2"
+                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAnUlEQVR4nO3aQQrCQBBE0X+R6cYbSTQrvf85RBjBjQt31UU9yD7FTyAhgQgpDZzADVgMdgLPfTz2sJHuX0NGj6l98tZjLgxUGSOqUkZUpYyoShlRKaMqZVSljCqrMv1jzMJkzMFAFkPa4dJqh5u9M0JESqhICRUpoSIlVKSEis6zk4h2KLFcPoYeDiPYfzyMH/G5tN5VrtPesSP4zwsjFlWYroy7PAAAAABJRU5ErkJggg=="
+                      ></Image>
+                    </View>
+                    <Text className="text-[#999] text-s">
+                      {address.length} Adresses
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            )}
+            {data.role === "user" && (
+              <View>
+                <View className="flex justify-between ml-4 mb-3 mt-3">
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate("PaymentMethod")}
+                  >
+                    <View className="flex flex-row justify-between">
+                      <Text className="text-base font-bold">
+                        Payment methods
+                      </Text>
+                      <Image
+                        className="w-[18px] h-[18px] mt-2 mr-2"
+                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAnUlEQVR4nO3aQQrCQBBE0X+R6cYbSTQrvf85RBjBjQt31UU9yD7FTyAhgQgpDZzADVgMdgLPfTz2sJHuX0NGj6l98tZjLgxUGSOqUkZUpYyoShlRKaMqZVSljCqrMv1jzMJkzMFAFkPa4dJqh5u9M0JESqhICRUpoSIlVKSEis6zk4h2KLFcPoYeDiPYfzyMH/G5tN5VrtPesSP4zwsjFlWYroy7PAAAAABJRU5ErkJggg=="
+                      ></Image>
+                    </View>
 
-                  <Text className="text-[#999] text-s">
-                    There is no methods for now
-                  </Text>
-                </TouchableOpacity>
+                    <Text className="text-[#999] text-s">
+                      There is no methods for now
+                    </Text>
+                  </TouchableOpacity>
+                </View>
               </View>
-            </View>
-            <View>
-              <View className="flex justify-between ml-4 mb-3 mt-3">
-                <TouchableOpacity onPress={() => navigation.navigate("")}>
-                  <View className="flex flex-row justify-between">
-                    <Text className="text-base font-bold">PromoCodes</Text>
-                    <Image
-                      className="w-[18px] h-[18px] mt-2 mr-2"
-                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAnUlEQVR4nO3aQQrCQBBE0X+R6cYbSTQrvf85RBjBjQt31UU9yD7FTyAhgQgpDZzADVgMdgLPfTz2sJHuX0NGj6l98tZjLgxUGSOqUkZUpYyoShlRKaMqZVSljCqrMv1jzMJkzMFAFkPa4dJqh5u9M0JESqhICRUpoSIlVKSEis6zk4h2KLFcPoYeDiPYfzyMH/G5tN5VrtPesSP4zwsjFlWYroy7PAAAAABJRU5ErkJggg=="
-                    ></Image>
-                  </View>
+            )}
+            {data.role === "user" && (
+              <View>
+                <View className="flex justify-between ml-4 mb-3 mt-3">
+                  <TouchableOpacity onPress={() => navigation.navigate("")}>
+                    <View className="flex flex-row justify-between">
+                      <Text className="text-base font-bold">PromoCodes</Text>
+                      <Image
+                        className="w-[18px] h-[18px] mt-2 mr-2"
+                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAnUlEQVR4nO3aQQrCQBBE0X+R6cYbSTQrvf85RBjBjQt31UU9yD7FTyAhgQgpDZzADVgMdgLPfTz2sJHuX0NGj6l98tZjLgxUGSOqUkZUpYyoShlRKaMqZVSljCqrMv1jzMJkzMFAFkPa4dJqh5u9M0JESqhICRUpoSIlVKSEis6zk4h2KLFcPoYeDiPYfzyMH/G5tN5VrtPesSP4zwsjFlWYroy7PAAAAABJRU5ErkJggg=="
+                      ></Image>
+                    </View>
 
-                  <Text className="text-[#999] text-s">
-                    You have special promocodes
-                  </Text>
-                </TouchableOpacity>
+                    <Text className="text-[#999] text-s">
+                      You have special promocodes
+                    </Text>
+                  </TouchableOpacity>
+                </View>
               </View>
-            </View>
-            <View>
-              <View className="flex justify-between ml-4 mb-3 mt-3">
-                <TouchableOpacity
-                  onPress={() => navigation.navigate("Reviews")}
-                >
-                  <View className="flex flex-row justify-between">
-                    <Text className="text-base font-bold">My reviews</Text>
-                    <Image
-                      className="w-[18px] h-[18px] mt-2 mr-2"
-                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAnUlEQVR4nO3aQQrCQBBE0X+R6cYbSTQrvf85RBjBjQt31UU9yD7FTyAhgQgpDZzADVgMdgLPfTz2sJHuX0NGj6l98tZjLgxUGSOqUkZUpYyoShlRKaMqZVSljCqrMv1jzMJkzMFAFkPa4dJqh5u9M0JESqhICRUpoSIlVKSEis6zk4h2KLFcPoYeDiPYfzyMH/G5tN5VrtPesSP4zwsjFlWYroy7PAAAAABJRU5ErkJggg=="
-                    ></Image>
-                  </View>
+            )}
+            {data.role === "user" && (
+              <View>
+                <View className="flex justify-between ml-4 mb-3 mt-3">
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate("Reviews")}
+                  >
+                    <View className="flex flex-row justify-between">
+                      <Text className="text-base font-bold">My reviews</Text>
+                      <Image
+                        className="w-[18px] h-[18px] mt-2 mr-2"
+                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAnUlEQVR4nO3aQQrCQBBE0X+R6cYbSTQrvf85RBjBjQt31UU9yD7FTyAhgQgpDZzADVgMdgLPfTz2sJHuX0NGj6l98tZjLgxUGSOqUkZUpYyoShlRKaMqZVSljCqrMv1jzMJkzMFAFkPa4dJqh5u9M0JESqhICRUpoSIlVKSEis6zk4h2KLFcPoYeDiPYfzyMH/G5tN5VrtPesSP4zwsjFlWYroy7PAAAAABJRU5ErkJggg=="
+                      ></Image>
+                    </View>
 
-                  <Text className="text-[#999] text-s">
-                    reviews from {reviews.length} items
-                  </Text>
-                </TouchableOpacity>
+                    <Text className="text-[#999] text-s">
+                      reviews from {reviews.length} items
+                    </Text>
+                  </TouchableOpacity>
+                </View>
               </View>
-            </View>
+            )}
+
+            {/* crafter settings */}
+            {data.role === "crafter" && (
+              <View>
+                <View className="flex justify-between ml-4 mb-3 mt-3 ">
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate("additem")}
+                  >
+                    <View className="flex flex-row justify-between">
+                      <Text className="text-base font-bold">Add Item</Text>
+                      <Image
+                        className="w-[18px] h-[18px] mt-2 mr-2"
+                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAnUlEQVR4nO3aQQrCQBBE0X+R6cYbSTQrvf85RBjBjQt31UU9yD7FTyAhgQgpDZzADVgMdgLPfTz2sJHuX0NGj6l98tZjLgxUGSOqUkZUpYyoShlRKaMqZVSljCqrMv1jzMJkzMFAFkPa4dJqh5u9M0JESqhICRUpoSIlVKSEis6zk4h2KLFcPoYeDiPYfzyMH/G5tN5VrtPesSP4zwsjFlWYroy7PAAAAABJRU5ErkJggg=="
+                      ></Image>
+                    </View>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            )}
+            {data.role === "crafter" && (
+              <View>
+                <View className="flex justify-between ml-4 mb-3 mt-3 ">
+                  <TouchableOpacity onPress={() => navigation.navigate("")}>
+                    <View className="flex flex-row justify-between">
+                      <Text className="text-base font-bold">my Items</Text>
+                      <Image
+                        className="w-[18px] h-[18px] mt-2 mr-2"
+                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAnUlEQVR4nO3aQQrCQBBE0X+R6cYbSTQrvf85RBjBjQt31UU9yD7FTyAhgQgpDZzADVgMdgLPfTz2sJHuX0NGj6l98tZjLgxUGSOqUkZUpYyoShlRKaMqZVSljCqrMv1jzMJkzMFAFkPa4dJqh5u9M0JESqhICRUpoSIlVKSEis6zk4h2KLFcPoYeDiPYfzyMH/G5tN5VrtPesSP4zwsjFlWYroy7PAAAAABJRU5ErkJggg=="
+                      ></Image>
+                    </View>
+                    <Text className="text-[#999] text-s">
+                      you have already {} items
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            )}
+            {data.role === "crafter" && (
+              <View>
+                <View className="flex justify-between ml-4 mb-3 mt-3 ">
+                  <TouchableOpacity onPress={() => navigation.navigate("")}>
+                    <View className="flex flex-row justify-between">
+                      <Text className="text-base font-bold">my Articles</Text>
+                      <Image
+                        className="w-[18px] h-[18px] mt-2 mr-2"
+                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAnUlEQVR4nO3aQQrCQBBE0X+R6cYbSTQrvf85RBjBjQt31UU9yD7FTyAhgQgpDZzADVgMdgLPfTz2sJHuX0NGj6l98tZjLgxUGSOqUkZUpYyoShlRKaMqZVSljCqrMv1jzMJkzMFAFkPa4dJqh5u9M0JESqhICRUpoSIlVKSEis6zk4h2KLFcPoYeDiPYfzyMH/G5tN5VrtPesSP4zwsjFlWYroy7PAAAAABJRU5ErkJggg=="
+                      ></Image>
+                    </View>
+                    <Text className="text-[#999] text-s">
+                      you have already {} Article(s)
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            )}
+
+            {/* settings */}
             <View>
               <View className="flex justify-between ml-4 mb-3 mt-3">
                 <TouchableOpacity
@@ -201,6 +278,7 @@ const Profile = ({ navigation }) => {
                 </TouchableOpacity>
               </View>
             </View>
+
             <View>
               <View className=" flex items-center justify-center mt-5">
                 <Text

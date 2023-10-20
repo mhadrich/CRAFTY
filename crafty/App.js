@@ -209,22 +209,25 @@ export default function App() {
             <Stack.Screen
               name="MyOrders"
               component={MyOrders}
-              options={{ headerTitle: "" }}
+              options={{ headerTitle: "", headerTintColor: "#8C633F" }}
             />
             <Stack.Screen
               name="OrderDetails"
               component={OrderDetails}
-              options={{ headerTitle: "OrderDetails" }}
+              options={{
+                headerTitle: "OrderDetails",
+                headerTintColor: "#8C633F",
+              }}
             />
             <Stack.Screen
               name="Settings"
               component={Settings}
-              options={{ headerTitle: "" }}
+              options={{ headerTitle: "", headerTintColor: "#8C633F" }}
             />
             <Stack.Screen
               name="ChangePassword"
               component={ChangePassword}
-              options={{ headerTitle: "" }}
+              options={{ headerTitle: "", headerTintColor: "#8C633F" }}
             />
           </>
         </Stack.Navigator>

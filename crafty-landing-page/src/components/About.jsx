@@ -5,6 +5,7 @@ import Heading from "../layout/Heading";
 import { Link } from "react-scroll";
 
 const About = () => {
+  
   return (
     <div className=" md:min-h-screen flex flex-col-reverse md:flex-row items-center gap-5 md:mx-32 mx-5 mt-14">
       <div className=" w-full md:w-3/4">
