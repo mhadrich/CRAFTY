@@ -4,19 +4,25 @@ import {
   ImageBackground,
   Pressable,
   KeyboardAvoidingView,
+  useColorScheme,
  
 } from "react-native";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ScrollView } from "react-native-gesture-handler";
 import BottomSheet from "react-native-simple-bottom-sheet";
 import AddCreditCard from "../../components/Cart/AddCreditCard";
 
 const PaymentMethod = ({ navigation, route }) => {
+  const dark=useColorScheme();
+  const [color,setColor]=useState('');
+  useEffect(()=>{
+    dark==="dark" ? setColor("#333333") : setColor("#ffffff")
+  },[dark])
   const [bsOpen, setBSOpen] = useState(false);
   const panelRef = useRef(null);
   const data = route.params;
   return (
-    <View className="flex-1">
+    <View className="flex-1 bg-[#111111]">
       <ScrollView>
         <View className="py-8 gap-4  mb-10 items-center">
           {data &&
@@ -70,9 +76,9 @@ const PaymentMethod = ({ navigation, route }) => {
                 setBSOpen(!bsOpen);
                 panelRef.current.togglePanel();
               }}
-              className="w-9 h-9 bg-black rounded-full shadow justify-center items-center"
+              className="w-9 h-9 bg-black dark:bg-[#f9f9f9] rounded-full shadow justify-center items-center"
             >
-              <Text className="text-white scale-150">+</Text>
+              <Text className="text-white dark:text-black scale-150">+</Text>
             </Pressable>
           </View>
         </View>
@@ -86,6 +92,9 @@ const PaymentMethod = ({ navigation, route }) => {
         <View>
           <BottomSheet
             isOpen={bsOpen}
+            wrapperStyle={{
+              backgroundColor:`${color}`
+            }}
             onClose={() => setBSOpen(false)}
             sliderMinHeight={0}
             ref={(ref) => (panelRef.current = ref)}

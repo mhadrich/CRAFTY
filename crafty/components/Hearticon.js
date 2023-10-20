@@ -22,7 +22,7 @@ export default function HeartIcon(props) {
   }, [state]);
 
   return (
-    <View className="w-9 h-9 bg-white rounded-full shadow items-center justify-center">
+    <View className="w-9 h-9 bg-white dark:bg-black rounded-full shadow items-center justify-center">
       <Svg width={14} height={12} viewBox="0 0 14 12" fill="none">
         <Path fillRule="evenodd" clipRule="evenodd" d={theD} fill={theFill} />
       </Svg>

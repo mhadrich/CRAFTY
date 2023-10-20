@@ -8,10 +8,10 @@ const HomeSearch = ({ navigation }) => {
     "Home & Living,Craft Supplies & Tools,Art & Collectibles,Clothing,Jewelry,Paper & Party Supplies,Accessories,Weddings,Bag & Purses,Books, Movies & Music,Toys & Games,Bath & Beauty,Electronics & Accessories,Pet Supplies,Shoes".split(
       ","
     );
-  const catName = "text-base px-10 font-normal bottom-1";
-  const separator = "w-screen opacity-10 border-t";
+  const catName = "text-base dark:text-white px-10 font-normal bottom-1";
+  const separator = "w-screen opacity-10 dark:border-white border-t";
   return (
-    <View>
+    <View className="dark:bg-[#111111]">
       <TabNav navigation={navigation} />
       <ScrollView scrollEventThrottle={32} onScroll={Keyboard.dismiss}>
         <View className=" w-screen justify-center px-6 py-2 flex flex-row gap-2">

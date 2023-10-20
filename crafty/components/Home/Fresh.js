@@ -17,14 +17,14 @@ const Fresh = ({ navigation }) => {
     <View>
       <View className="w-screen flex flex-row p-4 items-center">
         <View className="w-full">
-          <Text className="text-4xl font-bold">Fresh</Text>
+          <Text className=" dark:text-white text-4xl font-bold">Fresh</Text>
           <Text className="text-neutral-400 text-xs font-normal">
             You’ve never seen it before!
           </Text>
         </View>
         <View className="-left-12">
           <TouchableOpacity onPress={() => navigation.navigate("AllProd")}>
-            <Text className="text-xs font-normal">View all</Text>
+            <Text className="dark:text-white text-xs font-normal">View all</Text>
           </TouchableOpacity>
         </View>
       </View>

@@ -17,7 +17,7 @@ const Articles = ({ navigation }) => {
     <View>
       <View className="w-screen flex flex-row p-4 items-center">
         <View className="w-full">
-          <Text className="text-4xl font-bold">Articles</Text>
+          <Text className="dark:text-white text-4xl font-bold">Articles</Text>
           <Text className="text-neutral-400 text-xs font-normal">
             Crafted with love
           </Text>
@@ -26,7 +26,7 @@ const Articles = ({ navigation }) => {
           <TouchableOpacity
           onPress={() => navigation.navigate("AllArticles")}
           >
-            <Text className="text-xs font-normal">View all</Text>
+            <Text className="text-xs dark:text-white font-normal">View all</Text>
           </TouchableOpacity>
         </View>
       </View>
