@@ -66,7 +66,7 @@ const ArticleComments = ({ close }) => {
       {/* WRITING  COMMENTS */}
       <View className={writing ? "mb-10" : "mb-10 hidden"}>
         <View className="justify-center items-center gap-10">
-          <Text className="text-center text-neutral-800 text-lg font-semibold leading-snug">
+          <Text className="text-center text-lg font-semibold leading-snug">
             Let us and others know what{"\n"}you liked about this read.
           </Text>
           <TextInput
