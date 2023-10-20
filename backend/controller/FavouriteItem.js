@@ -38,36 +38,39 @@ const GET = async (req, res) => {
 };
 
 /*GET FavouriteItem By ID */
-const GETById = async (req, { params }) => {
+const GETById = async (req, res) => {
+
   try {
-    if (!params || !params.id) {
-      throw new Error("ID parameter is missing");
+    const userId = parseInt(req.params.userId);
+
+    if (isNaN(userId)) {
+      return res.status(400).json({ error: "Invalid user ID" });
     }
 
-    const { id } = params;
-    const FavouriteItem = await prisma.favouriteItem.findUnique({
-      where: { id },
+    const favoriteItems = await prisma.favouriteItem.findMany({
+      where: {
+        userId: userId,
+      },
+      include: {
+        item: {
+          include: {
+            images: true,
+          },
+        },
+      }
     });
 
-    if (!user) {
-      return new Response(JSON.stringify({ error: "FavouriteItem not found" }), {
-        status: 404,
-      });
-    }
-
-    return new Response(JSON.stringify(FavouriteItem));
+    return res.status(200).json(favoriteItems);
   } catch (error) {
-    const message =
-      error instanceof Error ? error.message : "An unknown error occurred";
-    return new Response(
-      JSON.stringify({
-        message: "Error fetching FavouriteItem",
-        error: message,
-      }),
-      { status: 500 }
-    );
+
+    console.error(error);
+    return res.status(500).json({ error: "Error fetching favorite items by user ID" });
   }
 };
+
+
+
+
 /*UPDATE FavouriteItem*/
 const UPDATE = async (req, { params }) => {
   try {
@@ -99,31 +102,29 @@ const UPDATE = async (req, { params }) => {
   }
 };
 /*DELETE FavouriteItem */
-const DELETE = async (req, { params }) => {
+const DELETE = async (req, res) => {
   try {
-    if (!params || !params.id) {
-      throw new Error("ID parameter is missing");
-    }
+    const { id } = req.params;
 
-    const { id } = params;
+    if (!id) {  
+      
+      return res.status(400).json({ error: "ID parameter is missing" });
+    }
+    
+
     await prisma.favouriteItem.delete({
-      where: { id },
+      where: { id: id*1 },
     });
 
-    return new Response(
-      JSON.stringify({ message: "FavouriteItem deleted successfully" })
-    );
+    return res.status(200).json({ message: "FavouriteItem deleted successfully" });
   } catch (error) {
-    const message =
-      error instanceof Error ? error.message : "An unknown error occurred";
-    return new Response(
-      JSON.stringify({
-        message: "Error deleting FavouriteItem",
-        error: message,
-      }),
-      { status: 500 }
-    );
+    console.error(error);
+    return res.status(500).json({ error: "Error deleting FavouriteItem" });
   }
 };
+
+// Example usage in a route handler:
+// app.delete('/favoriteItems/:id', DELETE);
+
 
 module.exports = { POST, GET, GETById, UPDATE, DELETE };

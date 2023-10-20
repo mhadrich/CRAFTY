@@ -88,9 +88,19 @@ model Order {
   trackingNumber      String
   deliveredProcessing Boolean
   userId              Int
-  items               Item[]
+  items               OrderItem[]
   user                User    @relation(fields: [userId], references: [id])
 }
+
+model OrderItem {
+  id        Int     @id @default(autoincrement())
+  itemId    Int
+  quantity  Int   // Add a 'quantity' field
+  order     Order   @relation(fields: [orderId], references: [id])
+  orderId   Int
+  item      Item    @relation(fields: [itemId], references: [id])
+}
+
 
   model Item {
     id           Int             @id @default(autoincrement())
@@ -108,7 +118,7 @@ model Order {
     
     reviews      Review[]
   
-    order        Order    []      
+    order        OrderItem    []      
     favoriteItem FavouriteItem[]
   }
 
@@ -117,9 +127,9 @@ model Comment {
   body      String
   userId    Int
   user      User    @relation(fields: [userId], references: [id])
-  articleId Int
-  itemId    Int
-  article   Article @relation(fields: [articleId], references: [id])
+  articleId Article [] 
+ 
+  
 
 }
 
