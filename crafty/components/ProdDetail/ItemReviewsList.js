@@ -17,10 +17,10 @@ const ItemReviewsList = ({ close }) => {
           <Text className="text-2xl bottom-2 bg-white font-semibold ">
             5 Comments
           </Text>
-          {/* <LinearGradient
+          <LinearGradient
           colors={["rgba(255,255,255,1)", "rgba(255,255,255,0)"]}
           className="w-[1000px] -left-8  h-4 z-10 bg-black"
-        /> */}
+        />
           <View>
             <ScrollView className="pt-6">
               <ItemReviewCard />
