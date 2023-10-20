@@ -4,17 +4,21 @@ import { ScrollView } from "react-native-gesture-handler";
 import TabNav from "../TabNav/TabNav";
 
 const HomeSearch = ({ navigation }) => {
-  const catName = "text-base px-10 font-normal";
+  const CATEGORIES =
+    "Home & Living,Craft Supplies & Tools,Art & Collectibles,Clothing,Jewelry,Paper & Party Supplies,Accessories,Weddings,Bag & Purses,Books, Movies & Music,Toys & Games,Bath & Beauty,Electronics & Accessories,Pet Supplies,Shoes".split(
+      ","
+    );
+  const catName = "text-base px-10 font-normal bottom-1";
   const separator = "w-screen opacity-10 border-t";
   return (
     <View>
       <TabNav navigation={navigation} />
-      <ScrollView onScroll={Keyboard.dismiss}>
+      <ScrollView scrollEventThrottle={32} onScroll={Keyboard.dismiss}>
         <View className=" w-screen justify-center px-6 py-2 flex flex-row gap-2">
-          <Pressable className="w-1/2 h-12 bg-[#BF9B7A] justify-center items-center rounded-3xl">
+          <Pressable onPress={()=>{navigation.navigate("AllProd")}} className="w-1/2 h-12 bg-[#BF9B7A] justify-center items-center rounded-3xl">
             <Text className=" text-white text-sm">VIEW ALL ITEMS</Text>
           </Pressable>
-          <Pressable className="w-1/2 h-12 bg-[#BF9B7A] justify-center items-center rounded-3xl">
+          <Pressable onPress={()=>{navigation.navigate("AllArticles")}} className="w-1/2 h-12 bg-[#BF9B7A] justify-center items-center rounded-3xl">
             <Text className=" text-white text-sm">VIEW ALL ARTICLES</Text>
           </Pressable>
         </View>
@@ -23,36 +27,19 @@ const HomeSearch = ({ navigation }) => {
             Choose category
           </Text>
         </View>
-        <View className="items-start gap-5 py-2 pb-6">
-          <Text className={catName}>Home & Living</Text>
-          <View className={separator}></View>
-          <Text className={catName}>Craft Supplies & Tools</Text>
-          <View className={separator}></View>
-          <Text className={catName}>Art & Collectibles</Text>
-          <View className={separator}></View>
-          <Text className={catName}>Clothing</Text>
-          <View className={separator}></View>
-          <Text className={catName}>Jewelry</Text>
-          <View className={separator}></View>
-          <Text className={catName}>Paper & Party Supplies</Text>
-          <View className={separator}></View>
-          <Text className={catName}>Accessories</Text>
-          <View className={separator}></View>
-          <Text className={catName}>Weddings</Text>
-          <View className={separator}></View>
-          <Text className={catName}>Bag & Purses</Text>
-          <View className={separator}></View>
-          <Text className={catName}>Books, Movies & Music</Text>
-          <View className={separator}></View>
-          <Text className={catName}>Toys & Games</Text>
-          <View className={separator}></View>
-          <Text className={catName}>Bath & Beauty</Text>
-          <View className={separator}></View>
-          <Text className={catName}>Electronics & Accessories</Text>
-          <View className={separator}></View>
-          <Text className={catName}>Pet Supplies</Text>
-          <View className={separator}></View>
-          <Text className={catName}>Shoes</Text>
+        <View>
+          {CATEGORIES.map((element, key) => (
+            <Pressable
+              onPress={() => {
+                console.log(element);
+              }}
+              className="items-start gap-4 py-2 pb-4"
+              key={key}
+            >
+              <Text className={catName}>{element}</Text>
+              <View className={separator}></View>
+            </Pressable>
+          ))}
         </View>
         <View className="h-24"></View>
       </ScrollView>
