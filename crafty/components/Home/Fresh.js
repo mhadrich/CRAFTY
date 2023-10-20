@@ -33,12 +33,11 @@ const Fresh = ({ navigation }) => {
           className="pl-4"
           horizontal={true}
           showsHorizontalScrollIndicator={false}
-        >
-          <ProdCard navigation={navigation} />
-          <ProdCard navigation={navigation} />
-          <ProdCard navigation={navigation} />
-          <ProdCard navigation={navigation} />
-          <ProdCard navigation={navigation} />
+        >{data && data.map((item,e) => {
+          return  (<ProdCard navigation={navigation} data={item}  key={e}/>)
+        }
+        )
+         }
         </ScrollView>
       </View>
     </View>

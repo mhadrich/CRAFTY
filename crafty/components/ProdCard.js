@@ -8,6 +8,7 @@ const ProdCard = ({ navigation }) => {
   const color = useColorScheme();
   console.log(color);
   const [like, setLike] = useState(false);
+  
   return (
     <View className="pr-4">
       <Pressable onPress={()=>navigation.navigate("ProductDetail")}>
