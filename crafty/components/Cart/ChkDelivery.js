@@ -7,7 +7,7 @@ const ChkDelivery = ({ fn }) => {
 
   return (
     <View className="gap-4 pb-6">
-      <Text className="text-base font-medium">Delivery Method</Text>
+      <Text className="text-base font-medium dark:text-white">Delivery Method</Text>
       <View className="flex flex-row justify-between w-fit h-28 p-4">
         <Pressable
           onPress={() => {
@@ -17,12 +17,12 @@ const ChkDelivery = ({ fn }) => {
           }}
           className={
             regularSelect
-              ? "w-5/12 h-18 bg-white rounded-lg shadow justify-center items-center border-2 border-[#707324]"
-              : "w-5/12 h-18 bg-white rounded-lg shadow justify-center items-center"
+              ? "w-5/12 h-18 bg-white dark:bg-[#333333] rounded-lg shadow justify-center items-center border-2 border-[#707324]"
+              : "w-5/12 h-18 bg-white dark:bg-[#333333] rounded-lg shadow justify-center items-center"
           }
         >
-          <Text className="text-base font-medium">Regular delivery</Text>
-          <Text className="text-xs">1 to 2 Weeks</Text>
+          <Text className="text-base dark:text-white font-medium">Regular delivery</Text>
+          <Text className="text-xs dark:text-white">1 to 2 Weeks</Text>
         </Pressable>
         <Pressable
           onPress={() => {
@@ -32,12 +32,12 @@ const ChkDelivery = ({ fn }) => {
           }}
           className={
             expressSelect
-              ? "w-5/12 h-18 bg-white rounded-lg shadow justify-center items-center border-2 border-[#707324]"
-              : "w-5/12 h-18 bg-white rounded-lg shadow justify-center items-center"
+              ? "w-5/12 h-18 bg-white dark:bg-[#333333] rounded-lg shadow justify-center items-center border-2 border-[#707324]"
+              : "w-5/12 h-18 bg-white dark:bg-[#333333] rounded-lg shadow justify-center items-center"
           }
         >
-          <Text className="text-base font-medium">Express delivery</Text>
-          <Text className="text-xs">1 to 2 Days</Text>
+          <Text className="text-base font-medium dark:text-white">Express delivery</Text>
+          <Text className="text-xs dark:text-white">1 to 2 Days</Text>
         </Pressable>
       </View>
     </View>

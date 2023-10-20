@@ -24,12 +24,12 @@ const AllArticles = ({ navigation }) => {
   return (
     <View>
       <View className="justify-center items-center">
-        <View className="bg-white w-screen h-24 py-3 items-center justify-start">
+        <View className="bg-white dark:bg-black w-screen h-24 py-3 items-center justify-start">
           <CategoryPill category={categories} />
           <FilteringButtons open={setBSOpen} sort={sort} />
         </View>
         <ScrollView
-          className="w-screen pt-5"
+          className="w-screen dark:bg-[#111111] pt-5"
           showsVerticalScrollIndicator={false}
         >
           <View className="-top-2 flex scale-90 flex-row ">

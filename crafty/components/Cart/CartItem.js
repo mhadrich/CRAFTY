@@ -13,27 +13,34 @@ const CartItem = (props) => {
     setTotalPrice(unitPrice * quantity);
   }, [quantity]);
   useEffect(() => {
-    if(panel){
-      setPanelStyle("absolute right-11 top-2 h-24 w-44 items-center justify-between p-4 bg-white z-20 rounded-lg shadow")
+    if (panel) {
+      setPanelStyle(
+        "absolute right-11 top-2 h-24 w-44 items-center justify-between p-4 bg-white dark:bg-[#222222] z-20 rounded-lg shadow"
+      );
     } else {
-      setPanelStyle("absolute right-11 top-2 h-24 w-44 items-center justify-between p-4 bg-white z-20 rounded-lg shadow hidden")
+      setPanelStyle(
+        "absolute right-11 top-2 h-24 w-44 items-center justify-between p-4 bg-white dark:bg-[#222222] z-20 rounded-lg shadow hidden"
+      );
     }
   }, [panel]);
   return (
     <View className="flex flex-row pb-4">
       <View className={panelStyle}>
-        <Text className="text-xs px-3 opacity-70">Add to favorites</Text>
-        <View className="border-t border-black w-40 opacity-10"></View>
-        <Text className="text-xs opacity-70">Delete from the list</Text>
+        <Text className="text-xs px-3 opacity-70 dark:text-white">Add to favorites</Text>
+        <View className="border-t border-black dark:border-white w-40 opacity-10"></View>
+        <Text className="text-xs opacity-70 dark:text-white">Delete from the list</Text>
       </View>
       <Image
         className="w-24 h-24 rounded-l-lg"
         src="https://i.etsystatic.com/22703156/r/il/8f4019/3358914263/il_1588xN.3358914263_dlpj.jpg"
       />
-      <View className="bg-white w-9/12 h-24 rounded-r-lg p-4">
+      <View className="bg-white dark:bg-[#333333] w-9/12 h-24 rounded-r-lg p-4">
         <View className="flex flex-row h-6 justify-between">
           <Text className="text-base font-semibold">Wood Map</Text>
-          <Pressable onPress={()=>setPanel(!panel)} className="bottom-1 left-2">
+          <Pressable
+            onPress={() => setPanel(!panel)}
+            className="bottom-1 left-2"
+          >
             <Svg
               width="40"
               height="40"
@@ -58,25 +65,25 @@ const CartItem = (props) => {
                 setQuantity(quantity - 1);
                 total(totalPrice);
               }}
-              className="w-9 h-9 bg-white rounded-full shadow justify-center items-center"
+              className="w-9 h-9 bg-white dark:bg-[#111111] rounded-full shadow justify-center items-center"
             >
-              <Text className=" scale-150 opacity-50">-</Text>
+              <Text className=" dark:text-white scale-150 opacity-50">-</Text>
             </Pressable>
             <View className="w-12 justify-center items-center">
-              <Text className="opacity-50">{quantity}</Text>
+              <Text className="dark:text-white opacity-50">{quantity}</Text>
             </View>
             <Pressable
               onPress={() => {
                 setQuantity(quantity + 1);
                 total(totalPrice);
               }}
-              className="w-9 h-9 bg-white rounded-full shadow justify-center items-center"
+              className="w-9 h-9 bg-white dark:bg-[#111111] rounded-full shadow justify-center items-center"
             >
-              <Text className=" scale-150 opacity-50">+</Text>
+              <Text className="dark:text-white scale-150 opacity-50">+</Text>
             </Pressable>
           </View>
           <View className="pr-2">
-            <Text className="text-right  z-0 text-sm font-medium leading-tight">
+            <Text className=" dark:text-white text-right  z-0 text-sm font-medium leading-tight">
               {totalPrice}$
             </Text>
           </View>
