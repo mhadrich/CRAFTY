@@ -1,48 +1,22 @@
-/*
-  Warnings:
+-- CreateTable
+CREATE TABLE `User` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `role` ENUM('user', 'crafter', 'admin') NOT NULL DEFAULT 'user',
+    `name` VARCHAR(191) NOT NULL,
+    `lastName` VARCHAR(191) NOT NULL,
+    `businessName` VARCHAR(191) NULL,
+    `email` VARCHAR(191) NOT NULL,
+    `dateOfBirth` DATETIME(3) NULL,
+    `password` VARCHAR(255) NOT NULL,
+    `billingAddress` VARCHAR(191) NULL,
+    `shippingAddress` VARCHAR(191) NULL,
+    `shippingInfo` VARCHAR(191) NULL,
+    `image` VARCHAR(255) NULL DEFAULT 'https://t4.ftcdn.net/jpg/03/46/93/61/360_F_346936114_RaxE6OQogebgAWTalE1myseY1Hbb5qPM.jpg',
 
-  - You are about to drop the column `BuisnessName` on the `user` table. All the data in the column will be lost.
-  - You are about to drop the column `DateOfBirth` on the `user` table. All the data in the column will be lost.
-  - You are about to drop the column `Email` on the `user` table. All the data in the column will be lost.
-  - You are about to drop the column `LastName` on the `user` table. All the data in the column will be lost.
-  - You are about to drop the column `Name` on the `user` table. All the data in the column will be lost.
-  - You are about to drop the column `Password` on the `user` table. All the data in the column will be lost.
-  - You are about to drop the column `Role` on the `user` table. All the data in the column will be lost.
-  - A unique constraint covering the columns `[businessName]` on the table `User` will be added. If there are existing duplicate values, this will fail.
-  - A unique constraint covering the columns `[email]` on the table `User` will be added. If there are existing duplicate values, this will fail.
-  - Added the required column `billingAddress` to the `User` table without a default value. This is not possible if the table is not empty.
-  - Added the required column `email` to the `User` table without a default value. This is not possible if the table is not empty.
-  - Added the required column `lastName` to the `User` table without a default value. This is not possible if the table is not empty.
-  - Added the required column `name` to the `User` table without a default value. This is not possible if the table is not empty.
-  - Added the required column `password` to the `User` table without a default value. This is not possible if the table is not empty.
-  - Added the required column `role` to the `User` table without a default value. This is not possible if the table is not empty.
-  - Added the required column `shippingInfo` to the `User` table without a default value. This is not possible if the table is not empty.
-
-*/
--- DropIndex
-DROP INDEX `User_BuisnessName_key` ON `user`;
-
--- DropIndex
-DROP INDEX `User_Email_key` ON `user`;
-
--- AlterTable
-ALTER TABLE `user` DROP COLUMN `BuisnessName`,
-    DROP COLUMN `DateOfBirth`,
-    DROP COLUMN `Email`,
-    DROP COLUMN `LastName`,
-    DROP COLUMN `Name`,
-    DROP COLUMN `Password`,
-    DROP COLUMN `Role`,
-    ADD COLUMN `billingAddress` VARCHAR(191) NOT NULL,
-    ADD COLUMN `businessName` VARCHAR(191) NULL,
-    ADD COLUMN `dateOfBirth` DATETIME(3) NULL,
-    ADD COLUMN `email` VARCHAR(191) NOT NULL,
-    ADD COLUMN `lastName` VARCHAR(191) NOT NULL,
-    ADD COLUMN `name` VARCHAR(191) NOT NULL,
-    ADD COLUMN `password` VARCHAR(255) NOT NULL,
-    ADD COLUMN `role` ENUM('USER', 'CRAFTER') NOT NULL,
-    ADD COLUMN `shippingAddress` VARCHAR(191) NULL,
-    ADD COLUMN `shippingInfo` VARCHAR(191) NOT NULL;
+    UNIQUE INDEX `User_businessName_key`(`businessName`),
+    UNIQUE INDEX `User_email_key`(`email`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
 CREATE TABLE `Article` (
@@ -169,6 +143,28 @@ CREATE TABLE `Notification` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `Title` INTEGER NOT NULL,
     `Body` VARCHAR(191) NOT NULL,
+    `userId` INTEGER NOT NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `Chat` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
+
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
+CREATE TABLE `Message` (
+    `id` INTEGER NOT NULL AUTO_INCREMENT,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
+    `text` VARCHAR(191) NOT NULL,
+    `sender` INTEGER NOT NULL,
+    `chatId` INTEGER NOT NULL,
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -182,11 +178,14 @@ CREATE TABLE `_ItemToMaterial` (
     INDEX `_ItemToMaterial_B_index`(`B`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
--- CreateIndex
-CREATE UNIQUE INDEX `User_businessName_key` ON `User`(`businessName`);
+-- CreateTable
+CREATE TABLE `_ChatMembers` (
+    `A` INTEGER NOT NULL,
+    `B` INTEGER NOT NULL,
 
--- CreateIndex
-CREATE UNIQUE INDEX `User_email_key` ON `User`(`email`);
+    UNIQUE INDEX `_ChatMembers_AB_unique`(`A`, `B`),
+    INDEX `_ChatMembers_B_index`(`B`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- AddForeignKey
 ALTER TABLE `Article` ADD CONSTRAINT `Article_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -243,7 +242,19 @@ ALTER TABLE `FavouriteItem` ADD CONSTRAINT `FavouriteItem_userId_fkey` FOREIGN K
 ALTER TABLE `FavouriteItem` ADD CONSTRAINT `FavouriteItem_itemId_fkey` FOREIGN KEY (`itemId`) REFERENCES `Item`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE `Notification` ADD CONSTRAINT `Notification_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `User`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `Message` ADD CONSTRAINT `Message_chatId_fkey` FOREIGN KEY (`chatId`) REFERENCES `Chat`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE `_ItemToMaterial` ADD CONSTRAINT `_ItemToMaterial_A_fkey` FOREIGN KEY (`A`) REFERENCES `Item`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `_ItemToMaterial` ADD CONSTRAINT `_ItemToMaterial_B_fkey` FOREIGN KEY (`B`) REFERENCES `Material`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `_ChatMembers` ADD CONSTRAINT `_ChatMembers_A_fkey` FOREIGN KEY (`A`) REFERENCES `Chat`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `_ChatMembers` ADD CONSTRAINT `_ChatMembers_B_fkey` FOREIGN KEY (`B`) REFERENCES `User`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
