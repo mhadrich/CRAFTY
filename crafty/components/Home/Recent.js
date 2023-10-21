@@ -7,7 +7,7 @@ const Recent = ({ navigation }) => {
     <View>
       <View className="w-screen flex flex-row p-4 items-center">
         <View className="w-full">
-          <Text className="text-4xl font-bold">Recent</Text>
+          <Text className=" dark:text-white text-4xl font-bold">Recent</Text>
           <Text className="text-neutral-400 text-xs font-normal">
             Get back to your flow
           </Text>

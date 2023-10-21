@@ -12,15 +12,16 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import TabNav from "../../components/TabNav/TabNav";
 
 const MyBag = ({ navigation }) => {
+  
   const [cartTotal, setCartTotal] = useState(90);
   const scrollViewRef = useRef();
   return (
-    <SafeAreaView className="w-screen h-screen p-4 ">
+    <SafeAreaView className=" dark:bg-[#111111] w-screen h-screen p-4 ">
       <TabNav navigation={navigation}/>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <Text className="text-4xl pb-6 font-bold">My Bag</Text>
+        <Text className=" dark:text-white text-4xl pb-6 font-bold">My Bag</Text>
         <ScrollView
-          className="max-h-80"
+          className="max-h-96"
           ref={scrollViewRef}
           showsVerticalScrollIndicator={false}
         >
@@ -32,7 +33,7 @@ const MyBag = ({ navigation }) => {
           <CartItem total={setCartTotal} current={cartTotal} />
           <CartItem total={setCartTotal} current={cartTotal} />
           <CartItem total={setCartTotal} current={cartTotal} />
-          <CartItem />
+
         </ScrollView>
       </TouchableWithoutFeedback>
       <View className="pb-20">
@@ -41,7 +42,7 @@ const MyBag = ({ navigation }) => {
             onFocus={() =>
               scrollViewRef.current.scrollToEnd({ animated: true })
             }
-            className="pl-4 w-full h-9 bg-white rounded-lg  shadow"
+            className="pl-4 w-full h-9 bg-white dark:bg-[#333333] dark:text-white rounded-lg  shadow"
             placeholder={"Enter your promo code"}
           />
           <Pressable
@@ -65,10 +66,10 @@ const MyBag = ({ navigation }) => {
           </Pressable>
         </View>
         <View className="flex flex-row pt-6 items-center justify-between">
-          <Text className="opacity-50 text-sm font-medium leading-tight">
+          <Text className="dark:text-white opacity-50 text-sm font-medium leading-tight">
             Total amount:
           </Text>
-          <Text className="text-right text-lg font-semibold leading-snug">
+          <Text className="dark:text-white text-right text-lg font-semibold leading-snug">
             {cartTotal}$
           </Text>
         </View>

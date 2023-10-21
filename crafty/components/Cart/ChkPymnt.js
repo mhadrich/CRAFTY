@@ -8,7 +8,7 @@ const ChkPymnt = ({ navigation, data, render }) => {
       className="gap-4"
       onPress={() => navigation.navigate("PaymentMethod", data)}
     >
-      <Text className="text-base font-medium">Payment</Text>
+      <Text className="text-base dark:text-white font-medium">Payment</Text>
       <View className="w-fit h-28 p-6 rounded-lg">
         <View className="flex flex-row justify-between items-center pb-2">
           <View className="flex flex-row items-center gap-2">
@@ -38,7 +38,7 @@ const ChkPymnt = ({ navigation, data, render }) => {
                 />
               </Svg>
             </View>
-            <Text className=" text-sm font-light leading-tight">
+            <Text className=" dark:text-white text-sm font-light leading-tight">
               **** **** **** {render.slice(-4)}
             </Text>
           </View>

@@ -1,14 +1,23 @@
 import { View, Text } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import ArticleCard from "../ArticleCard";
+import axios from "axios";
+import ADRESS_API from "../../Api";
 
 const Articles = ({ navigation }) => {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    axios
+      .get(`http://${ADRESS_API}:4000/article/getarticles`)
+      .then((response) => setData(response.data))
+      .catch((err) => console.log(err));
+  }, []);
   return (
     <View>
       <View className="w-screen flex flex-row p-4 items-center">
         <View className="w-full">
-          <Text className="text-4xl font-bold">Articles</Text>
+          <Text className="dark:text-white text-4xl font-bold">Articles</Text>
           <Text className="text-neutral-400 text-xs font-normal">
             Crafted with love
           </Text>
@@ -17,7 +26,7 @@ const Articles = ({ navigation }) => {
           <TouchableOpacity
           onPress={() => navigation.navigate("AllArticles")}
           >
-            <Text className="text-xs font-normal">View all</Text>
+            <Text className="text-xs dark:text-white font-normal">View all</Text>
           </TouchableOpacity>
         </View>
       </View>

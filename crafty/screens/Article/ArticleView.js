@@ -1,5 +1,5 @@
-import { View, Text, Image } from "react-native";
-import React, { useRef, useState } from "react";
+import { View, Text, Image, useColorScheme } from "react-native";
+import React, { useEffect, useRef, useState } from "react";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { Svg, Path } from "react-native-svg";
 import HeartIcon from "../../components/HeartIcon";
@@ -7,6 +7,11 @@ import BottomSheet from "react-native-simple-bottom-sheet";
 import ArticleComments from "../../components/Article/ArticleComments";
 
 const ArticleView = ({ navigation }) => {
+  const dark=useColorScheme();
+  const [color,setColor]=useState('');
+  useEffect(()=>{
+    dark==="dark" ? setColor("#333333") : setColor("#ffffff")
+  },[dark])
   const panelRef = useRef(null);
   const [bsOpen, setBSOpen] = useState(false);
   const [scrollY, setScrollY] = useState(0);
@@ -34,7 +39,7 @@ const ArticleView = ({ navigation }) => {
       {/* SNEAKY */}
       <View
         style={{ opacity: val }}
-        className={`absolute shadow bg-white w-full z-30 items-center h-28 justify-end pb-5`}
+        className={`absolute shadow bg-white dark:bg-black w-full z-30 items-center h-28 justify-end pb-5`}
       >
         <Text className="text-[#8C633F] font-semibold text-base">
           Gifts for her
@@ -42,7 +47,7 @@ const ArticleView = ({ navigation }) => {
       </View>
       {/* SNEAKY */}
       <ScrollView onScroll={handleScroll} scrollEventThrottle={20}>
-        <View className=" w-screen h-screen items-center justify-start">
+        <View className="dark:bg-[#111111] w-screen h-screen items-center justify-start">
           <Image
             style={{ opacity: scrollY > 700 ? 1 - val - 0.5 : 1 }}
             className=" w-screen h-4/5"
@@ -51,7 +56,7 @@ const ArticleView = ({ navigation }) => {
 
           <Text
             style={{ opacity: scrollY > 700 ? 1 - val - 0.5 : 1 }}
-            className="pt-16 text-black text-3xl font-bold leading-9"
+            className=" pt-16 text-black dark:text-white text-3xl font-bold leading-9"
           >
             Gifts for her
           </Text>
@@ -79,8 +84,8 @@ const ArticleView = ({ navigation }) => {
             </Svg>
           </View>
         </View>
-        <View className="items-center justify-center px-10">
-          <Text className="text-black text-sm font-normal leading-tight">
+        <View className="items-center dark:bg-[#111111] justify-center px-10">
+          <Text className="text-black dark:text-white text-sm font-normal leading-tight">
             Lorem ipsum dolor sit amet consectetur. Lectus arcu eu interdum
             turpis tincidunt semper ullamcorper. Et semper volutpat ut integer
             ornare eget molestie elit arcu. Fermentum amet nullam aliquam eu sit
@@ -129,19 +134,19 @@ const ArticleView = ({ navigation }) => {
           </Text>
           <View className=" mb-8 mt-12 w-full flex flex-row justify-between">
             <View className="items-start">
-              <Text className="text-black text-xs font-light leading-tight">
+              <Text className="text-black dark:text-white text-xs font-light leading-tight">
                 Written by
               </Text>
-              <Text className="text-black text-sm font-semibold leading-tight">
+              <Text className="text-black dark:text-white text-sm font-semibold leading-tight">
                 Zeff
               </Text>
             </View>
             <View className=" items-end">
-              <Text className="text-black text-xs font-light leading-tight">
+              <Text className="text-black dark:text-white text-xs font-light leading-tight">
                 Published on
               </Text>
 
-              <Text className="text-black text-sm font-semibold leading-tight">
+              <Text className="text-black dark:text-white text-sm font-semibold leading-tight">
                 20/77/2077
               </Text>
             </View>
@@ -160,6 +165,9 @@ const ArticleView = ({ navigation }) => {
         <View className="z-50">
           <BottomSheet
             isOpen={true}
+            wrapperStyle={{
+              backgroundColor:`${color}`
+            }}
             onClose={() => setBSOpen(false)}
             sliderMinHeight={0}
             sliderMaxHeight={700}

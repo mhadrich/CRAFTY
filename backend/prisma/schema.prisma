@@ -92,24 +92,24 @@ model Order {
   user                User    @relation(fields: [userId], references: [id])
 }
 
-model Item {
-  id           Int             @id @default(autoincrement())
-  name         String
-  materials    Material[]
-  description  String
-  price        Int
-  images       Image[]
-  tags         Tag[]
-  reviewId     Int
-  userId       Int
-  user         User            @relation(fields: [userId], references: [id])
-  wishList     Wishlist[]
-  comments     Comment[]
-  reviews      Review[]
-  orderId      Int
-  order        Order           @relation(fields: [orderId], references: [id])
-  favoriteItem FavouriteItem[]
-}
+  model Item {
+    id           Int             @id @default(autoincrement())
+    name         String
+    materials    Material[]
+    description  String
+    price        Int
+    images       Image[]
+    tags         Tag[]
+    
+    userId       Int
+    user         User            @relation(fields: [userId], references: [id])
+    wishList     Wishlist[]
+    
+    reviews      Review[]
+  
+    order        Order    []      
+    favoriteItem FavouriteItem[]
+  }
 
 model Material {
   id           Int    @id @default(autoincrement())
@@ -126,7 +126,7 @@ model Comment {
   articleId Int
   itemId    Int
   article   Article @relation(fields: [articleId], references: [id])
-  item      Item    @relation(fields: [itemId], references: [id])
+
 }
 
 model Wishlist {
