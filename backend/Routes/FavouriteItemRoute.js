@@ -7,9 +7,9 @@ const  {POST,GET,GETById,UPDATE,DELETE}= require("../controller/FavouriteItem");
 
 router.post("/addfavourite",POST);
 router.get("/getfavourites",GET);
-router.get("/getfavourite",GETById);
+router.get("/getfavourite/:userId",GETById);
 router.put("/updatefavourite",UPDATE);
-router.delete("/deletefavourite",DELETE) 
+router.delete("/deletefavourite/:id",DELETE) 
 
 
 module.exports= router 

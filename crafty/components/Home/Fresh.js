@@ -7,11 +7,17 @@ import ADRESS_API from "../../Api";
 
 const Fresh = ({ navigation }) => {
   const [data, setData] = useState([]);
-  useEffect(() => {
+  const GetData =()=>{
     axios
-      .get(`http://${ADRESS_API}:4000/item/getitems`)
-      .then((response) => setData(response.data))
-      .catch((err) => console.log(err));
+    .get(`http://${ADRESS_API}:4000/item/getitems`)
+    .then((response) => {
+    
+      return setData(response.data) 
+    })
+    .catch((err) => console.log(err))
+  }
+  useEffect(() => {
+   GetData()
   }, []);
   return (
     <View>
@@ -34,6 +40,8 @@ const Fresh = ({ navigation }) => {
           horizontal={true}
           showsHorizontalScrollIndicator={false}
         >{data && data.map((item,e) => {
+          console.log("🚀 ~ file: Fresh.js:40 ~ >{data&&data.map ~ item:", item)
+          
           return  (<ProdCard navigation={navigation} data={item}  key={e}/>)
         }
         )

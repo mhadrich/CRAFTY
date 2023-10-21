@@ -18,12 +18,17 @@ import Reviews from "../components/ProdDetail/Reviews";
 import BottomSheet from "react-native-simple-bottom-sheet";
 import ItemReviewsList from "../components/ProdDetail/ItemReviewsList";
 
+<<<<<<< HEAD
+const ProductDetail = ({ navigation,route}) => {
+  const { data } = route.params
+=======
 const ProductDetail = ({ navigation }) => {
   const dark = useColorScheme();
   const [color, setColor] = useState("");
   useEffect(() => {
     dark === "dark" ? setColor("#333333") : setColor("#ffffff");
   }, [dark]);
+>>>>>>> 65f4c0d4de218ca17e0509eadf2a656ca78decee
   const [like, setLike] = useState(false);
   const panelRef = useRef(null);
   const [bsOpen, setBSOpen] = useState(false);
