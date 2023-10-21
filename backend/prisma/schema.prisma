@@ -19,7 +19,7 @@ model User {
   billingAddress  String?
   shippingAddress String?
   shippingInfo    String?
-  image           String?       @db.VarChar(255) @default("https://t4.ftcdn.net/jpg/03/46/93/61/360_F_346936114_RaxE6OQogebgAWTalE1myseY1Hbb5qPM.jpg")
+  image           String?         @db.VarChar(255)
   wishlists       Wishlist[]
   items           Item[]
   orders          Order[]
@@ -28,9 +28,9 @@ model User {
   comments        Comment[]
   adress          Adress[]
   favoriteItem    FavouriteItem[]
-   chats    Chat[]    @relation("ChatMembers")
+  chats           Chat[]          @relation("ChatMembers")
 
-  notification    Notification[]
+  notification Notification[]
 }
 
 enum Role {
@@ -92,24 +92,24 @@ model Order {
   user                User    @relation(fields: [userId], references: [id])
 }
 
-model Item {
-  id           Int             @id @default(autoincrement())
-  name         String
-  materials    Material[]
-  description  String
-  price        Int
-  images       Image[]
-  tags         Tag[]
-  reviewId     Int
-  userId       Int
-  user         User            @relation(fields: [userId], references: [id])
-  wishList     Wishlist[]
-  comments     Comment[]
-  reviews      Review[]
-  orderId      Int
-  order        Order           @relation(fields: [orderId], references: [id])
-  favoriteItem FavouriteItem[]
-}
+  model Item {
+    id           Int             @id @default(autoincrement())
+    name         String
+    materials    Material[]
+    description  String
+    price        Int
+    images       Image[]
+    tags         Tag[]
+    
+    userId       Int
+    user         User            @relation(fields: [userId], references: [id])
+    wishList     Wishlist[]
+    
+    reviews      Review[]
+  
+    order        Order    []      
+    favoriteItem FavouriteItem[]
+  }
 
 model Material {
   id           Int    @id @default(autoincrement())
@@ -126,7 +126,7 @@ model Comment {
   articleId Int
   itemId    Int
   article   Article @relation(fields: [articleId], references: [id])
-  item      Item    @relation(fields: [itemId], references: [id])
+
 }
 
 model Wishlist {
@@ -163,18 +163,15 @@ model Notification {
   userId Int
   user   User   @relation(fields: [userId], references: [id])
 }
+
 // prisma/schema.prisma
 
-
-
-
-
 model Chat {
-  id        Int       @id @default(autoincrement())
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  participants User[] @relation("ChatMembers")
-  messages    Message[]
+  id           Int       @id @default(autoincrement())
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  participants User[]    @relation("ChatMembers")
+  messages     Message[]
 }
 
 model Message {
@@ -182,14 +179,10 @@ model Message {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   text      String
-  
+
   sender Int
-  chat      Chat     @relation(fields: [chatId], references: [id])
-  chatId    Int
+  chat   Chat @relation(fields: [chatId], references: [id])
+  chatId Int
 }
+
 // prisma/schema.prisma
-
-
-
-
-

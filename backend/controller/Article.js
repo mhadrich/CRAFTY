@@ -5,15 +5,8 @@ require("dotenv").config();
 const POST = async (req, res) => {
   if (req.method === "POST") {
     try {
-      const {
-        status,
-        title,
-        tags,
-        description,
-        coverImage,
-        likes,
-        userId,
-      } = req.body;
+      const { status, title, tags, description, coverImage, likes, userId } =
+        req.body;
       const Article = await prisma.Article.create({
         data: {
           status,
@@ -79,54 +72,64 @@ const GETById = async (req, { params }) => {
   }
 };
 /*UPDATE Article*/
-const UPDATE = async (req, { params }) => {
+const UPDATE = async (req, res) => {
   try {
-    if (!params || !params.id) {
+    const { id } = req.params;
+    if (!id) {
       throw new Error("ID parameter is missing");
     }
-    const body = await req.json();
 
-    const { id } = params;
+    const { status, title, description, coverImage, userId } = req.body;
 
-    const updateData = { ...body };
+    const updateData = {};
+    if (status) {
+      updateData.status = status;
+    }
+    if (title) {
+      updateData.title = title;
+    }
+    if (description) {
+      updateData.description = description;
+    }
+    if (coverImage) {
+      updateData.coverImage = coverImage;
+    }
+    if (userId) {
+      updateData.userId = userId;
+    }
 
-    const updatedArticle = await prisma.Article.update({
-      where: { id },
+    const updatedUser = await prisma.article.update({
+      where: { id: parseInt(id) },
       data: updateData,
     });
 
-    return new Response(JSON.stringify(updatedArticle));
+    return res.status(200).json(updatedUser);
   } catch (error) {
     const message =
       error instanceof Error ? error.message : "An unknown error occurred";
-    return new Response(
-      JSON.stringify({ message: "Error updating Article", error: message }),
-      { status: 500 }
-    );
+    return res
+      .status(500)
+      .json({ message: "Error updating article", error: message });
   }
 };
 /*DELETE Article */
-const DELETE = async (req, { params }) => {
+const DELETE = async (req, res) => {
   try {
-    if (!params || !params.id) {
+    const { id } = req.params;
+    if (!id) {
       throw new Error("ID parameter is missing");
     }
-
-    const { id } = params;
-    await prisma.Article.delete({
-      where: { id },
+    await prisma.article.delete({
+      where: { id: parseInt(id) },
     });
 
-    return new Response(
-      JSON.stringify({ message: "Article deleted successfully" })
-    );
+    return res.status(200).json({ message: "article deleted successfully" });
   } catch (error) {
     const message =
       error instanceof Error ? error.message : "An unknown error occurred";
-    return new Response(
-      JSON.stringify({ message: "Error deleting Article", error: message }),
-      { status: 500 }
-    );
+    return res
+      .status(500)
+      .json({ message: "Error deleting User", error: message });
   }
 };
 

@@ -70,7 +70,7 @@ const TabNav = ({ navigation }) => {
         </Pressable>
         <Pressable
           onPress={() => {
-            navigation.navigate("Social");
+            navigation.navigate("Conversation");
           }}
           className="items-center justify-center gap-2"
         >

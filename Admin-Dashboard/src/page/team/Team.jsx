@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { useTheme } from "@mui/material";
 import { Box, Typography } from "@mui/material";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import GroupIcon from "@mui/icons-material/Group";
@@ -10,33 +9,36 @@ import DeleteOutlineTwoToneIcon from "@mui/icons-material/DeleteOutlineTwoTone";
 import UpdateIcon from "@mui/icons-material/Update";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { Tostify } from "../Tostify/ToastyFy";
 import { useNavigate } from "react-router-dom";
+import { Tostify } from "../Tostify/ToastyFy";
+
 const Team = () => {
-  const theme = useTheme();
   const navigate = useNavigate();
-  const [trigger, setTrigger] = useState(false);
-  const [data, setdata] = useState([]);
+  const [data, setData] = useState([]);
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get("http://localhost:4000/user/getusers");
+      setData(response.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
   useEffect(() => {
-    const endpoints = ["http://localhost:4000/user/getusers"];
-    Promise.all(endpoints.map((endpoint) => axios.get(endpoint)))
-      .then((results) => {
-        setdata(results[0].data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [trigger]);
-  const deleteOne = (id) => {
-    axios
-      .delete(`http://localhost:4000/user/deleteuser/${id}`)
-      .then(() => {
-        toast.success("Deleted successfully.");
-        setTrigger(!trigger);
-      })
-      .catch(() => {
-        toast.error("An error occurred. Please try again.");
-      });
+    fetchData();
+  }, []);
+
+  const deleteOne = async (id) => {
+    console.log(id, typeof id);
+    try {
+      await axios.delete(`http://localhost:4000/user/deleteuser/${id}`);
+      toast.success("Deleted successfully.");
+      fetchData();
+    } catch (error) {
+      console.error("Error deleting data:", error);
+      toast.error("An error occurred. Please try again.");
+    }
   };
 
   const columns = [
@@ -54,19 +56,20 @@ const Team = () => {
       headerAlign: "center",
     },
     {
+      field: "lastName",
+      headerName: "lastName",
+      flex: 1,
+      align: "center",
+      headerAlign: "center",
+    },
+    {
       field: "email",
       headerName: "email",
       flex: 1,
       align: "center",
       headerAlign: "center",
     },
-    {
-      field: "buisnessName",
-      headerName: "buisnessName",
-      flex: 1,
-      align: "center",
-      headerAlign: "center",
-    },
+
     {
       field: "role",
       headerName: "Role",

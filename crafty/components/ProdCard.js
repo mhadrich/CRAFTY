@@ -9,7 +9,6 @@ const ProdCard = ({ navigation }) => {
   const color = useColorScheme();
   const [like, setLike] = useState(false);
   const myImage = cld.image("sample");
-
   return (
     <View className="pr-4">
       <Pressable onPress={() => navigation.navigate("ProductDetail")}>

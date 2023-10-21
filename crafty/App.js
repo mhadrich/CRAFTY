@@ -11,7 +11,7 @@ import UpdatePassword from "./screens/Auth/UpdatePassword";
 import Authprovider from "./components/Authprovider/Authprovider";
 
 import ProductDetail from "./screens/ProductDetail";
-// import Chat from "./screens/Chat";
+import Chat from "./screens/Chat";
 import Conversation from "./screens/Conversation";
 import HomeNavSearch from "./components/Home/HomeNavSearch";
 import HomeSearch from "./components/Home/HomeSearch";
@@ -215,10 +215,10 @@ export default function App() {
             <Stack.Screen name="ItemReviewsList" component={ItemReviewsList} />
           </>
           {/* Chat screens */}
-          {/* <>
+          <>
             <Stack.Screen name="Chat" component={Chat} />
             <Stack.Screen name="Conversation" component={Conversation} />
-          </> */}
+          </>
           {/* profile */}
           <>
             <Stack.Screen
@@ -229,22 +229,25 @@ export default function App() {
             <Stack.Screen
               name="MyOrders"
               component={MyOrders}
-              options={{ headerTitle: "" }}
+              options={{ headerTitle: "", headerTintColor: "#8C633F" }}
             />
             <Stack.Screen
               name="OrderDetails"
               component={OrderDetails}
-              options={{ headerTitle: "OrderDetails" }}
+              options={{
+                headerTitle: "OrderDetails",
+                headerTintColor: "#8C633F",
+              }}
             />
             <Stack.Screen
               name="Settings"
               component={Settings}
-              options={{ headerTitle: "" }}
+              options={{ headerTitle: "", headerTintColor: "#8C633F" }}
             />
             <Stack.Screen
               name="ChangePassword"
               component={ChangePassword}
-              options={{ headerTitle: "" }}
+              options={{ headerTitle: "", headerTintColor: "#8C633F" }}
             />
           </>
           <Stack.Screen

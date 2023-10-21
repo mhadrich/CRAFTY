@@ -11,7 +11,7 @@ CREATE TABLE `User` (
     `billingAddress` VARCHAR(191) NULL,
     `shippingAddress` VARCHAR(191) NULL,
     `shippingInfo` VARCHAR(191) NULL,
-    `image` VARCHAR(255) NULL DEFAULT 'https://t4.ftcdn.net/jpg/03/46/93/61/360_F_346936114_RaxE6OQogebgAWTalE1myseY1Hbb5qPM.jpg',
+    `image` VARCHAR(255) NULL ,
 
     UNIQUE INDEX `User_businessName_key`(`businessName`),
     UNIQUE INDEX `User_email_key`(`email`),
