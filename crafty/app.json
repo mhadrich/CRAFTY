@@ -1,5 +1,17 @@
 {
   "expo": {
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "custom photos permission",
+          "cameraPermission": "Allow Crafty to open the camera",
+
+          "//": "Disables the microphone permission",
+          "microphonePermission": false
+        }
+      ]
+    ],
     "name": "mobile-app",
     "slug": "mobile-app",
     "version": "1.0.0",
@@ -11,11 +23,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true ,
+      "supportsTablet": true,
       "config": {
         "usesNonExemptEncryption": false
       }

@@ -39,7 +39,7 @@ const ArticleView = ({ navigation }) => {
       {/* SNEAKY */}
       <View
         style={{ opacity: val }}
-        className={`absolute shadow bg-white dark:bg-black w-full z-30 items-center h-28 justify-end pb-5`}
+        className={`absolute shadow bg-[#f9f9f9] dark:bg-[#111111] w-full z-30 items-center h-28 justify-end pb-5`}
       >
         <Text className="text-[#8C633F] font-semibold text-base">
           Gifts for her
