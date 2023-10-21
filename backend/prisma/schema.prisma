@@ -43,12 +43,12 @@ model Article {
   id          Int       @id @default(autoincrement())
   status      Boolean?  @default(false)
   title       String
-  description String
-  coverImage  String
+  description String  @db.LongText
+  coverImage  String  @db.LongText
   likes       Int
   userId      Int
   user        User      @relation(fields: [userId], references: [id])
-  images      Image[]
+  
   comments    Comment[]
 }
 
@@ -67,7 +67,7 @@ model Image {
  
   item      Item   []
   
-  article   Article []
+  
 }
 
 model Review {
