@@ -96,7 +96,7 @@ const CreateManyItems = async (items) => {
         
       }}
 
-// CreateManyArticles function
+
 const createManyArticles = async (articles) => {
     try {
         const createdArticles = await prisma.article.createMany({
@@ -107,7 +107,7 @@ const createManyArticles = async (articles) => {
                     description,
                     coverImage,
                     likes,
-                    userId, // Connect to an existing user
+                    userId,
                 };
             }),
         });
@@ -285,8 +285,8 @@ const items = [
         "description": "A high-quality handmade leather wallet with multiple card slots and a stylish design.",
         "price": 35,
         "imageUrls": [
-            "https://example.com/wallet1.jpg",
-            "https://example.com/wallet2.jpg"
+            "https://i.etsystatic.com/33743076/r/il/36d721/3850507966/il_794xN.3850507966_nz2p.jpg",
+            "https://i.etsystatic.com/33743076/r/il/36d721/3850507966/il_794xN.3850507966_nz2p.jpg"
         ],
         "tagNames": ["Handmade", "Fashion"],
         "userId": 3
@@ -296,8 +296,8 @@ const items = [
         "description": "This artisanal wooden coffee table will add warmth and character to your living room. Crafted with love and attention to detail.",
         "price": 250,
         "imageUrls": [
-            "https://example.com/table1.jpg",
-            "https://example.com/table2.jpg"
+            "https://i.etsystatic.com/31651949/r/il/338bd2/4762845339/il_794xN.4762845339_cjwq.jpg",
+            "https://i.etsystatic.com/31651949/r/il/7205e5/4714597888/il_794xN.4714597888_b1ep.jpg"
         ],
         "tagNames": ["Furniture", "Handmade"],
         "userId": 4
@@ -307,8 +307,8 @@ const items = [
         "description": "A stylish and durable leather backpack for all your adventures. Multiple compartments and comfortable straps.",
         "price": 85,
         "imageUrls": [
-            "https://example.com/backpack1.jpg",
-            "https://example.com/backpack2.jpg"
+            "https://i.etsystatic.com/10840798/r/il/199be4/2274981547/il_794xN.2274981547_qmsf.jpg",
+            "https://i.etsystatic.com/10840798/r/il/e8d8f5/2247941205/il_794xN.2247941205_djf1.jpg"
         ],
         "tagNames": ["Handmade", "Fashion"],
         "userId": 5
@@ -318,30 +318,20 @@ const items = [
         "description": "Elevate your home decor with this beautiful handmade ceramic vase. Perfect for flowers or as a standalone piece.",
         "price": 40,
         "imageUrls": [
-            "https://example.com/vase1.jpg",
-            "https://example.com/vase2.jpg"
+            "https://i.etsystatic.com/13346155/r/il/858e00/5080130415/il_794xN.5080130415_qb0m.jpg",
+            "https://i.etsystatic.com/13346155/r/il/0606d0/4684140243/il_794xN.4684140243_tmkz.jpg"
         ],
         "tagNames": ["Handmade", "Home Decor"],
         "userId": 2
     },
-    {
-        "name": "Artisanal Wooden Coffee Table",
-        "description": "This artisanal wooden coffee table will add warmth and character to your living room. Crafted with love and attention to detail.",
-        "price": 250,
-        "imageUrls": [
-            "https://i.example.com/table1.jpg",
-            "https://i.example.com/table2.jpg"
-        ],
-        "tagNames": ["Furniture", "Handmade"],
-        "userId": 3
-    },
+   
 
 ]
 const articles = [
     {
         "title": "The Art of Origami: Crafting Beauty from a Single Sheet of Paper",
         "description": "Origami, the traditional Japanese art of paper folding, is a craft that transforms a simple sheet of paper into intricate and stunning sculptures. Originating from Japan, this art form has captured the hearts of craft enthusiasts worldwide. The magic of origami lies in its simplicity and complexity, offering endless creative possibilities with just a square piece of paper. Artists master the techniques of folding, crimping, and sculpting to create delicate animals, intricate geometric designs, and more. Origami's appeal extends from beginner to expert, offering a unique sense of achievement with each completed piece. This article explores the history, techniques, and the beauty of origami, providing insights into the captivating world of crafting artistry with a single sheet of paper.",
-        "coverImage": "https://example.com/origami-cover.jpg",
+        "coverImage": "https://i.ytimg.com/vi/FmNIMUsuBNQ/maxresdefault.jpg",
         "likes": 90,
         "userId": 2,
         
@@ -349,7 +339,7 @@ const articles = [
     {
         "title": "Crafting with Beads: From Jewelry to Home Decor",
         "description": "Bead crafting is a versatile and vibrant craft that allows artists to create stunning jewelry, home decor, and more. This craft involves using an array of beads, including glass, acrylic, wood, and gemstone beads, to design unique and eye-catching pieces. The art of bead crafting enables crafters to explore their creativity by arranging colorful beads into intricate patterns, whether it's a beaded necklace, a beaded curtain, or a beaded tapestry. Bead crafting offers endless possibilities for personal expression and can be both relaxing and fulfilling. Dive into the world of bead crafting to discover the beauty and artistry of working with these tiny treasures to create exquisite handcrafted items.",
-        "coverImage": "https://example.com/bead-crafting-cover.jpg",
+        "coverImage": "https://img.kwcdn.com/product/Fancyalgo/VirtualModelMatting/f4836f1aff6874d6fe020a75b79717d4.jpg?imageMogr2/auto-orient%7CimageView2/2/w/1300/q/80/format/webp",
         "likes": 85,
         "userId": 2,
         
@@ -357,36 +347,11 @@ const articles = [
     {
         "title": "The Art of Woodturning: Crafting Elegance on a Lathe",
         "description": "Woodturning is a timeless craft that transforms raw wood into elegant and functional objects. Using a lathe, skilled woodturners shape and sculpt wood into items like bowls, vases, pens, and more. This craft combines the beauty of woodworking with the precision and artistry of turning wood on a lathe. Woodturners carefully select wood types, grains, and finishes to bring out the natural beauty of the material. The process of woodturning requires both skill and creativity, allowing artisans to craft unique and functional items. This article delves into the world of woodturning, exploring the tools, techniques, and the sheer joy of crafting elegance from a block of wood.",
-        "coverImage": "https://example.com/woodturning-cover.jpg",
+        "coverImage": "https://images.squarespace-cdn.com/content/v1/5263da08e4b0b68d00ba1ec4/27192bbc-6f24-43c0-a8ff-6a64099218a9/Midmod%2BCandlesticks.png",
         "likes": 75,
         "userId": 3,
         
     }
-    ,
-        {
-          "title": "The Art of Origami: Crafting Beauty from a Single Sheet of Paper",
-          "description": "Origami, the traditional Japanese art of paper folding, is a craft that transforms a simple sheet of paper into intricate and stunning sculptures. Originating from Japan, this art form has captured the hearts of craft enthusiasts worldwide. The magic of origami lies in its simplicity and complexity, offering endless creative possibilities with just a square piece of paper. Artists master the techniques of folding, crimping, and sculpting to create delicate animals, intricate geometric designs, and more. Origami's appeal extends from beginner to expert, offering a unique sense of achievement with each completed piece. This article explores the history, techniques, and the beauty of origami, providing insights into the captivating world of crafting artistry with a single sheet of paper.",
-          "coverImage": "https://example.com/origami-cover.jpg",
-          "likes": 90,
-          "userId": 4,
-          
-        },
-        {
-          "title": "Crafting with Beads: From Jewelry to Home Decor",
-          "description": "Bead crafting is a versatile and vibrant craft that allows artists to create stunning jewelry, home decor, and more. This craft involves using an array of beads, including glass, acrylic, wood, and gemstone beads, to design unique and eye-catching pieces. The art of bead crafting enables crafters to explore their creativity by arranging colorful beads into intricate patterns, whether it's a beaded necklace, a beaded curtain, or a beaded tapestry. Bead crafting offers endless possibilities for personal expression and can be both relaxing and fulfilling. Dive into the world of bead crafting to discover the beauty and artistry of working with these tiny treasures to create exquisite handcrafted items.",
-          "coverImage": "https://example.com/bead-crafting-cover.jpg",
-          "likes": 85,
-          "userId": 2,
-          
-        },
-        {
-          "title": "The Art of Woodturning: Crafting Elegance on a Lathe",
-          "description": "Woodturning is a timeless craft that transforms raw wood into elegant and functional objects. Using a lathe, skilled woodturners shape and sculpt wood into items like bowls, vases, pens, and more. This craft combines the beauty of woodworking with the precision and artistry of turning wood on a lathe. Woodturners carefully select wood types, grains, and finishes to bring out the natural beauty of the material. The process of woodturning requires both skill and creativity, allowing artisans to craft unique and functional items. This article delves into the world of woodturning, exploring the tools, techniques, and the sheer joy of crafting elegance from a block of wood.",
-          "coverImage": "https://example.com/woodturning-cover.jpg",
-          "likes": 75,
-          "userId": 2,
-          
-        }
       
 ];
 
