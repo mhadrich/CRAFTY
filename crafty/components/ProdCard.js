@@ -5,6 +5,14 @@ import { Rating } from "react-native-ratings";
 
 
 const ProdCard = ({ navigation ,data}) => {
+  
+  useEffect(()=>{
+
+    console.log("🚀 ~ file: ProdCard.js:8 ~ ProdCard ~ data 👌👌👌:", data.name)
+
+
+  
+  },[])
   const color = useColorScheme();
   console.log(color);
   const [like, setLike] = useState(false);
@@ -14,7 +22,7 @@ const ProdCard = ({ navigation ,data}) => {
       <Pressable onPress={()=>navigation.navigate("ProductDetail",{data})}>
         <Image
           className="w-40 h-44 rounded-lg"
-          src={data.images[0].url}
+          // src={data.images[0].url}
         />
       </Pressable>
       <Pressable
@@ -34,10 +42,10 @@ const ProdCard = ({ navigation ,data}) => {
             readonly={true}
             imageSize={16}
           />
-          <Text className="text-neutral-400 text-xs">({data.reviews.lenght})</Text>
+          <Text className="text-neutral-400 text-xs">({data.reviews.lenght})</Text> 
         </View>
         <Text className="dark:text-white text-neutral-400 text-xs">{data.user.name || "RG"}</Text>
-        <Text className="dark:text-white w-28 text-base font-semibold">{data.name}</Text>
+         <Text className="dark:text-white w-28 text-base font-semibold">{data.name}</Text> 
         <Text className="dark:text-white w-11 text-sm font-medium leading-tight">{data.price}$</Text>
       </View>
     </View>

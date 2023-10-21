@@ -11,7 +11,7 @@ const Fresh = ({ navigation }) => {
     axios
     .get(`http://${ADRESS_API}:4000/item/getitems`)
     .then((response) => {
-      console.log("🚀 ~ file: Fresh.js:14 ~ useEffect ~ response:", response.data)
+    
       return setData(response.data) 
     })
     .catch((err) => console.log(err))

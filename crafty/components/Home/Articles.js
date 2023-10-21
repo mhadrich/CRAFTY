@@ -10,7 +10,10 @@ const Articles = ({ navigation }) => {
   useEffect(() => {
     axios
       .get(`http://${ADRESS_API}:4000/article/getarticles`)
-      .then((response) => setData(response.data))
+      .then((response) => {
+        console.log("🚀 ~ file: Articles.js:14 ~ useEffect ~ response.data👍:", response.data)
+        return setData(response.data)
+      })
       .catch((err) => console.log(err));
   }, []);
   return (
@@ -36,10 +39,8 @@ const Articles = ({ navigation }) => {
           horizontal={true}
           showsHorizontalScrollIndicator={false}
         >
-          <ArticleCard navigation={navigation} />
-          <ArticleCard navigation={navigation} />
-          <ArticleCard navigation={navigation} />
-          <ArticleCard navigation={navigation} />
+        { data.map ((article)=>{ return(<ArticleCard navigation={navigation} article={article}/>)} )
+         }
         </ScrollView>
       </View>
     </View>
