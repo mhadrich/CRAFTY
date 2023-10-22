@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Text,
   View,
@@ -7,12 +7,15 @@ import {
   Keyboard,
   KeyboardAvoidingView,
 } from "react-native";
+import Loading from "../../components/Loading";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { Path, Svg } from "react-native-svg";
 import { useForm, Controller } from "react-hook-form";
 import { useAuth } from "../../components/Authprovider/Authprovider";
 import ADRESS_API from "../../Api";
+
+
 export default function Login({ navigation }) {
   const inputs = "mb-4 w-96 h-16 pl-3 bg-white rounded-md dark:bg-[#333333] dark:text-white";
   const inputsError =
@@ -20,17 +23,21 @@ export default function Login({ navigation }) {
   const Email_rgex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
   const { control, handleSubmit, formState: { errors } } = useForm()
   const { onLogin, onSignUp ,authState } = useAuth()
+  const [loading,setLoading]=useState(false)
   const LoginFunc = async(data) => {
     console.log("register", data);
+    setLoading(true)
     const res = await onLogin(data.Email, data.Password);
     console.log("🚀 ~ file: SignUp.js:28 ~ Login ~ res:", res);
     if (res === 200) {
       console.log("hello");
+      setLoading(false)
       navigation.navigate("Home");
     } else {
-      alert(res);
+      alert("LOGIN FAILED WRONG CREDENTIALS");
     }
   };
+  
   return (
     <SafeAreaView className="flex-1 bg-[f9f9f9] dark:bg-[#111111] items-center w-screen h-screen">
       <KeyboardAvoidingView
