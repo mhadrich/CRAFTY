@@ -43,31 +43,31 @@ model Article {
   id          Int       @id @default(autoincrement())
   status      Boolean?  @default(false)
   title       String
-  description String
-  coverImage  String
+  description String  @db.LongText
+  coverImage  String  @db.LongText
   likes       Int
   userId      Int
   user        User      @relation(fields: [userId], references: [id])
-  images      Image[]
+  
   comments    Comment[]
 }
 
 model Tag {
   id     Int    @id @default(autoincrement())
   tag    String
-  itemId Int
-  item   Item   @relation(fields: [itemId], references: [id])
+  
+  item   Item   []
 }
 
 model Image {
   id        Int     @id @default(autoincrement())
   url       String
-  reviewId  Int
-  review    Review  @relation(fields: [reviewId], references: [id])
-  itemId    Int
-  item      Item    @relation(fields: [itemId], references: [id])
-  articleId Int
-  article   Article @relation(fields: [articleId], references: [id])
+  
+  review    Review  []
+ 
+  item      Item   []
+  
+  
 }
 
 model Review {
@@ -88,18 +88,29 @@ model Order {
   trackingNumber      String
   deliveredProcessing Boolean
   userId              Int
-  items               Item[]
+  items               OrderItem[]
   user                User    @relation(fields: [userId], references: [id])
 }
+
+model OrderItem {
+  id        Int     @id @default(autoincrement())
+  itemId    Int
+  quantity  Int   // Add a 'quantity' field
+  order     Order   @relation(fields: [orderId], references: [id])
+  orderId   Int
+  item      Item    @relation(fields: [itemId], references: [id])
+}
+
 
   model Item {
     id           Int             @id @default(autoincrement())
     name         String
-    materials    Material[]
-    description  String
+   
+
+    description  String 
     price        Int
     images       Image[]
-    tags         Tag[]
+    tags         Tag[] 
     
     userId       Int
     user         User            @relation(fields: [userId], references: [id])
@@ -107,25 +118,18 @@ model Order {
     
     reviews      Review[]
   
-    order        Order    []      
+    order        OrderItem    []      
     favoriteItem FavouriteItem[]
   }
-
-model Material {
-  id           Int    @id @default(autoincrement())
-  materialUsed String
-  itemId       Int
-  items        Item[]
-}
 
 model Comment {
   id        Int     @id @default(autoincrement())
   body      String
   userId    Int
   user      User    @relation(fields: [userId], references: [id])
-  articleId Int
-  itemId    Int
-  article   Article @relation(fields: [articleId], references: [id])
+  articleId Article [] 
+ 
+  
 
 }
 

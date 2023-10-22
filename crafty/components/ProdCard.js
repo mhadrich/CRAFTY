@@ -4,17 +4,26 @@ import HeartIcon from "./HeartIcon";
 import { Rating } from "react-native-ratings";
 import { Cloudinary } from "@cloudinary/url-gen";
 
-const ProdCard = ({ navigation }) => {
+const ProdCard = ({ navigation ,data}) => {
+ const [Data,setData] = useState(false)
+  
+ useEffect(() => {
+ 
+  if (data) {
+    setData(data);
+  }
+}, [data]);
+
   const cld = new Cloudinary({ cloud: { cloudName: "ddtfqfamn" } });
   const color = useColorScheme();
   const [like, setLike] = useState(false);
   const myImage = cld.image("sample");
   return (
     <View className="pr-4">
-      <Pressable onPress={() => navigation.navigate("ProductDetail")}>
+      <Pressable onPress={()=>navigation.navigate("ProductDetail",{item:data})}>
         <Image
           className="w-40 h-44 rounded-lg"
-          src="https://i.etsystatic.com/22703156/r/il/8f4019/3358914263/il_1588xN.3358914263_dlpj.jpg"
+         source ={{uri: data ? data.images[0].url : ''}}
         />
       </Pressable>
       <Pressable
@@ -34,15 +43,11 @@ const ProdCard = ({ navigation }) => {
             readonly={true}
             imageSize={16}
           />
-          <Text className="text-neutral-400 text-xs">(24)</Text>
+          <Text className="text-neutral-400 text-xs">({data ?data.reviews.lenght :""})</Text> 
         </View>
-        <Text className="dark:text-white text-neutral-400 text-xs">Makah</Text>
-        <Text className="dark:text-white w-28 text-base font-semibold">
-          Wood Map
-        </Text>
-        <Text className="dark:text-white w-11 text-sm font-medium leading-tight">
-          30$
-        </Text>
+        <Text className="dark:text-white text-neutral-400 text-xs">{data ? data.user.name : "RG"}</Text>
+         <Text className="dark:text-white w-28 text-base font-semibold">{data ?data.name :""}</Text> 
+        <Text className="dark:text-white w-11 text-sm font-medium leading-tight">{data ?data.price :""}$</Text>
       </View>
     </View>
   );

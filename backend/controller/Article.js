@@ -5,13 +5,15 @@ require("dotenv").config();
 const POST = async (req, res) => {
   if (req.method === "POST") {
     try {
-      const { status, title, tags, description, coverImage, likes, userId } =
+      const {  title, description, coverImage, likes, userId ,image} =
         req.body;
-      const Article = await prisma.Article.create({
+      const Article = await prisma.article.create({
         data: {
-          status,
+          images: {
+            create: image,
+          },
           title,
-          tags,
+        
           description,
           coverImage,
           likes,

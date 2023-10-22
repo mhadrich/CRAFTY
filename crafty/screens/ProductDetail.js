@@ -18,10 +18,13 @@ import Reviews from "../components/ProdDetail/Reviews";
 import BottomSheet from "react-native-simple-bottom-sheet";
 import ItemReviewsList from "../components/ProdDetail/ItemReviewsList";
 
-const ProductDetail = ({ navigation }) => {
+const ProductDetail = ({ navigation,route}) => {
+  const { item } = route.params
+
   const dark = useColorScheme();
   const [color, setColor] = useState("");
   useEffect(() => {
+    console.log("data 🤞🤞🤞🤞🤞🤞🤞🤞:" ,item)
     dark === "dark" ? setColor("#333333") : setColor("#ffffff");
   }, [dark]);
   const [like, setLike] = useState(false);
@@ -30,10 +33,11 @@ const ProductDetail = ({ navigation }) => {
   return (
     <View>
       <ScrollView className=" dark:bg-[#111111]">
-        <Karousel />
+        <Karousel  data={item.images}/>
         <View className=" flex flex-row justify-between  p-4 items-center">
-          <TouchableOpacity className="h-12 w-72 p-2 rounded-lg border-1 bg-white dark:bg-black ">
+          <Pressable className="h-12 w-72 p-2 rounded-lg border-1 bg-white dark:bg-black " onPress={()=>{navigation.navigate("Chat", {  otherUserId: item.user.id})}}>
             <View className="flex flex-row items-center justify-between">
+              
               <Text className="dark:text-white"> Message seller</Text>
               <Svg className="rotate-45 mr-2 w-7 h-8" viewBox="0 0 32 32">
                 <Path
@@ -43,7 +47,7 @@ const ProductDetail = ({ navigation }) => {
                 />
               </Svg>
             </View>
-          </TouchableOpacity>
+          </Pressable>
           <HeartIcon state={like} />
           <Pressable onPress={() => navigation.navigate("MyBag")}>
             <BagIcon />
@@ -52,11 +56,11 @@ const ProductDetail = ({ navigation }) => {
         <View className="flex flex-row justify-between px-4 mt-4">
           <Text className="font-semibold text-2xl dark:text-white">A&C</Text>
           <Text className="font-semibold text-2xl dark:text-white">
-            $ 17.14
+            $  {item.price}
           </Text>
         </View>
         <Text className=" text-xs font-normal pl-4 text-slate-300">
-          Item Name
+          {item.name}
         </Text>
         <View className="flex flex-row pl-4 pb-2">
           <Rating
