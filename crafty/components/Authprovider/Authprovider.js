@@ -82,7 +82,8 @@ export const Authprovider = ({ children }) => {
       }
     };
     const Logout = async () => {
-      await secureStore.deleteItemAsync(Token_Key);
+      await secureStore.deleteItemAsync(Token_Key)
+      await secureStore.deleteItemAsync(Userid_Key);
       axios.defaults.headers.common["Authorization"] = ``;
       setAuthState({ token: null, authenticated: false ,userId :null });
     };

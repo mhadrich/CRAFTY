@@ -10,7 +10,7 @@ const ReviewData = [
   },
 ];
 
-const Reviews = () => {
+const Reviews = ({data}) => {
   const color = useColorScheme();
   return (
     <View>

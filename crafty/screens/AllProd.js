@@ -7,7 +7,7 @@ import ProdCard from "../components/ProdCard";
 import WheelPickerExpo from "react-native-wheel-picker-expo";
 import BottomSheet from "react-native-simple-bottom-sheet";
 
-const AllProd = ({ navigation }) => {
+const AllProd = ({ navigation ,data}) => {
   const dark=useColorScheme();
   const [color,setColor]=useState('');
   useEffect(()=>{
@@ -38,34 +38,17 @@ const AllProd = ({ navigation }) => {
           <FilteringButtons open={setBSOpen} sort={sort} />
         </View>
         <ScrollView
-          className=" dark:bg-[#111111] w-screen pl-7 pt-9 "
+          className=" flex flex-wrap dark:bg-[#111111] w-screen pl-7 pt-9 "
           showsVerticalScrollIndicator={false}
         >
-          <View className="flex flex-row">
+          <View className="flex  flex-wrap ">
+            <ProdCard navigation={navigation} />
+            <ProdCard navigation={navigation} />
             <ProdCard navigation={navigation} />
             <View className="p-4" />
-            <ProdCard navigation={navigation} />
+           
           </View>
-          <View className="flex flex-row">
-            <ProdCard navigation={navigation} />
-            <View className="p-4" />
-            <ProdCard navigation={navigation} />
-          </View>
-          <View className="flex flex-row">
-            <ProdCard navigation={navigation} />
-            <View className="p-4" />
-            <ProdCard navigation={navigation} />
-          </View>
-          <View className="flex flex-row">
-            <ProdCard navigation={navigation} />
-            <View className="p-4" />
-            <ProdCard navigation={navigation} />
-          </View>
-          <View className="flex flex-row">
-            <ProdCard navigation={navigation} />
-            <View className="p-4" />
-            <ProdCard navigation={navigation} />
-          </View>
+          
         </ScrollView>
       </View>
       {bsOpen && (

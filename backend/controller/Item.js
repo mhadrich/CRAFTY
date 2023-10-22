@@ -52,7 +52,7 @@ const GET = async (req, res) => {
       include: {
         images: true,
         tags: true,
-        reviews:true ,
+        reviews:{include:{user:true}} ,
         user :true ,
       },
     });

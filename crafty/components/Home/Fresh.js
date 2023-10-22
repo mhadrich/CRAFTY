@@ -30,7 +30,7 @@ const Fresh = ({ navigation }) => {
           </Text>
         </View>
         <View className="-left-12">
-          <TouchableOpacity onPress={() => navigation.navigate("AllProd")}>
+          <TouchableOpacity onPress={() => navigation.navigate("AllProd",{data})}>
             <Text className="dark:text-white text-xs font-normal">View all</Text>
           </TouchableOpacity>
         </View>
