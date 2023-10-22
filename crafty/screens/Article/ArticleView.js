@@ -6,7 +6,8 @@ import HeartIcon from "../../components/HeartIcon";
 import BottomSheet from "react-native-simple-bottom-sheet";
 import ArticleComments from "../../components/Article/ArticleComments";
 
-const ArticleView = ({ navigation }) => {
+const ArticleView = ({ navigation ,route}) => {
+const   {article} =route.params ;
   const dark=useColorScheme();
   const [color,setColor]=useState('');
   useEffect(()=>{
@@ -51,21 +52,21 @@ const ArticleView = ({ navigation }) => {
           <Image
             style={{ opacity: scrollY > 700 ? 1 - val - 0.5 : 1 }}
             className=" w-screen h-4/5"
-            src="https://i.etsystatic.com/40322965/r/il/2401a1/4719730318/il_1588xN.4719730318_79d9.jpg"
+            src={article.coverImage}
           />
 
           <Text
             style={{ opacity: scrollY > 700 ? 1 - val - 0.5 : 1 }}
             className=" pt-16 text-black dark:text-white text-3xl font-bold leading-9"
           >
-            Gifts for her
+           {article.title}
           </Text>
           <View className="flex flex-row justify-center items-center pb-16">
             <Text
               style={{ opacity: scrollY > 700 ? 1 - val - 0.5 : 1 }}
               className=" text-[#9B9B9B] text-sm font-medium leading-tight"
             >
-              90+ likes{" "}
+              {article.likes}+ likes{" "}
             </Text>
             <Svg
               style={{ opacity: scrollY > 700 ? 1 - val - 0.5 : 1 }}
@@ -86,51 +87,7 @@ const ArticleView = ({ navigation }) => {
         </View>
         <View className="items-center dark:bg-[#111111] justify-center px-10">
           <Text className="text-black dark:text-white text-sm font-normal leading-tight">
-            Lorem ipsum dolor sit amet consectetur. Lectus arcu eu interdum
-            turpis tincidunt semper ullamcorper. Et semper volutpat ut integer
-            ornare eget molestie elit arcu. Fermentum amet nullam aliquam eu sit
-            id a gravida purus. Facilisis fermentum sed scelerisque lorem
-            molestie id etiam. Lacus odio elementum malesuada curabitur a nec
-            maecenas. Lectus sit nulla non lobortis quam. Sed a morbi
-            sollicitudin quam felis maecenas felis consequat. Accumsan massa sed
-            dui consequat. Diam faucibus cras magna platea. Morbi lorem non
-            egestas neque. Dolor quam aliquam pellentesque pellentesque sit id
-            amet accumsan amet. Aliquam ultrices amet dolor et consectetur
-            condimentum vitae platea.Elementum id pellentesque morbi id. Odio
-            porta laoreet nam molestie gravida at ultrices cursus nam. Diam
-            facilisis et tellus urna felis. Tristique iaculis sit imperdiet
-            gravida auctor elementum nec. Lorem gravida dolor porta ipsum
-            accumsan molestie pellentesque. Quis hendrerit in dui pellentesque
-            sagittis scelerisque tristique ullamcorper. Egestas nulla praesent
-            mauris habitasse. Commodo risus a enim arcu malesuada convallis. Sit
-            risus euismod tempus lectus quis adipiscing elementum commodo
-            auctor. Morbi ligula arcu est nisl. Eu adipiscing tincidunt
-            adipiscing commodo hendrerit phasellus a. Mi phasellus eu nec
-            viverra. Vulputate in pellentesque et sapien. Tortor vel mattis
-            cursus tincidunt quam id euismod amet. Volutpat quis justo venenatis
-            tempor velit aliquam dictum. Lorem ipsum dolor sit amet consectetur.
-            Lectus arcu eu interdum turpis tincidunt semper ullamcorper. Et
-            semper volutpat ut integer ornare eget molestie elit arcu. Fermentum
-            amet nullam aliquam eu sit id a gravida purus. Facilisis fermentum
-            sed scelerisque lorem molestie id etiam. Lacus odio elementum
-            malesuada curabitur a nec maecenas. Lectus sit nulla non lobortis
-            quam. Sed a morbi sollicitudin quam felis maecenas felis consequat.
-            Accumsan massa sed dui consequat. Diam faucibus cras magna platea.
-            Morbi lorem non egestas neque. Dolor quam aliquam pellentesque
-            pellentesque sit id amet accumsan amet. Aliquam ultrices amet dolor
-            et consectetur condimentum vitae platea.Elementum id pellentesque
-            morbi id. Odio porta laoreet nam molestie gravida at ultrices cursus
-            nam. Diam facilisis et tellus urna felis. Tristique iaculis sit
-            imperdiet gravida auctor elementum nec. Lorem gravida dolor porta
-            ipsum accumsan molestie pellentesque. Quis hendrerit in dui
-            pellentesque sagittis scelerisque tristique ullamcorper. Egestas
-            nulla praesent mauris habitasse. Commodo risus a enim arcu malesuada
-            convallis. Sit risus euismod tempus lectus quis adipiscing elementum
-            commodo auctor. Morbi ligula arcu est nisl. Eu adipiscing tincidunt
-            adipiscing commodo hendrerit phasellus a. Mi phasellus eu nec
-            viverra. Vulputate in pellentesque et sapien. Tortor vel mattis
-            cursus tincidunt quam id euismod amet. Volutpat quis justo venenatis
-            tempor velit aliquam dictum.
+            {article.description}
           </Text>
           <View className=" mb-8 mt-12 w-full flex flex-row justify-between">
             <View className="items-start">
