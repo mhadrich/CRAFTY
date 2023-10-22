@@ -41,6 +41,7 @@ import Favorites from "./screens/Favorites";
 import FavNavSearch from "./components/Favorites.js/FavNavSearch";
 import { useColorScheme } from "react-native";
 import { StatusBar } from "react-native";
+import Loading from "./components/Loading";
 
 const Stack = createStackNavigator();
 
@@ -266,6 +267,11 @@ export default function App() {
               headerTitle: (props) => <FavNavSearch navigation={navigation} />,
             })}
           />
+          <Stack.Screen
+              name="Loading"
+              component={Loading}
+              options={{ headerShown: false }}
+            />
         </Stack.Navigator>
         <StatusBar
           barStyle={`${statusColor}`}

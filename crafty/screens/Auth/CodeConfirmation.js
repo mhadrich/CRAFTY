@@ -15,7 +15,7 @@ const CodeConfirmation = ({ navigation ,route }) => {
   const [inputValues, setInputValues] = useState(["", "", "", ""]);
   const inputRefs = [useRef(), useRef(), useRef(), useRef()];
   const inputs =
-    "w-16 h-16 pl-5 pt-1 bg-white font-semibold text-4xl rounded-md";
+    "w-16 h-16 pl-5 pt-1 bg-white font-semibold text-4xl rounded-md dark:bg-[#333333] dark:text-white";
 
     const data =route.params 
   const CodeConfirmationVerify = async ()=>{
@@ -47,7 +47,7 @@ const CodeConfirmation = ({ navigation ,route }) => {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-[f9f9f9] items-center w-screen h-screen">
+    <SafeAreaView className="flex-1 bg-[f9f9f9] dark:bg-[#111111] items-center w-screen h-screen">
       <KeyboardAvoidingView
         keyboardVerticalOffset={100}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -56,8 +56,8 @@ const CodeConfirmation = ({ navigation ,route }) => {
       >
         <View className="items-start">
           <TouchableWithoutFeedback className="gap-4" onPress={Keyboard.dismiss}>
-            <Text className="font-bold text-4xl">Code Confirmation</Text>
-            <Text className="">
+            <Text className="font-bold text-4xl dark:text-white">Code Confirmation</Text>
+            <Text className="dark:text-white">
               Please, enter the code you received via email.
             </Text>
             <View className="flex flex-row gap-4 left-5">
