@@ -354,10 +354,11 @@ const articles = [
     }
       
 ];
-
-    createManyUsers( Users)
-    CreateManyItems(items)
-    createManyArticles(articles) 
-      
+ const  seed = async() =>{ 
+    await createManyUsers( Users)
+   await  CreateManyItems(items)
+   await createManyArticles(articles)  }
+    
+      seed()
 
  
