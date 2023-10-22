@@ -49,9 +49,14 @@ const Profile = ({ navigation }) => {
   };
   if (authenticated === true) {
     return (
-      <ScrollView className="dark:bg-[#111111]" showsVerticalScrollIndicator={false}>
+      <ScrollView
+        className="dark:bg-[#111111]"
+        showsVerticalScrollIndicator={false}
+      >
         <View className=" mt-[18%] ">
-          <Text className="text-4xl font-bold ml-5 mb-2 dark:text-white">My Profile</Text>
+          <Text className="text-4xl font-bold ml-5 mb-2 dark:text-white">
+            My Profile
+          </Text>
           <View className=" flex flex-row items-center mt-[50pw] p-5  ">
             <Image
               className="w-[70px] h-[70px] rounded-[200px] mr-5"
@@ -81,7 +86,9 @@ const Profile = ({ navigation }) => {
                     onPress={() => navigation.navigate("MyOrders")}
                   >
                     <View className="flex flex-row justify-between">
-                      <Text className="text-base font-bold dark:text-white">My Orders</Text>
+                      <Text className="text-base font-bold dark:text-white">
+                        My Orders
+                      </Text>
                       <Image
                         className="w-[18px] h-[18px] mt-2 mr-2"
                         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAnUlEQVR4nO3aQQrCQBBE0X+R6cYbSTQrvf85RBjBjQt31UU9yD7FTyAhgQgpDZzADVgMdgLPfTz2sJHuX0NGj6l98tZjLgxUGSOqUkZUpYyoShlRKaMqZVSljCqrMv1jzMJkzMFAFkPa4dJqh5u9M0JESqhICRUpoSIlVKSEis6zk4h2KLFcPoYeDiPYfzyMH/G5tN5VrtPesSP4zwsjFlWYroy7PAAAAABJRU5ErkJggg=="
@@ -167,7 +174,9 @@ const Profile = ({ navigation }) => {
                 <View className="flex justify-between ml-4 mb-3 mt-3">
                   <TouchableOpacity onPress={() => navigation.navigate("")}>
                     <View className="flex flex-row justify-between">
-                      <Text className="text-base font-bold dark:text-white">PromoCodes</Text>
+                      <Text className="text-base font-bold dark:text-white">
+                        PromoCodes
+                      </Text>
                       <Image
                         className="w-[18px] h-[18px] mt-2 mr-2"
                         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAnUlEQVR4nO3aQQrCQBBE0X+R6cYbSTQrvf85RBjBjQt31UU9yD7FTyAhgQgpDZzADVgMdgLPfTz2sJHuX0NGj6l98tZjLgxUGSOqUkZUpYyoShlRKaMqZVSljCqrMv1jzMJkzMFAFkPa4dJqh5u9M0JESqhICRUpoSIlVKSEis6zk4h2KLFcPoYeDiPYfzyMH/G5tN5VrtPesSP4zwsjFlWYroy7PAAAAABJRU5ErkJggg=="
@@ -188,7 +197,9 @@ const Profile = ({ navigation }) => {
                     onPress={() => navigation.navigate("Reviews")}
                   >
                     <View className="flex flex-row justify-between">
-                      <Text className="text-base font-bold dark:text-white">My reviews</Text>
+                      <Text className="text-base font-bold dark:text-white">
+                        My reviews
+                      </Text>
                       <Image
                         className="w-[18px] h-[18px] mt-2 mr-2"
                         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAnUlEQVR4nO3aQQrCQBBE0X+R6cYbSTQrvf85RBjBjQt31UU9yD7FTyAhgQgpDZzADVgMdgLPfTz2sJHuX0NGj6l98tZjLgxUGSOqUkZUpYyoShlRKaMqZVSljCqrMv1jzMJkzMFAFkPa4dJqh5u9M0JESqhICRUpoSIlVKSEis6zk4h2KLFcPoYeDiPYfzyMH/G5tN5VrtPesSP4zwsjFlWYroy7PAAAAABJRU5ErkJggg=="
@@ -265,7 +276,9 @@ const Profile = ({ navigation }) => {
                   onPress={() => navigation.navigate("Settings")}
                 >
                   <View className="flex flex-row justify-between">
-                    <Text className="text-base font-bold dark:text-white">Settings</Text>
+                    <Text className="text-base font-bold dark:text-white">
+                      Settings
+                    </Text>
                     <Image
                       className="w-[18px] h-[18px] mt-2 mr-2"
                       src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAnUlEQVR4nO3aQQrCQBBE0X+R6cYbSTQrvf85RBjBjQt31UU9yD7FTyAhgQgpDZzADVgMdgLPfTz2sJHuX0NGj6l98tZjLgxUGSOqUkZUpYyoShlRKaMqZVSljCqrMv1jzMJkzMFAFkPa4dJqh5u9M0JESqhICRUpoSIlVKSEis6zk4h2KLFcPoYeDiPYfzyMH/G5tN5VrtPesSP4zwsjFlWYroy7PAAAAABJRU5ErkJggg=="
@@ -295,15 +308,18 @@ const Profile = ({ navigation }) => {
     );
   } else {
     return (
-      <View className="flex items-center justify-center h-screen">
-        <Text className="text-lg font-bold text-center">
-          You don't have an account. Please {"\n"}
+      <View className="flex items-center justify-center h-screen dark:bg-[#111111]">
+        <Text className="text-lg font-bold text-center dark:text-white">
+          You don't have an account.
         </Text>
         <View className="flex flex-row items-center justify-center">
+          <Text className="text-lg font-bold dark:text-white">Please </Text>
           <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-            <Text className="text-amber-700 underline text-lg">
-              login first
-            </Text>
+            <Text className="text-[#BF9B7A] underline text-lg font-semibold">Log In</Text>
+          </TouchableOpacity>
+          <Text className="text-lg font-bold dark:text-white"> or </Text>
+          <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
+            <Text className="text-[#BF9B7A] underline text-lg font-semibold">Sign Up</Text>
           </TouchableOpacity>
         </View>
       </View>
