@@ -14,8 +14,8 @@ import axios from "axios";
 import ADRESS_API from "../../Api";
 const UpdatePassword = ({ navigation ,route}) => {
   const Passwoerd_regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
-  const inputs = "mb-4 w-96 h-16 pl-3 bg-white rounded-md";
-  const inputsError = "mb-4 w-96 h-16 pl-3 bg-white rounded-md border border-red-500  "
+  const inputs = "mb-4 w-96 h-16 pl-3 bg-white rounded-md dark:bg-[#333333] dark:text-white";
+  const inputsError = "mb-4 w-96 h-16 pl-3 bg-white rounded-md border border-red-500 dark:bg-[#333333] dark:text-white"
   const {
     control,
     handleSubmit,
@@ -45,7 +45,7 @@ const UpdatePassword = ({ navigation ,route}) => {
     
   
   return (
-    <SafeAreaView className="flex-1 bg-[f9f9f9] items-center w-96 h-screen">
+    <SafeAreaView className="flex-1 bg-[f9f9f9] dark:bg-[#111111] items-center w-screen h-screen">
       <KeyboardAvoidingView
         keyboardVerticalOffset={100}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -55,8 +55,8 @@ const UpdatePassword = ({ navigation ,route}) => {
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <View className=" items-end justify-center">
             <View>
-              <Text className="font-bold text-4xl mb-20">Update Password</Text>
-              <Text className="mb-3"> Please update your password.</Text>
+              <Text className="font-bold text-4xl mb-20  dark:text-white">Update Password</Text>
+              <Text className="mb-3 dark:text-white"> Please update your password.</Text>
               <Controller
                 control={control}
                 name="New password"

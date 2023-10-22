@@ -13,7 +13,7 @@ import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function ForgetPassword({ navigation }) {
-  const inputs = "w-96 px-4 h-16 bg-white rounded-md";
+  const inputs = "w-96 px-4 h-16 bg-white rounded-md dark:bg-[#333333] dark:text-white";
   const [email, setemail] = useState();
   const sendEmail = async () => {
     try {
@@ -37,7 +37,7 @@ export default function ForgetPassword({ navigation }) {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-[f9f9f9]  ">
+    <SafeAreaView className="flex-1 bg-[f9f9f9] dark:bg-[#111111]">
       <KeyboardAvoidingView
         keyboardVerticalOffset={100}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -46,9 +46,9 @@ export default function ForgetPassword({ navigation }) {
       >
         <View className="-top-8  items-start px-4 justify-center">
           <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <Text className="font-bold text-4xl mb-20 ">Forgot Password</Text>
+            <Text className="font-bold text-4xl mb-20 dark:text-white">Forgot Password</Text>
             <View className="flex flex-row mb-4 ml-2">
-              <Text>
+              <Text className="dark:text-white">
                 Please, enter your email address. We will send you a
                 verification code.
               </Text>
