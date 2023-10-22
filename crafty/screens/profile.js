@@ -312,7 +312,7 @@ const Profile = ({ navigation }) => {
         <Text className="text-lg font-bold text-center dark:text-white">
           You don't have an account.
         </Text>
-        <View className="flex flex-row items-center justify-center">
+        <View className="flex flex-row gap-2 items-center justify-center">
           <Text className="text-lg font-bold dark:text-white">Please </Text>
           <TouchableOpacity onPress={() => navigation.navigate("Login")}>
             <Text className="text-[#BF9B7A] underline text-lg font-semibold">Log In</Text>
