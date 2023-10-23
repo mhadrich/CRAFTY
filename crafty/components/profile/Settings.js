@@ -11,6 +11,7 @@ const Settings = ({ navigation }) => {
     dateOfBirth: "2003-07-16",
     password: "*********",
   });
+
   const [salesEnabled, setSalesEnabled] = useState(false);
   const [newArrivalsEnabled, setNewArrivalsEnabled] = useState(false);
   const [deliveryStatusEnabled, setDeliveryStatusEnabled] = useState(false);
@@ -32,7 +33,15 @@ const Settings = ({ navigation }) => {
 
   const [bsOpen, setBSOpen] = useState(false);
   const panelRef = useRef(null);
-
+  useEffect(() => {
+    axios
+      .get()
+      .then((res) => {
+        setnewInformation.name(res.data.name);
+        setnewInformation.dateOfBirth(res.data.dateOfBirth);
+      })
+      .catch((error) => console.log(error, "setting's data failed"));
+  }, [newInformation]);
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View

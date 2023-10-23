@@ -11,8 +11,8 @@ import UpdatePassword from "./screens/Auth/UpdatePassword";
 import Authprovider from "./components/Authprovider/Authprovider";
 
 import ProductDetail from "./screens/ProductDetail";
-import Chat from "./screens/Chat";
-import Conversation from "./screens/Conversation";
+// import Chat from "./screens/Chat";
+// import Conversation from "./screens/Conversation";
 import HomeNavSearch from "./components/Home/HomeNavSearch";
 import HomeSearch from "./components/Home/HomeSearch";
 import SearchNav from "./components/Home/SearchNav";
@@ -39,14 +39,14 @@ import Settings from "./components/profile/Settings";
 import ChangePassword from "./components/profile/ChangePassword";
 import AddItem from "./screens/AddItem";
 import Favorites from "./screens/Favorites";
-import FavNavSearch from "./components/Favorites.js/FavNavSearch"
+import FavNavSearch from "./components/Favorites.js/FavNavSearch";
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
       <Authprovider>
-        <Stack.Navigator initialRouteName="Welcomepage">
+        <Stack.Navigator initialRouteName="Home">
           <Stack.Screen
             name="Welcomepage"
             component={Welcomepage}
@@ -130,7 +130,6 @@ export default function App() {
               options={{ headerTintColor: "#8C633F" }}
             />
             <Stack.Screen name="SearchFilters" component={SearchFilters} />
-            
           </>
           {/* CART */}
           <>
@@ -199,10 +198,10 @@ export default function App() {
             <Stack.Screen name="ItemReviewsList" component={ItemReviewsList} />
           </>
           {/* Chat screens */}
-          <>
+          {/* <>
             <Stack.Screen name="Chat" component={Chat} />
             <Stack.Screen name="Conversation" component={Conversation} />
-          </>
+          </> */}
           {/* profile */}
           <>
             <Stack.Screen
@@ -242,12 +241,14 @@ export default function App() {
               headerTintColor: "#8C633F",
             }}
           />
-          <Stack.Screen name="Favorites" component={Favorites} options={({ navigation }) => ({
-                headerLeft: null,
-                headerTitle: (props) => (
-                  <FavNavSearch navigation={navigation} />
-                ),
-              })} />
+          <Stack.Screen
+            name="Favorites"
+            component={Favorites}
+            options={({ navigation }) => ({
+              headerLeft: null,
+              headerTitle: (props) => <FavNavSearch navigation={navigation} />,
+            })}
+          />
         </Stack.Navigator>
       </Authprovider>
     </NavigationContainer>

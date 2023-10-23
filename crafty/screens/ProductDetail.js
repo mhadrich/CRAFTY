@@ -10,7 +10,7 @@ import Karousel from "../components/Home/Carousel";
 import Svg, { Path } from "react-native-svg";
 import Accordion from "../components/ProdDetail/Accordion";
 import ProdCard from "../components/ProdCard";
-import HeartIcon from "../components/HeartIcon";
+// import HeartIcon from "../components/HeartIcon";
 import BagIcon from "../components/BagIcon";
 import { Rating } from "react-native-ratings";
 import Reviews from "../components/ProdDetail/Reviews";
@@ -38,7 +38,7 @@ const ProductDetail = ({ navigation }) => {
               </Svg>
             </View>
           </TouchableOpacity>
-          <HeartIcon state={like} />
+          {/* <HeartIcon state={like} /> */}
           <Pressable onPress={() => navigation.navigate("MyBag")}>
             <BagIcon />
           </Pressable>

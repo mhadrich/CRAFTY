@@ -2,7 +2,7 @@ import { View, Text, Image, useColorScheme } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import { Svg, Path } from "react-native-svg";
-import HeartIcon from "../../components/HeartIcon";
+// import HeartIcon from "../../components/HeartIcon";
 import BottomSheet from "react-native-simple-bottom-sheet";
 import ArticleComments from "../../components/Article/ArticleComments";
 
@@ -157,7 +157,7 @@ const ArticleView = ({ navigation }) => {
             }}
             className="scale-150 mb-16"
           >
-            <HeartIcon />
+            {/* <HeartIcon /> */}
           </TouchableOpacity>
         </View>
       </ScrollView>
