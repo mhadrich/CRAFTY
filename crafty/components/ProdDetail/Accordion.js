@@ -3,25 +3,23 @@ import { Text, View, TouchableOpacity, useColorScheme } from "react-native";
 // import data from "data.json";
 import { Svg, Path } from "react-native-svg";
 
-const data = [
-  {
-    Title: "Item Details",
-    Description:
-      "These high quality personalized marble acrylic /mango wood coasters will make unique and one of a kind gifts for a wedding , anniversary , housewarming, bridal shower, wedding favors , or any occasion that needs personal touch. ",
-  },
-  {
-    Title: "Shipping Infos",
-    Description:
-      "\nThis crafter supports Crafty Guaranteed shipping and also ship by his own means.\n\nOnce your order has been processed and shipped, we will provide you with a tracking number. You can use this number to monitor the progress of your shipment on our website or the carrier's website.\n\nDelivery times may vary depending on your location, shipping method, and any unforeseen circumstances like weather delays. We will do our best to ensure your items reach you as quickly as possible.\n",
-  },
-  {
-    Title: "Support",
-    Description:
-      "If you have any questions or concerns about your shipment, please don't hesitate to contact our friendly customer support team. We are here to assist you.\n \nWe value your business and strive to make your shipping experience with Crafty as smooth as possible. Thank you for choosing us, and we look forward to serving you!\n \nIf you have any further questions or need assistance with your order, please don't hesitate to get in touch with our customer support team.\n \nsupport@crafty.com \n",
-  },
-];
-
-export default function Accordion() {
+export default function Accordion({ details }) {
+  const data = [
+    {
+      Title: "Item Details",
+      Description: `${details.description}`
+    },
+    {
+      Title: "Shipping Infos",
+      Description:
+        "\nThis crafter supports Crafty Guaranteed shipping and also ship by his own means.\n\nOnce your order has been processed and shipped, we will provide you with a tracking number. You can use this number to monitor the progress of your shipment on our website or the carrier's website.\n\nDelivery times may vary depending on your location, shipping method, and any unforeseen circumstances like weather delays. We will do our best to ensure your items reach you as quickly as possible.\n",
+    },
+    {
+      Title: "Support",
+      Description:
+        "If you have any questions or concerns about your shipment, please don't hesitate to contact our friendly customer support team. We are here to assist you.\n \nWe value your business and strive to make your shipping experience with Crafty as smooth as possible. Thank you for choosing us, and we look forward to serving you!\n \nIf you have any further questions or need assistance with your order, please don't hesitate to get in touch with our customer support team.\n \nsupport@crafty.com \n",
+    },
+  ];
   const color = useColorScheme();
   const [currentIndex, setCurrentIndex] = React.useState(null);
   const [isRotated, setIsRotated] = React.useState(false);
@@ -62,7 +60,7 @@ export default function Accordion() {
                 <View className="px-4">
                   {Title === "Item Details" && index === currentIndex && (
                     <Text className="text-sky-500 mb-2 underline underline-offset-4">
-                      Tag1-Tag2-Tag3
+                      {/* Tag1-Tag2-Tag3 */}
                     </Text>
                   )}
                   {index === currentIndex && (
