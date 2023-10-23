@@ -34,7 +34,7 @@ const POST = async (req, res) => {
 /* Get Articles */
 const GET = async (req, res) => {
   try {
-    const Articles = await prisma.Article.findMany();
+    const Articles = await prisma.Article.findMany({include:{user:true}});
     return res.status(200).json(Articles);
   } catch (error) {
     const message =
