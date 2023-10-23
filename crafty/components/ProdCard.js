@@ -3,14 +3,30 @@ import React, { useEffect, useState } from "react";
 import HeartIcon from "./HeartIcon";
 import { Rating } from "react-native-ratings";
 import { Cloudinary } from "@cloudinary/url-gen";
-
+import { useAuth } from "./Authprovider/Authprovider";
+import axios from 'axios';
+import ADRESS_API from "../Api"
+import { CloudinaryTransformable } from "@cloudinary/url-gen/assets/CloudinaryTransformable";
 const ProdCard = ({ navigation ,data}) => {
+ const  {authState} =useAuth()
  const [Data,setData] = useState(false)
+ AddToFavorite=async()=>{
   
+  try {
+ 
+    res = await  axios.post(`http://${ADRESS_API }:4000/favourite/addfavourite`,{ "userId":authState&&authState.userId*1, "itemId":data&&data.id })
+    console.log(res,"res 👌👌👌👌👌👌👌")
+ }
+ catch (error) {
+  console.log("🚀 ~  file: ProdCard.js:16 ~ AddToFavorite=async ~ error:", error)
+  
+ }
+}
  useEffect(() => {
  
   if (data) {
     setData(data);
+    console.log(data,"🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈")
   }
 }, [data]);
 
@@ -23,11 +39,12 @@ const ProdCard = ({ navigation ,data}) => {
       <Pressable onPress={()=>navigation.navigate("ProductDetail",{item:data})}>
         <Image
           className="w-40 h-44 rounded-lg"
-         source ={{uri: data ? data.images[0].url : ''}}
+         source ={{uri: data ? data.images[0].url : '#'}}
         />
       </Pressable>
       <Pressable
-        onPressOut={() => setLike(!like)}
+        onPressOut={() => { AddToFavorite()
+          setLike(!like) ; }}
         className="-top-5 -right-32 "
       >
         <HeartIcon state={like} />

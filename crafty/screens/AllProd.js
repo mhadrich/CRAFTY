@@ -7,7 +7,8 @@ import ProdCard from "../components/ProdCard";
 import WheelPickerExpo from "react-native-wheel-picker-expo";
 import BottomSheet from "react-native-simple-bottom-sheet";
 
-const AllProd = ({ navigation ,data}) => {
+const AllProd = ({ navigation ,route}) => {
+  const {data}= route.params
   const dark=useColorScheme();
   const [color,setColor]=useState('');
   useEffect(()=>{
@@ -17,6 +18,7 @@ const AllProd = ({ navigation ,data}) => {
   const [sort, setSort] = useState(null);
   const panelRef = useRef(null);
   const [bsOpen, setBSOpen] = useState(false);
+ 
   console.log(sort);
   const SORTING =
     "Popular,Newest,Customer Review,Price: low to high,Price:high to low".split(
@@ -42,9 +44,10 @@ const AllProd = ({ navigation ,data}) => {
           showsVerticalScrollIndicator={false}
         >
           <View className="flex  flex-wrap ">
-            <ProdCard navigation={navigation} />
-            <ProdCard navigation={navigation} />
-            <ProdCard navigation={navigation} />
+          {data &&data.map((item, key) => {
+    return (<ProdCard navigation={navigation} data={item} index={key} />);
+  })}
+            
             <View className="p-4" />
            
           </View>
