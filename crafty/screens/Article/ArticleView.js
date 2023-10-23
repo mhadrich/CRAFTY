@@ -5,14 +5,18 @@ import { Svg, Path } from "react-native-svg";
 import HeartIcon from "../../components/HeartIcon";
 import BottomSheet from "react-native-simple-bottom-sheet";
 import ArticleComments from "../../components/Article/ArticleComments";
+import axios from "axios";
+import ADRESS_API from "../../Api";
 
-const ArticleView = ({ navigation ,route}) => {
-const   {article} =route.params ;
-  const dark=useColorScheme();
-  const [color,setColor]=useState('');
-  useEffect(()=>{
-    dark==="dark" ? setColor("#333333") : setColor("#ffffff")
-  },[dark])
+const ArticleView = ({ navigation, route }) => {
+  const { article } = route.params;
+  console.log(article.user);
+  const [written, setWritten] = useState("");
+  const dark = useColorScheme();
+  const [color, setColor] = useState("");
+  useEffect(() => {
+    dark === "dark" ? setColor("#333333") : setColor("#ffffff");
+  }, [dark]);
   const panelRef = useRef(null);
   const [bsOpen, setBSOpen] = useState(false);
   const [scrollY, setScrollY] = useState(0);
@@ -43,7 +47,7 @@ const   {article} =route.params ;
         className={`absolute shadow bg-[#f9f9f9] dark:bg-[#111111] w-full z-30 items-center h-28 justify-end pb-5`}
       >
         <Text className="text-[#8C633F] font-semibold text-base">
-          Gifts for her
+          {article.title}
         </Text>
       </View>
       {/* SNEAKY */}
@@ -57,16 +61,16 @@ const   {article} =route.params ;
 
           <Text
             style={{ opacity: scrollY > 700 ? 1 - val - 0.5 : 1 }}
-            className=" pt-16 text-black dark:text-white text-3xl font-bold leading-9"
+            className=" text-center mb-2 pt-16 text-black dark:text-white text-3xl font-bold leading-9"
           >
-           {article.title}
+            {article.title}
           </Text>
           <View className="flex flex-row justify-center items-center pb-16">
             <Text
               style={{ opacity: scrollY > 700 ? 1 - val - 0.5 : 1 }}
               className=" text-[#9B9B9B] text-sm font-medium leading-tight"
             >
-              {article.likes}+ likes{" "}
+              {article.likes} likes{" "}
             </Text>
             <Svg
               style={{ opacity: scrollY > 700 ? 1 - val - 0.5 : 1 }}
@@ -95,7 +99,7 @@ const   {article} =route.params ;
                 Written by
               </Text>
               <Text className="text-black dark:text-white text-sm font-semibold leading-tight">
-                Zeff
+                {article.user.name} {article.user.lastName}
               </Text>
             </View>
             <View className=" items-end">
@@ -104,7 +108,7 @@ const   {article} =route.params ;
               </Text>
 
               <Text className="text-black dark:text-white text-sm font-semibold leading-tight">
-                20/77/2077
+                20/10/2023
               </Text>
             </View>
           </View>
@@ -123,7 +127,7 @@ const   {article} =route.params ;
           <BottomSheet
             isOpen={true}
             wrapperStyle={{
-              backgroundColor:`${color}`
+              backgroundColor: `${color}`,
             }}
             onClose={() => setBSOpen(false)}
             sliderMinHeight={0}

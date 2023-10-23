@@ -12,7 +12,7 @@ const ArticleCard = ({ navigation ,article}) => {
         src={article.coverImage? article.coverImage :"#"}
       />
       <View className="w-52 h-24 justify-center items-center bg-[#F2E0C9] rounded-b-lg">
-        <Text className="text-black text-lg font-semibold">{article.title ? article.title :""}</Text>
+        <Text className="text-black text-lg font-semibold text-center">{article.title ? article.title :""}</Text>
       </View>
     </TouchableOpacity>
   );

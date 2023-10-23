@@ -1,11 +1,14 @@
-import { Text, View, Image } from "react-native";
+import { Text, View, Image, useColorScheme } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../components/Authprovider/Authprovider";
 import axios from "axios";
 import { TouchableOpacity, ScrollView } from "react-native-gesture-handler";
 import ADRESS_API from "../Api";
+import TabNav from "../components/TabNav/TabNav";
+import { Svg, Path } from "react-native-svg";
 
 const Profile = ({ navigation }) => {
+  const color = useColorScheme();
   const { authState, onLogout } = useAuth();
   const { authenticated, userId } = authState;
   const [data, setData] = useState({});
@@ -47,12 +50,10 @@ const Profile = ({ navigation }) => {
       alert(res);
     }
   };
-  if (authenticated === true) {
+  if (authenticated === false) {
     return (
-      <ScrollView
-        className="dark:bg-[#111111]"
-        showsVerticalScrollIndicator={false}
-      >
+      <View className="dark:bg-[#111111] w-screen h-screen">
+        <TabNav navigation={navigation} />
         <View className=" mt-[18%] ">
           <Text className="text-4xl font-bold ml-5 mb-2 dark:text-white">
             My Profile
@@ -78,7 +79,6 @@ const Profile = ({ navigation }) => {
           </View>
           <View className="divide-y divide-slate-200">
             {/* User settings */}
-
             {data.role === "user" && (
               <View>
                 <View className="flex justify-between ml-4 mb-3 mt-3 ">
@@ -89,12 +89,17 @@ const Profile = ({ navigation }) => {
                       <Text className="text-base font-bold dark:text-white">
                         My Orders
                       </Text>
-                      <Image
-                        className="w-[18px] h-[18px] mt-2 mr-2"
-                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAnUlEQVR4nO3aQQrCQBBE0X+R6cYbSTQrvf85RBjBjQt31UU9yD7FTyAhgQgpDZzADVgMdgLPfTz2sJHuX0NGj6l98tZjLgxUGSOqUkZUpYyoShlRKaMqZVSljCqrMv1jzMJkzMFAFkPa4dJqh5u9M0JESqhICRUpoSIlVKSEis6zk4h2KLFcPoYeDiPYfzyMH/G5tN5VrtPesSP4zwsjFlWYroy7PAAAAABJRU5ErkJggg=="
-                      ></Image>
+                      <Svg
+                        className="w-4 h-4 mr-4 mt-2"
+                        viewBox="0 0 6 8"
+                        fill="none"
+                      >
+                        <Path
+                          d="M0.726562 7.06L3.7799 4L0.726562 0.94L1.66656 -4.10887e-08L5.66656 4L1.66656 8L0.726562 7.06Z"
+                          fill={color === "light" ? "#222222" : "#ffffff"}
+                        />
+                      </Svg>
                     </View>
-
                     <Text className="text-[#999] text-s">
                       Already have {orders.length} orders
                     </Text>
@@ -111,12 +116,21 @@ const Profile = ({ navigation }) => {
                       <Text className="text-base font-bold dark:text-white">
                         My Conversations
                       </Text>
+                      <Svg
+                        className="w-4 h-4 mr-4 mt-2"
+                        viewBox="0 0 6 8"
+                        fill="none"
+                      >
+                        <Path
+                          d="M0.726562 7.06L3.7799 4L0.726562 0.94L1.66656 -4.10887e-08L5.66656 4L1.66656 8L0.726562 7.06Z"
+                          fill={color === "light" ? "#222222" : "#ffffff"}
+                        />
+                      </Svg>
                       <Image
                         className="w-[18px] h-[18px] mt-2 mr-2"
                         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAnUlEQVR4nO3aQQrCQBBE0X+R6cYbSTQrvf85RBjBjQt31UU9yD7FTyAhgQgpDZzADVgMdgLPfTz2sJHuX0NGj6l98tZjLgxUGSOqUkZUpYyoShlRKaMqZVSljCqrMv1jzMJkzMFAFkPa4dJqh5u9M0JESqhICRUpoSIlVKSEis6zk4h2KLFcPoYeDiPYfzyMH/G5tN5VrtPesSP4zwsjFlWYroy7PAAAAABJRU5ErkJggg=="
                       ></Image>
                     </View>
-
                     <Text className="text-[#999] text-s">
                       Already have 0 conversations
                     </Text>
@@ -134,10 +148,16 @@ const Profile = ({ navigation }) => {
                       <Text className="text-base font-bold dark:text-white">
                         Shipping Addresses
                       </Text>
-                      <Image
-                        className="w-[18px] h-[18px] mt-2 mr-2"
-                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAnUlEQVR4nO3aQQrCQBBE0X+R6cYbSTQrvf85RBjBjQt31UU9yD7FTyAhgQgpDZzADVgMdgLPfTz2sJHuX0NGj6l98tZjLgxUGSOqUkZUpYyoShlRKaMqZVSljCqrMv1jzMJkzMFAFkPa4dJqh5u9M0JESqhICRUpoSIlVKSEis6zk4h2KLFcPoYeDiPYfzyMH/G5tN5VrtPesSP4zwsjFlWYroy7PAAAAABJRU5ErkJggg=="
-                      ></Image>
+                      <Svg
+                        className="w-4 h-4 mr-4 mt-2"
+                        viewBox="0 0 6 8"
+                        fill="none"
+                      >
+                        <Path
+                          d="M0.726562 7.06L3.7799 4L0.726562 0.94L1.66656 -4.10887e-08L5.66656 4L1.66656 8L0.726562 7.06Z"
+                          fill={color === "light" ? "#222222" : "#ffffff"}
+                        />
+                      </Svg>
                     </View>
                     <Text className="text-[#999] text-s">
                       {address.length} Adresses
@@ -156,12 +176,17 @@ const Profile = ({ navigation }) => {
                       <Text className="text-base font-bold dark:text-white">
                         Payment methods
                       </Text>
-                      <Image
-                        className="w-[18px] h-[18px] mt-2 mr-2"
-                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAnUlEQVR4nO3aQQrCQBBE0X+R6cYbSTQrvf85RBjBjQt31UU9yD7FTyAhgQgpDZzADVgMdgLPfTz2sJHuX0NGj6l98tZjLgxUGSOqUkZUpYyoShlRKaMqZVSljCqrMv1jzMJkzMFAFkPa4dJqh5u9M0JESqhICRUpoSIlVKSEis6zk4h2KLFcPoYeDiPYfzyMH/G5tN5VrtPesSP4zwsjFlWYroy7PAAAAABJRU5ErkJggg=="
-                      ></Image>
+                      <Svg
+                        className="w-4 h-4 mr-4 mt-2"
+                        viewBox="0 0 6 8"
+                        fill="none"
+                      >
+                        <Path
+                          d="M0.726562 7.06L3.7799 4L0.726562 0.94L1.66656 -4.10887e-08L5.66656 4L1.66656 8L0.726562 7.06Z"
+                          fill={color === "light" ? "#222222" : "#ffffff"}
+                        />
+                      </Svg>
                     </View>
-
                     <Text className="text-[#999] text-s">
                       There is no methods for now
                     </Text>
@@ -177,12 +202,17 @@ const Profile = ({ navigation }) => {
                       <Text className="text-base font-bold dark:text-white">
                         PromoCodes
                       </Text>
-                      <Image
-                        className="w-[18px] h-[18px] mt-2 mr-2"
-                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAnUlEQVR4nO3aQQrCQBBE0X+R6cYbSTQrvf85RBjBjQt31UU9yD7FTyAhgQgpDZzADVgMdgLPfTz2sJHuX0NGj6l98tZjLgxUGSOqUkZUpYyoShlRKaMqZVSljCqrMv1jzMJkzMFAFkPa4dJqh5u9M0JESqhICRUpoSIlVKSEis6zk4h2KLFcPoYeDiPYfzyMH/G5tN5VrtPesSP4zwsjFlWYroy7PAAAAABJRU5ErkJggg=="
-                      ></Image>
+                      <Svg
+                        className="w-4 h-4 mr-4 mt-2"
+                        viewBox="0 0 6 8"
+                        fill="none"
+                      >
+                        <Path
+                          d="M0.726562 7.06L3.7799 4L0.726562 0.94L1.66656 -4.10887e-08L5.66656 4L1.66656 8L0.726562 7.06Z"
+                          fill={color === "light" ? "#222222" : "#ffffff"}
+                        />
+                      </Svg>
                     </View>
-
                     <Text className="text-[#999] text-s">
                       You have special promocodes
                     </Text>
@@ -200,12 +230,17 @@ const Profile = ({ navigation }) => {
                       <Text className="text-base font-bold dark:text-white">
                         My reviews
                       </Text>
-                      <Image
-                        className="w-[18px] h-[18px] mt-2 mr-2"
-                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAnUlEQVR4nO3aQQrCQBBE0X+R6cYbSTQrvf85RBjBjQt31UU9yD7FTyAhgQgpDZzADVgMdgLPfTz2sJHuX0NGj6l98tZjLgxUGSOqUkZUpYyoShlRKaMqZVSljCqrMv1jzMJkzMFAFkPa4dJqh5u9M0JESqhICRUpoSIlVKSEis6zk4h2KLFcPoYeDiPYfzyMH/G5tN5VrtPesSP4zwsjFlWYroy7PAAAAABJRU5ErkJggg=="
-                      ></Image>
+                      <Svg
+                        className="w-4 h-4 mr-4 mt-2"
+                        viewBox="0 0 6 8"
+                        fill="none"
+                      >
+                        <Path
+                          d="M0.726562 7.06L3.7799 4L0.726562 0.94L1.66656 -4.10887e-08L5.66656 4L1.66656 8L0.726562 7.06Z"
+                          fill={color === "light" ? "#222222" : "#ffffff"}
+                        />
+                      </Svg>
                     </View>
-
                     <Text className="text-[#999] text-s">
                       reviews from {reviews.length} items
                     </Text>
@@ -223,10 +258,16 @@ const Profile = ({ navigation }) => {
                   >
                     <View className="flex flex-row justify-between">
                       <Text className="text-base font-bold">Add Item</Text>
-                      <Image
-                        className="w-[18px] h-[18px] mt-2 mr-2"
-                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAnUlEQVR4nO3aQQrCQBBE0X+R6cYbSTQrvf85RBjBjQt31UU9yD7FTyAhgQgpDZzADVgMdgLPfTz2sJHuX0NGj6l98tZjLgxUGSOqUkZUpYyoShlRKaMqZVSljCqrMv1jzMJkzMFAFkPa4dJqh5u9M0JESqhICRUpoSIlVKSEis6zk4h2KLFcPoYeDiPYfzyMH/G5tN5VrtPesSP4zwsjFlWYroy7PAAAAABJRU5ErkJggg=="
-                      ></Image>
+                      <Svg
+                        className="w-4 h-4 mr-4 mt-2"
+                        viewBox="0 0 6 8"
+                        fill="none"
+                      >
+                        <Path
+                          d="M0.726562 7.06L3.7799 4L0.726562 0.94L1.66656 -4.10887e-08L5.66656 4L1.66656 8L0.726562 7.06Z"
+                          fill={color === "light" ? "#222222" : "#ffffff"}
+                        />
+                      </Svg>
                     </View>
                   </TouchableOpacity>
                 </View>
@@ -238,10 +279,16 @@ const Profile = ({ navigation }) => {
                   <TouchableOpacity onPress={() => navigation.navigate("")}>
                     <View className="flex flex-row justify-between">
                       <Text className="text-base font-bold">my Items</Text>
-                      <Image
-                        className="w-[18px] h-[18px] mt-2 mr-2"
-                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAnUlEQVR4nO3aQQrCQBBE0X+R6cYbSTQrvf85RBjBjQt31UU9yD7FTyAhgQgpDZzADVgMdgLPfTz2sJHuX0NGj6l98tZjLgxUGSOqUkZUpYyoShlRKaMqZVSljCqrMv1jzMJkzMFAFkPa4dJqh5u9M0JESqhICRUpoSIlVKSEis6zk4h2KLFcPoYeDiPYfzyMH/G5tN5VrtPesSP4zwsjFlWYroy7PAAAAABJRU5ErkJggg=="
-                      ></Image>
+                      <Svg
+                        className="w-4 h-4 mr-4 mt-2"
+                        viewBox="0 0 6 8"
+                        fill="none"
+                      >
+                        <Path
+                          d="M0.726562 7.06L3.7799 4L0.726562 0.94L1.66656 -4.10887e-08L5.66656 4L1.66656 8L0.726562 7.06Z"
+                          fill={color === "light" ? "#222222" : "#ffffff"}
+                        />
+                      </Svg>
                     </View>
                     <Text className="text-[#999] text-s">
                       you have already {} items
@@ -256,10 +303,16 @@ const Profile = ({ navigation }) => {
                   <TouchableOpacity onPress={() => navigation.navigate("")}>
                     <View className="flex flex-row justify-between">
                       <Text className="text-base font-bold">my Articles</Text>
-                      <Image
-                        className="w-[18px] h-[18px] mt-2 mr-2"
-                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAnUlEQVR4nO3aQQrCQBBE0X+R6cYbSTQrvf85RBjBjQt31UU9yD7FTyAhgQgpDZzADVgMdgLPfTz2sJHuX0NGj6l98tZjLgxUGSOqUkZUpYyoShlRKaMqZVSljCqrMv1jzMJkzMFAFkPa4dJqh5u9M0JESqhICRUpoSIlVKSEis6zk4h2KLFcPoYeDiPYfzyMH/G5tN5VrtPesSP4zwsjFlWYroy7PAAAAABJRU5ErkJggg=="
-                      ></Image>
+                      <Svg
+                        className="w-4 h-4 mr-4 mt-2"
+                        viewBox="0 0 6 8"
+                        fill="none"
+                      >
+                        <Path
+                          d="M0.726562 7.06L3.7799 4L0.726562 0.94L1.66656 -4.10887e-08L5.66656 4L1.66656 8L0.726562 7.06Z"
+                          fill={color === "light" ? "#222222" : "#ffffff"}
+                        />
+                      </Svg>
                     </View>
                     <Text className="text-[#999] text-s">
                       you have already {} Article(s)
@@ -279,10 +332,16 @@ const Profile = ({ navigation }) => {
                     <Text className="text-base font-bold dark:text-white">
                       Settings
                     </Text>
-                    <Image
-                      className="w-[18px] h-[18px] mt-2 mr-2"
-                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAnUlEQVR4nO3aQQrCQBBE0X+R6cYbSTQrvf85RBjBjQt31UU9yD7FTyAhgQgpDZzADVgMdgLPfTz2sJHuX0NGj6l98tZjLgxUGSOqUkZUpYyoShlRKaMqZVSljCqrMv1jzMJkzMFAFkPa4dJqh5u9M0JESqhICRUpoSIlVKSEis6zk4h2KLFcPoYeDiPYfzyMH/G5tN5VrtPesSP4zwsjFlWYroy7PAAAAABJRU5ErkJggg=="
-                    ></Image>
+                    <Svg
+                      className="w-4 h-4 mr-4 mt-2"
+                      viewBox="0 0 6 8"
+                      fill="none"
+                    >
+                      <Path
+                        d="M0.726562 7.06L3.7799 4L0.726562 0.94L1.66656 -4.10887e-08L5.66656 4L1.66656 8L0.726562 7.06Z"
+                        fill={color === "light" ? "#222222" : "#ffffff"}
+                      />
+                    </Svg>
                   </View>
 
                   <Text className="text-[#999] text-s">
@@ -304,7 +363,7 @@ const Profile = ({ navigation }) => {
             </View>
           </View>
         </View>
-      </ScrollView>
+      </View>
     );
   } else {
     return (
@@ -315,11 +374,15 @@ const Profile = ({ navigation }) => {
         <View className="flex flex-row gap-2 items-center justify-center">
           <Text className="text-lg font-bold dark:text-white">Please </Text>
           <TouchableOpacity onPress={() => navigation.navigate("Login")}>
-            <Text className="text-[#BF9B7A] underline text-lg font-semibold">Log In</Text>
+            <Text className="text-[#BF9B7A] underline text-lg font-semibold">
+              Log In
+            </Text>
           </TouchableOpacity>
           <Text className="text-lg font-bold dark:text-white"> or </Text>
           <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
-            <Text className="text-[#BF9B7A] underline text-lg font-semibold">Sign Up</Text>
+            <Text className="text-[#BF9B7A] underline text-lg font-semibold">
+              Sign Up
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
