@@ -5,34 +5,24 @@ import { useAuth } from "../components/Authprovider/Authprovider";
 import axios from 'axios';
 import ADRESS_API from "../Api"
 
-const Favorites = () => {
-  const { authState } = useAuth();
-  const [data, setData] = useState([]); // Initialize data as an empty array
+const Favorites = ({navigation}) => {
+  const { authState ,fav } = useAuth();
+  
+  const [data, setData] = useState([]); 
+  console.log(fav,"helloooo");
+ 
 
-  const GetFavorite = async () => {
-    const id = authState.userId;
-    try {
-      const res = await axios.get(`http://${ADRESS_API}:4000/favourite/getfavourite/${id}`);
-      return res.data;
-    } catch (error) {
-      console.log("Error fetching favorites:", error);
-      return []; 
-    }
-  }
-
-  useEffect(() => {
-    const getFavorites = async () => {
-      const favorites = await GetFavorite();
-      setData(favorites)
-    }
-    getFavorites();
-  }, []);
+  // useEffect(() => {
+  //   console.log("🚀 ~ file: Favorites.js:10 ~ Favorites ~  authState :",  fav )
+  // }, [fav]);
 
   return (
-    <View className="flex flex-row justify-items justify-center">
-      {data.length > 0 ? (
-        data.map((item, key) => (
-          <ProdCard data={item} key={key} />
+    <View className="flex flex-col justify-items justify-center">
+     
+      {console.log("🚀 ~ file: Favorites.js:23 ~ Favorites ~ authState:", fav)}
+      {fav && fav.length >0 ? (
+        fav.map((item, key) => (
+          <ProdCard navigation={navigation} data={item.item} key={key} />
         ))
       ) : (
         <Text>No favorites found</Text>

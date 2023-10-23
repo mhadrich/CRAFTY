@@ -55,7 +55,8 @@ const GETById = async (req, res) => {
         item: {
           include: {
             images: true,
-             
+            reviews :true ,
+            user :true , 
           },
         },
       }

@@ -7,7 +7,8 @@ import ArticleCard from "../components/ArticleCard";
 import WheelPickerExpo from "react-native-wheel-picker-expo";
 import BottomSheet from "react-native-simple-bottom-sheet";
 
-const AllArticles = ({ navigation }) => {
+const AllArticles = ({ navigation,route }) => {
+  const {data}= route.params
   const dark = useColorScheme();
   const [color, setColor] = useState("");
   useEffect(() => {
@@ -37,22 +38,9 @@ const AllArticles = ({ navigation }) => {
           className="w-screen dark:bg-[#111111] pt-5"
           showsVerticalScrollIndicator={false}
         >
-          <View className="-top-2 flex scale-90 flex-row ">
-            <ArticleCard navigation={navigation} />
-            <ArticleCard navigation={navigation} />
-          </View>
-          <View className="-top-2 flex scale-90 flex-row ">
-            <ArticleCard navigation={navigation} />
-            <ArticleCard navigation={navigation} />
-          </View>
-          <View className="-top-2 flex scale-90 flex-row ">
-            <ArticleCard navigation={navigation} />
-            <ArticleCard navigation={navigation} />
-          </View>
-          <View className="-top-2 flex scale-90 flex-row ">
-            <ArticleCard navigation={navigation} />
-            <ArticleCard navigation={navigation} />
-          </View>
+         {data &&data.map((article, key) => {
+    return (<ArticleCard navigation={navigation} article={article} key={key}/>);
+  })}
         </ScrollView>
       </View>
       {bsOpen && (

@@ -29,7 +29,7 @@ const ProdCard = ({ navigation ,data}) => {
     console.log(data,"🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈🎈")
   }
 }, [data]);
-
+console.log(data,"data from prodCard");
   const cld = new Cloudinary({ cloud: { cloudName: "ddtfqfamn" } });
   const color = useColorScheme();
   const [like, setLike] = useState(false);
@@ -60,7 +60,7 @@ const ProdCard = ({ navigation ,data}) => {
             readonly={true}
             imageSize={16}
           />
-          <Text className="text-neutral-400 text-xs">({data ?data.reviews.lenght :""})</Text> 
+          <Text className="text-neutral-400 text-xs">({data ?data.reviews.length :""})</Text> 
         </View>
         <Text className="dark:text-white text-neutral-400 text-xs">{data ? data.user.name : "RG"}</Text>
          <Text className="dark:text-white w-28 text-base font-semibold">{data ?data.name :""}</Text> 

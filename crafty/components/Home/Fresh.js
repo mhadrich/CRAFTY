@@ -35,7 +35,7 @@ const Fresh = ({ navigation }) => {
           </TouchableOpacity>
         </View>
       </View>
-      <View className="flex flex-row items-start justify-start">
+      <View className="flex flex-row-reverse items-start justify-start">
         <ScrollView
           className="pl-4"
           horizontal={true}

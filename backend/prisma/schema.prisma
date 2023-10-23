@@ -29,7 +29,7 @@ model User {
   adress          Adress[]
   favoriteItem    FavouriteItem[]
   chats           Chat[]          @relation("ChatMembers")
-
+  cart            Cart[]
   notification Notification[]
 }
 
@@ -100,7 +100,21 @@ model OrderItem {
   orderId   Int
   item      Item    @relation(fields: [itemId], references: [id])
 }
+model Cart {
+  id       Int      @id @default(autoincrement())
+  userId   Int
+  user     User     @relation(fields: [userId], references: [id])
+  items    CartItem[]
+}
 
+model CartItem {
+  id         Int     @id @default(autoincrement())
+  itemId     Int
+  quantity   Int
+  cart       Cart    @relation(fields: [cartId], references: [id])
+  cartId     Int
+  item       Item    @relation(fields: [itemId], references: [id])
+}
 
   model Item {
     id           Int             @id @default(autoincrement())
@@ -115,7 +129,7 @@ model OrderItem {
     userId       Int
     user         User            @relation(fields: [userId], references: [id])
     wishList     Wishlist[]
-    
+    cart         CartItem []
     reviews      Review[]
   
     order        OrderItem    []      

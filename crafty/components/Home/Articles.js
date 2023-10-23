@@ -27,7 +27,7 @@ const Articles = ({ navigation }) => {
         </View>
         <View className="-left-12">
           <TouchableOpacity
-          onPress={() => navigation.navigate("AllArticles")}
+          onPress={() => navigation.navigate("AllArticles",{data:data})}
           >
             <Text className="text-xs dark:text-white font-normal">View all</Text>
           </TouchableOpacity>

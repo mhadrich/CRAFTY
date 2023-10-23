@@ -6,7 +6,7 @@ const POST = async (req, res) => {
   if (req.method === "POST") {
     try {
       const { street, city, postalCode, userId } = req.body;
-      const Adress = await prisma.Adress.create({
+      const Adress = await prisma.adress.create({
         data: {
           street,
           city,
