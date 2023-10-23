@@ -17,9 +17,9 @@ import ADRESS_API from "../../Api";
 
 
 export default function Login({ navigation }) {
-  const inputs = "mb-4 w-96 h-16 pl-3 bg-white rounded-md dark:bg-[#333333] dark:text-white";
+  const inputs = "ml-4 mb-4 w-96 h-16 pl-3 bg-white rounded-md dark:bg-[#333333] dark:text-white";
   const inputsError =
-    "mb-4 w-96 h-16 pl-3 bg-white rounded-md border border-red-500 dark:bg-[#333333] dark:text-white ";
+    "mb-4 w-96 h-16 ml-4 pl-3 bg-white rounded-md border border-red-500 dark:bg-[#333333] dark:text-white ";
   const Email_rgex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
   const { control, handleSubmit, formState: { errors } } = useForm()
   const { onLogin, onSignUp ,authState } = useAuth()
@@ -39,7 +39,7 @@ export default function Login({ navigation }) {
   };
   
   return (
-    <SafeAreaView className="flex-1 bg-[f9f9f9] dark:bg-[#111111] items-center w-screen h-screen">
+    <SafeAreaView className="flex-1 bg-[f9f9f9] dark:bg-[#111111] justify-center items-center w-screen h-screen">
       <KeyboardAvoidingView
         keyboardVerticalOffset={100}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -83,7 +83,7 @@ export default function Login({ navigation }) {
             </Svg>
           </View>
         </TouchableWithoutFeedback>
-        <View className="-mt-40 -top-52 items-center justify-center w-full">
+        <View className="-mt-40 -top-52 items-center ">
           <View className="gap-4">
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
               <Text className="font-bold pointer-events-none text-4xl mb-2 dark:text-white">

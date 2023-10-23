@@ -12,12 +12,12 @@ const data = [
   {
     Title: "Shipping Infos",
     Description:
-      "These high quality personalized marble acrylic /mango wood coasters will make unique and one of a kind gifts for a wedding , anniversary , housewarming, bridal shower, wedding favors , or any occasion that needs personal touch. ",
+      "\nThis crafter supports Crafty Guaranteed shipping and also ship by his own means.\n\nOnce your order has been processed and shipped, we will provide you with a tracking number. You can use this number to monitor the progress of your shipment on our website or the carrier's website.\n\nDelivery times may vary depending on your location, shipping method, and any unforeseen circumstances like weather delays. We will do our best to ensure your items reach you as quickly as possible.\n",
   },
   {
     Title: "Support",
     Description:
-      "These high quality personalized marble acrylic /mango wood coasters will make unique and one of a kind gifts for a wedding , anniversary , housewarming, bridal shower, wedding favors , or any occasion that needs personal touch. ",
+      "If you have any questions or concerns about your shipment, please don't hesitate to contact our friendly customer support team. We are here to assist you.\n \nWe value your business and strive to make your shipping experience with Crafty as smooth as possible. Thank you for choosing us, and we look forward to serving you!\n \nIf you have any further questions or need assistance with your order, please don't hesitate to get in touch with our customer support team.\n \nsupport@crafty.com \n",
   },
 ];
 
@@ -55,25 +55,26 @@ export default function Accordion() {
                   >
                     <Path
                       d="M0.726562 7.06L3.7799 4L0.726562 0.94L1.66656 -4.10887e-08L5.66656 4L1.66656 8L0.726562 7.06Z"
-                      fill={color==="light" ? "#222222" : "#ffffff"}
+                      fill={color === "light" ? "#222222" : "#ffffff"}
                     />
                   </Svg>
                 </View>
-                
-                {index === currentIndex && (
-                  <View className="px-4">
+                <View className="px-4">
+                  {Title === "Item Details" && index === currentIndex && (
                     <Text className="text-sky-500 mb-2 underline underline-offset-4">
                       Tag1-Tag2-Tag3
                     </Text>
+                  )}
+                  {index === currentIndex && (
                     <Text
                       key={Description}
                       className="text-sm leading-6 text-left mb-6 dark:text-white"
                     >
                       {Description}
                     </Text>
-                  </View>
-                )}
-                <View className="border-t opacity-25 dark:border-white"/>
+                  )}
+                </View>
+                <View className="border-t opacity-25 dark:border-white" />
               </View>
             </TouchableOpacity>
           );
