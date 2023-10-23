@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { View, Text, Switch, TouchableOpacity } from "react-native";
 import axios from "axios";
-import ADRESS_API from "../../Api";
 import { ScrollView, TextInput } from "react-native-gesture-handler";
 import BottomSheet from "react-native-simple-bottom-sheet";
 import ChangePassword from "./ChangePassword";

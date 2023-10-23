@@ -4,15 +4,14 @@ import React, { useEffect, useState } from "react";
 import { Rating } from "react-native-ratings";
 import { Cloudinary } from "@cloudinary/url-gen";
 
-const ProdCard = ({ navigation ,data}) => {
- const [Data,setData] = useState(false)
-  
- useEffect(() => {
- 
-  if (data) {
-    setData(data);
-  }
-}, [data]);
+const ProdCard = ({ navigation, data }) => {
+  const [Data, setData] = useState(false);
+
+  useEffect(() => {
+    if (data) {
+      setData(data);
+    }
+  }, [data]);
 
   const cld = new Cloudinary({ cloud: { cloudName: "ddtfqfamn" } });
   const color = useColorScheme();
@@ -20,10 +19,12 @@ const ProdCard = ({ navigation ,data}) => {
   const myImage = cld.image("sample");
   return (
     <View className="pr-4">
-      <Pressable onPress={()=>navigation.navigate("ProductDetail",{item:data})}>
+      <Pressable
+        onPress={() => navigation.navigate("ProductDetail", { item: data })}
+      >
         <Image
           className="w-40 h-44 rounded-lg"
-         source ={{uri: data ? data.images[0].url : ''}}
+          source={{ uri: data ? data.images[0].url : "" }}
         />
       </Pressable>
       <Pressable
@@ -43,11 +44,19 @@ const ProdCard = ({ navigation ,data}) => {
             readonly={true}
             imageSize={16}
           />
-          <Text className="text-neutral-400 text-xs">({data ?data.reviews.lenght :""})</Text> 
+          <Text className="text-neutral-400 text-xs">
+            ({data ? data.reviews.lenght : ""})
+          </Text>
         </View>
-        <Text className="dark:text-white text-neutral-400 text-xs">{data ? data.user.name : "RG"}</Text>
-         <Text className="dark:text-white w-28 text-base font-semibold">{data ?data.name :""}</Text> 
-        <Text className="dark:text-white w-11 text-sm font-medium leading-tight">{data ?data.price :""}$</Text>
+        <Text className="dark:text-white text-neutral-400 text-xs">
+          {data ? data.user.name : "RG"}
+        </Text>
+        <Text className="dark:text-white w-28 text-base font-semibold">
+          {data ? data.name : ""}
+        </Text>
+        <Text className="dark:text-white w-11 text-sm font-medium leading-tight">
+          {data ? data.price : ""}$
+        </Text>
       </View>
     </View>
   );

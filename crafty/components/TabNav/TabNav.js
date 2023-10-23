@@ -2,12 +2,8 @@ import { View, Text, Pressable, useColorScheme } from "react-native";
 import React from "react";
 import { Svg, Path } from "react-native-svg";
 import { useRoute } from "@react-navigation/native";
-import { useAuth } from "../Authprovider/Authprovider";
 
 const TabNav = ({ navigation }) => {
-  const { authState, onLogout } = useAuth();
-  const { authenticated } = authState;
-
   const route = useRoute();
   const active = route.name;
   const txtActive = "text-xs font-semibold text-[#BF9B7A]";
@@ -130,7 +126,7 @@ const TabNav = ({ navigation }) => {
         </Pressable>
         <Pressable
           onPress={() => {
-            navigation.navigate(authenticated ? "Profile" : "SignUp");
+            navigation.navigate("Profile");
           }}
           className="items-center justify-center gap-1"
         >

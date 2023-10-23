@@ -5,16 +5,9 @@ require("dotenv").config();
 const POST = async (req, res) => {
   if (req.method === "POST") {
     try {
-      const {
-        name,
-        description,
-        price,
-        imageUrls, 
-        tagNames, 
-        userId,
-      } = req.body;
+      const { name, description, price, imageUrls, tagNames, userId } =
+        req.body;
 
-    
       const createdItem = await prisma.item.create({
         data: {
           name,
@@ -44,7 +37,6 @@ const POST = async (req, res) => {
   }
 };
 
-
 /* Get Items */
 const GET = async (req, res) => {
   try {
@@ -52,8 +44,8 @@ const GET = async (req, res) => {
       include: {
         images: true,
         tags: true,
-        reviews:true ,
-        user :true ,
+        reviews: true,
+        user: true,
       },
     });
 
@@ -61,7 +53,9 @@ const GET = async (req, res) => {
   } catch (error) {
     const message =
       error instanceof Error ? error.message : "An unknown error occurred";
-    return res.status(500).send({ message: "Error fetching Items", error: message });
+    return res
+      .status(500)
+      .send({ message: "Error fetching Items", error: message });
   }
 };
 
@@ -74,7 +68,7 @@ const GETById = async (req, { params }) => {
 
     const { id } = params;
     const Item = await prisma.Item.findUnique({
-      where: { id },
+      where: { userId:id },
     });
 
     if (!user) {
@@ -91,7 +85,7 @@ const GETById = async (req, { params }) => {
       JSON.stringify({ message: "Error fetching item", error: message }),
       { status: 500 }
     );
-  } 
+  }
 };
 /*UPDATE Item */
 const UPDATE = async (req, { params }) => {
@@ -102,7 +96,7 @@ const UPDATE = async (req, { params }) => {
     const body = await req.json();
 
     const { id } = params;
-   
+
     const updateData = { ...body };
 
     const updateditem = await prisma.Item.update({
@@ -118,7 +112,7 @@ const UPDATE = async (req, { params }) => {
       JSON.stringify({ message: "Error updating item", error: message }),
       { status: 500 }
     );
-  } 
+  }
 };
 /*DELETE Item */
 const DELETE = async (req, { params }) => {
@@ -126,7 +120,6 @@ const DELETE = async (req, { params }) => {
     if (!params || !params.id) {
       throw new Error("ID parameter is missing");
     }
-
     const { id } = params;
     await prisma.Item.delete({
       where: { id },
@@ -145,4 +138,4 @@ const DELETE = async (req, { params }) => {
   }
 };
 
-module.exports =  {POST,GET,GETById,UPDATE,DELETE}
+module.exports = { POST, GET, GETById, UPDATE, DELETE };

@@ -4,6 +4,10 @@ import Heading from "../layout/Heading";
 import Button from "../layout/Button";
 import axios from "axios";
 
+import { toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const Contact = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -39,17 +43,37 @@ const Contact = () => {
           setName("");
           setEmail("");
           setMsg("");
-          alert("Message sent successfully");
-        })
-        .catch((error) => {
-          setError("Sorry, there was an error. Please try again.");
+          toast.success(
+            `Thank you, ${name}. Your message has been sent successfully. We will respond promptly.`
+          );
         });
+      // .catch((error) => {
+      //   setError("Sorry, there was an error. Please try again.");
+      // });
+      setName("");
+      setEmail("");
+      setMsg("");
+      toast.success(
+        `Thank you, ${name}. Your message has been sent successfully. We will respond promptly.`
+      );
     }
   };
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center md:mx-32 mx-5 mt-10">
       <Heading title1="Contact" title2="Us" />
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
       <div className="flex flex-col md:flex-row justify-between w-full ml-[10%] mt-[5%]">
         <form
           className="w-full md:w-2/5 space-y-5 pt-20"

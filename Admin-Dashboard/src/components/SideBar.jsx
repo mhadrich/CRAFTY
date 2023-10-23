@@ -266,7 +266,7 @@ const SideBar = ({ open, handleDrawerClose, setUser }) => {
       </List>
       <Divider
         sx={{
-          mt: 16,
+          mt: 22,
         }}
       />
       <List

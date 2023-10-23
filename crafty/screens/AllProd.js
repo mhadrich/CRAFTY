@@ -8,11 +8,11 @@ import WheelPickerExpo from "react-native-wheel-picker-expo";
 import BottomSheet from "react-native-simple-bottom-sheet";
 
 const AllProd = ({ navigation }) => {
-  const dark=useColorScheme();
-  const [color,setColor]=useState('');
-  useEffect(()=>{
-    dark==="dark" ? setColor("#333333") : setColor("#ffffff")
-  },[dark])
+  const dark = useColorScheme();
+  const [color, setColor] = useState("");
+  useEffect(() => {
+    dark === "dark" ? setColor("#333333") : setColor("#ffffff");
+  }, [dark]);
   const [sliderStart, setSliderStart] = useState(0);
   const [sort, setSort] = useState(null);
   const panelRef = useRef(null);
@@ -72,7 +72,7 @@ const AllProd = ({ navigation }) => {
         <BottomSheet
           className="justify-center items-center"
           wrapperStyle={{
-            backgroundColor:`${color}`
+            backgroundColor: `${color}`,
           }}
           isOpen={true}
           onClose={() => setBSOpen(false)}

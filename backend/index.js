@@ -27,9 +27,9 @@ app.use(express.json());
 app.use(cors());
 app.use("/auth", authroute);
 app.use("/reset", resertRroute);
-const server = http.createServer(app)
-const io =  socket_io(server)
-const prisma = require ("./lib/prisma.js") 
+const server = http.createServer(app);
+const io = socket_io(server);
+const prisma = require("./lib/prisma.js");
 
 io.on("connection", (socket) => {
   console.log(`User connected: ${socket.id}`);
