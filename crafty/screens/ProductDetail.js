@@ -95,10 +95,10 @@ const ProductDetail = ({ navigation, route }) => {
         </TouchableOpacity>
 
         <View>
-          <Accordion />
+          <Accordion details={item}/>
         </View>
 
-        <Text className="text-lg font-medium p-4 mt-2">
+        <Text className="text-lg font-medium p-4 mt-2 dark:text-white">
           You can also like this
         </Text>
         <View className="flex flex-row mb-4 items-start justify-start">
@@ -127,7 +127,7 @@ const ProductDetail = ({ navigation, route }) => {
             sliderMaxHeight={650}
             ref={(ref) => (panelRef.current = ref)}
           >
-            <ItemReviewsList close={setBSOpen} />
+            <ItemReviewsList close={setBSOpen} reviews={item.reviews} />
           </BottomSheet>
         </View>
       )}

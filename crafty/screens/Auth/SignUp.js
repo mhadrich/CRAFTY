@@ -38,8 +38,8 @@ export default function SignUp({ navigation }) {
       data.Email,
       data.Password,
       data.Name,
-      "guedri",
-      "USER"
+      "",
+      "user"
     );
     console.log("🚀 ~ file: SignUp.js:28 ~ register ~ res:", res);
     if (res === 201) {

@@ -40,11 +40,14 @@ const ChangePassword = ({ navigation }) => {
       });
   };
 
-  const inputs = "w-fit h-16 pl-3 bg-[#f9f9f9] rounded-md shadow-sm";
+  const inputs =
+    "w-fit h-16 pl-3 bg-[#f9f9f9] dark:bg-[#111111] dark:text-white rounded-md shadow-sm";
 
   return (
-    <View className="w-fit h-screen gap-4">
-      <Text className="text-2xl font-bold pl-[25%]">Password change</Text>
+    <View className="gap-4">
+      <Text className="text-2xl font-bold dark:text-white">
+        Password change
+      </Text>
       <TextInput
         className={inputs}
         placeholder={"Old Password"}
@@ -52,12 +55,14 @@ const ChangePassword = ({ navigation }) => {
         value={newPass.oldPassword}
         secureTextEntry={true}
       />
-      <Text
-        className="pl-[65%] text-gray-500"
-        onPress={() => navigation.navigate("ForgetPassword")}
-      >
-        Forget Password
-      </Text>
+      <View className="w-fit items-end">
+        <Text
+          className="text-gray-400"
+          onPress={() => navigation.navigate("ForgetPassword")}
+        >
+          Forgot Password
+        </Text>
+      </View>
       <TextInput
         className={inputs}
         placeholder={"New Password"}
@@ -73,7 +78,7 @@ const ChangePassword = ({ navigation }) => {
         secureTextEntry={true}
       />
 
-      <View className="w-fit justify-between">
+      <View className="w-fit justify-between mb-24">
         <TouchableOpacity
           onPress={() => verif()}
           className="z-50 bg-[#BF9B7A] h-12 w-fit rounded-full justify-center items-center"

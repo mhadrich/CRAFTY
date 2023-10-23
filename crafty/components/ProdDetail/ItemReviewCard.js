@@ -1,34 +1,38 @@
 import { View, Text, Image, TouchableOpacity, useColorScheme } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { Rating } from "react-native-ratings";
 import { Svg, Path } from "react-native-svg";
 
 import { useState } from "react";
 
-const ItemReviewCard = () => {
+const ItemReviewCard = ({review}) => {
+ 
   const color = useColorScheme();
   const [isLiked, setIsLiked] = useState(false);
   const toggleLike = () => {
     setIsLiked(!isLiked);
   };
+  useEffect(()=>{
+    console.log("🚀 ~ file: ItemReviewCard.js:9 ~ ItemReviewCard ~ review: 😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️😶‍🌫️", review)
+  },[])
 
   return (
     <View className="mb-2">
       <Image
         className="h-11 w-11 z-10 rounded-full "
-        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuoovVYEMl5PlyrnrmjPY_0bH_k0RaXYByiMVOWeEhWeG9wxWP2ozVw0Ab51hiQzxErpo&usqp=CAU"
+        src={review.user.image ||"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuoovVYEMl5PlyrnrmjPY_0bH_k0RaXYByiMVOWeEhWeG9wxWP2ozVw0Ab51hiQzxErpo&usqp=CAU"}
       />
       <View className="bg-[#f9f9f9] dark:bg-[#111111] left-4 shadow rounded-xl bottom-5 w-11/12">
         <View className="p-5 ">
           <View className="flex flex-row justify-between">
-            <Text className="text-sm font-semibold leading-2 dark:text-white">Kate Doe</Text>
+            <Text className="text-sm font-semibold leading-2 dark:text-white">{"10"}</Text>
             <Text className="text-xs font-normal opacity-50 leading-3 dark:text-white">
-              june 7, 2019
+             {review.date}
             </Text>
           </View>
           <View className="items-start pl-1">
             <Rating
-              startingValue={4} //THIS TO UPDATE THE VALUES
+              startingValue={review.rating} //THIS TO UPDATE THE VALUES
               type="custom"
               ratingColor="#FFBA49"
               tintColor={color==="light" ? "#fafafa" : "#111111"}
@@ -39,10 +43,7 @@ const ItemReviewCard = () => {
             />
           </View>
           <Text className="text-sm font-normal leading-tight mt-4 dark:text-white">
-            Only saw a pic because I sent directly to the couple for a wedding
-            anniversary gift but they looked just gorgeous, so well made and
-            unique. The couple was blown away and absolutely loves them! They
-            asked me where I got them from, they wanted more similar items 😉
+            {review.description}
           </Text>
           <TouchableOpacity onPress={toggleLike}>
             <View className="flex flex-row items-center justify-end pt-4">

@@ -6,16 +6,22 @@ const POST = async (req, res) => {
   if (req.method === "POST") {
     try {
       const { date, rating, description, images, userId, itemId } = req.body;
-      const Review = await prisma.Review.create({
+      const Review = await prisma.review.create({
         data: {
           date,
           rating,
-          description,
-          images,
+          description,  
+          images: {
+            create: images.map((url) => ( {url} )),
+          } ,
           userId,
           itemId,
         },
-      });
+        include: {
+          images: true,
+          
+        },
+      }); 
 
       return res.status(201).json({ Review });
     } catch (error) {

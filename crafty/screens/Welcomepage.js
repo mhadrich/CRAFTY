@@ -1,11 +1,14 @@
 import { View, Image } from "react-native";
 import React, { useEffect } from "react";
 const Logoimg = require("../assets/crafty.gif");
+import { useAuth } from "../components/Authprovider/Authprovider";
 
 const Welcomepage = ({ navigation }) => {
+  const { authState } = useAuth()
+
   useEffect(() => {
     setTimeout(() => {
-      navigation.navigate("Loading");
+  authState.authenticated ?    navigation.navigate("Login") :navigation.navigate("Home");
     }, 2000);
   }, []);
 

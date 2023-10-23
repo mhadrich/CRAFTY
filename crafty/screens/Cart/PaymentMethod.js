@@ -22,7 +22,7 @@ const PaymentMethod = ({ navigation, route }) => {
   const panelRef = useRef(null);
   const data = route.params;
   return (
-    <View className="flex-1 bg-[#111111]">
+    <View className="flex-1 dark:bg-[#111111]">
       <ScrollView>
         <View className="py-8 gap-4  mb-10 items-center">
           {data &&

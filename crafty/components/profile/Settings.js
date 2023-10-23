@@ -1,10 +1,15 @@
 import React, { useEffect, useRef, useState } from "react";
-import { View, Text, Switch, TouchableOpacity } from "react-native";
+import { View, Text, Switch, TouchableOpacity, useColorScheme } from "react-native";
 import axios from "axios";
 import { ScrollView, TextInput } from "react-native-gesture-handler";
 import BottomSheet from "react-native-simple-bottom-sheet";
 import ChangePassword from "./ChangePassword";
 const Settings = ({ navigation }) => {
+  const dark=useColorScheme();
+  const [color,setColor]=useState('');
+  useEffect(()=>{
+    dark==="dark" ? setColor("#333333") : setColor("#ffffff")
+  },[dark])
   const [newInformation, setnewInformation] = useState({
     name: "Amine",
     dateOfBirth: "2003-07-16",
@@ -28,7 +33,8 @@ const Settings = ({ navigation }) => {
       [field]: value,
     });
   };
-  const inputs = "w-fit h-16 pl-3 bg-[#f9f9f9] rounded-md shadow-sm mb-5";
+  const inputs =
+    "w-96 h-16 pl-3 bg-[#f9f9f9] dark:bg-[#333333] dark:text-white rounded-md shadow-sm mb-5";
 
   const [bsOpen, setBSOpen] = useState(false);
   const panelRef = useRef(null);
@@ -42,7 +48,7 @@ const Settings = ({ navigation }) => {
       .catch((error) => console.log(error, "setting's data failed"));
   }, [newInformation]);
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
+    <View className=" w-screen h-screen dark:bg-[#111111] items-center">
       <View
         pointerEvents="none"
         className={
@@ -51,11 +57,11 @@ const Settings = ({ navigation }) => {
             : "bg-black w-screen h-screen absolute z-20 opacity-0 transition-all"
         }
       ></View>
-      <View className=" bg-[rgba(249,249,249,1)] flex flex-col  mt-[10%] ml-4 ">
+      <View className=" bg-[rgba(249,249,249,1)] flex flex-col  mt-[7%]">
         <View className=" flex flex-col  ">
-          <Text className="text-left text-[rgba(34,34,34,1)] text-[34px] font-bold tracking-[0] ">{`Settings`}</Text>
+          <Text className="text-left text-[rgba(34,34,34,1)] text-[34px] font-bold tracking-[0] dark:text-white">{`Settings`}</Text>
         </View>
-        <Text className=" text-lg  font-semibold mt-5 mb-5">
+        <Text className=" text-lg  font-semibold mt-5 mb-5 dark:text-white">
           Personal Information
         </Text>
         <View>
@@ -77,10 +83,10 @@ const Settings = ({ navigation }) => {
           />
         </View>
         <View className="flex flex-row items-center justify-between mt-5 mb-4">
-          <Text className=" text-lg  font-semibold"> Password</Text>
+          <Text className=" text-lg  font-semibold dark:text-white"> Password</Text>
           <TouchableOpacity onPress={() => setBSOpen(!bsOpen)}>
             <Text
-              className="text-gray-500 mr-5 "
+              className="text-gray-500 mr-2"
               onPress={() => {
                 setBSOpen(true);
               }}
@@ -100,56 +106,61 @@ const Settings = ({ navigation }) => {
           />
         </View>
         <View className="flex flex-row items-center  mt-5 mb-4">
-          <Text className=" text-lg font-semibold "> Notifications</Text>
+          <Text className=" text-lg font-semibold dark:text-white "> Notifications</Text>
         </View>
-        <View className="flex flex-row items-center  justify-between">
-          <Text className="text-lg">Sales</Text>
-          <Switch
-            className="mr-3"
-            trackColor={{ false: "#767577", true: "#707324" }}
-            thumbColor={salesEnabled ? "#707324" : "#f4f3f4"}
-            ios_backgroundColor="#3e3e3e"
-            onValueChange={handleSalesToggle}
-            value={salesEnabled}
-          />
-        </View>
-        <View className="flex flex-row items-center  justify-between">
-          <Text className="text-lg">New arrivals</Text>
-          <Switch
-            className="mr-3"
-            trackColor={{ false: "#767577", true: "#707324" }}
-            thumbColor={newArrivalsEnabled ? "#707324" : "#f4f3f4"}
-            ios_backgroundColor="#3e3e3e"
-            onValueChange={handleNewArrivalsToggle}
-            value={newArrivalsEnabled}
-          />
-        </View>
-        <View className="flex flex-row items-center   justify-between">
-          <Text className="text-lg">Delivery status changes</Text>
-          <Switch
-            className="mr-3"
-            trackColor={{ false: "#767577", true: "#707324" }}
-            thumbColor={deliveryStatusEnabled ? "#707324" : "#f4f3f4"}
-            ios_backgroundColor="#3e3e3e"
-            onValueChange={handleDeliveryStatusToggle}
-            value={deliveryStatusEnabled}
-          />
+        <View className="gap-4">
+          <View className="flex flex-row items-center  justify-between">
+            <Text className="text-lg dark:text-white">Sales</Text>
+            <Switch
+              className="mr-3"
+              trackColor={{ false: "#c1c1c1", true: "#707324" }}
+              thumbColor={salesEnabled ? "#f4f3f4" : "#f4f3f4"}
+              ios_backgroundColor={dark==="light" ? "#f9f9f9" : "#333333"}
+              onValueChange={handleSalesToggle}
+              value={salesEnabled}
+            />
+          </View>
+          <View className="flex flex-row items-center  justify-between">
+            <Text className="text-lg dark:text-white">New arrivals</Text>
+            <Switch
+              className="mr-3"
+              trackColor={{ false: "#c1c1c1", true: "#707324" }}
+              thumbColor={newArrivalsEnabled ? "#f4f3f4" : "#f4f3f4"}
+              ios_backgroundColor={dark==="light" ? "#f9f9f9" : "#333333"}
+              onValueChange={handleNewArrivalsToggle}
+              value={newArrivalsEnabled}
+            />
+          </View>
+          <View className="flex flex-row items-center   justify-between">
+            <Text className="text-lg dark:text-white">Delivery status changes</Text>
+            <Switch
+              className="mr-3"
+              trackColor={{ false: "#c1c1c1", true: "#707324" }}
+              thumbColor={deliveryStatusEnabled ? "#f4f3f4" : "#f4f3f4"}
+              ios_backgroundColor={dark==="light" ? "#f9f9f9" : "#333333"}
+              onValueChange={handleDeliveryStatusToggle}
+              value={deliveryStatusEnabled}
+            />
+          </View>
         </View>
       </View>
       {bsOpen && (
-        <View className="z-50">
+        <View className="-bottom-[20%]  z-50 w-screen">
           <BottomSheet
             isOpen={true}
+            wrapperStyle={{
+              backgroundColor:`${color}`
+            }}
             onClose={() => setBSOpen(false)}
             sliderMinHeight={0}
-            sliderMaxHeight={450}
+            sliderMaxHeight={600}
             ref={(ref) => (panelRef.current = ref)}
           >
-            <ChangePassword />
+            <ChangePassword navigation={navigation} />
           </BottomSheet>
         </View>
       )}
-    </ScrollView>
+    </View>
   );
 };
 

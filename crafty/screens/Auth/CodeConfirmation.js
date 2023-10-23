@@ -47,7 +47,7 @@ const CodeConfirmation = ({ navigation ,route }) => {
   };
 
   return (
-    <SafeAreaView className="flex-1 bg-[f9f9f9] dark:bg-[#111111] items-center w-screen h-screen">
+    <SafeAreaView className="flex-1 bg-[f9f9f9] dark:bg-[#111111]  items-center w-screen h-screen">
       <KeyboardAvoidingView
         keyboardVerticalOffset={100}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -60,7 +60,7 @@ const CodeConfirmation = ({ navigation ,route }) => {
             <Text className="dark:text-white">
               Please, enter the code you received via email.
             </Text>
-            <View className="flex flex-row gap-4 left-5">
+            <View className="flex flex-row gap-4 right-2 px-8">
               {inputRefs.map((inputRef, index) => (
                 <TextInput
                   key={index}

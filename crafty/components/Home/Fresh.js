@@ -7,18 +7,17 @@ import ADRESS_API from "../../Api";
 
 const Fresh = ({ navigation }) => {
   const [data, setData] = useState([]);
-  const GetData =()=>{
+  const GetData = () => {
     axios
-    .get(`http://${ADRESS_API}:4000/item/getitems`)
-    .then((response) => {
-    console.log("🚀 ~ file: Fresh.js:14 ~ .then ~ response:", response)
-    
-      return setData(response.data) 
-    })
-    .catch((err) => console.log(err))
-  }
+      .get(`http://${ADRESS_API}:4000/item/getitems`)
+      .then((response) => {
+        console.log("🚀 ~ file: Fresh.js:14 ~ .then ~ response:", response);
+        return setData(response.data);
+      })
+      .catch((err) => console.log(err));
+  };
   useEffect(() => {
-   GetData()
+    GetData();
   }, []);
   return (
     <View>
@@ -30,23 +29,25 @@ const Fresh = ({ navigation }) => {
           </Text>
         </View>
         <View className="-left-12">
-          <TouchableOpacity onPress={() => navigation.navigate("AllProd")}>
+          <TouchableOpacity onPress={() => navigation.navigate("AllProd",{data:data})}>
             <Text className="dark:text-white text-xs font-normal">View all</Text>
           </TouchableOpacity>
         </View>
       </View>
-      <View className="flex flex-row items-start justify-start">
+      <View className="flex flex-row-reverse items-start justify-start">
         <ScrollView
           className="pl-4"
           horizontal={true}
           showsHorizontalScrollIndicator={false}
-        >{data && data.map((item,e) => {
-          console.log("🚀 ~ file: Fresh.js:40 ~ >{data&&data.map ~ item:", item)
-          
-          return  (<ProdCard navigation={navigation} data={item}  key={e}/>)
-        }
-        )
-         }
+        >
+          {data &&
+            data.map((item, e) => {
+              console.log(
+                "🚀 ~ file: Fresh.js:40 ~ >{data&&data.map ~ item:",
+                item
+              );
+              return <ProdCard navigation={navigation} data={item} key={e} />;
+            })}
         </ScrollView>
       </View>
     </View>

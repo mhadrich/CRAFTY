@@ -1,12 +1,14 @@
-import { Text, View, Image } from "react-native";
+import { Text, View, Image, useColorScheme } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../components/Authprovider/Authprovider";
 import axios from "axios";
 import { TouchableOpacity, ScrollView } from "react-native-gesture-handler";
 import ADRESS_API from "../Api";
 import TabNav from "../components/TabNav/TabNav";
+import { Svg, Path } from "react-native-svg";
 
 const Profile = ({ navigation }) => {
+  const color = useColorScheme();
   const { authState, onLogout } = useAuth();
   const { authenticated, userId } = authState;
   const [data, setData] = useState({});
@@ -18,19 +20,19 @@ const Profile = ({ navigation }) => {
     const fetchData = async () => {
       try {
         const userData = await axios.get(
-          `${ADRESS_API}:4000/user/getuserById/${userId}`
+          `${ADRESS_API}:4000/user/getuserById/${userId*1}`
         );
         setData(userData.data);
         const userOrders = await axios.get(
-          `http//${ADRESS_API}:4000/order/getorderbyuserId/${userId}`
+          `http//${ADRESS_API}:4000/order/getorderbyuserId/${userId*1}`
         );
         setOrders(userOrders.data);
         const userAddress = await axios.get(
-          `${ADRESS_API}:4000/adress/getadressByUserId/${userId}`
+          `${ADRESS_API}:4000/adress/getadressByUserId/${userId*1}`
         );
         setAddress(userAddress.data);
         const userReviews = await axios.get(
-          `${ADRESS_API}:4000/review/getreviewbyuseId/${userId}`
+          `${ADRESS_API}:4000/review/getreviewbyuseId/${userId*1}`
         );
         setReviews(userReviews.data);
       } catch (error) {
