@@ -17,9 +17,10 @@ import { useForm, Controller } from "react-hook-form";
 import { useAuth } from "../../components/Authprovider/Authprovider";
 
 export default function SignUp({ navigation }) {
-  const inputs = "mb-4 w-96 h-16 pl-3 bg-white rounded-md";
+  const inputs =
+    "mb-4 w-96 h-16 pl-3 bg-white rounded-md dark:bg-[#333333] dark:text-white";
   const inputsError =
-    "mb-4 w-96 h-16 pl-3 bg-white rounded-md border border-red-500  ";
+    "mb-4 w-96 h-16 pl-3 bg-white rounded-md border border-red-500 dark:bg-[#333333] dark:text-white ";
   const {
     control,
     handleSubmit,
@@ -33,18 +34,24 @@ export default function SignUp({ navigation }) {
     console.log("🚀 ~ file: SignUp.js:25 ~ register ~ data:", data);
 
     console.log("register", data);
-   const res = await onSignUp(data.Email,data.Password,data.Name,"","USER")
-   console.log("🚀 ~ file: SignUp.js:28 ~ register ~ res:", res)
-   if(res===201){
-    console.log("hello")
-    navigation.navigate("Login")
-   } else {
-     alert(res)
-   }
-  }    
-  
+    const res = await onSignUp(
+      data.Email,
+      data.Password,
+      data.Name,
+      "guedri",
+      "USER"
+    );
+    console.log("🚀 ~ file: SignUp.js:28 ~ register ~ res:", res);
+    if (res === 201) {
+      console.log("hello");
+      navigation.navigate("Login");
+    } else {
+      alert(res);
+    }
+  };
+
   return (
-    <SafeAreaView className="flex-1 bg-[f9f9f9] items-center w-screen h-screen  ">
+    <SafeAreaView className="flex-1 bg-[f9f9f9] dark:bg-[#111111] items-center w-screen h-screen  ">
       <KeyboardAvoidingView
         keyboardVerticalOffset={100}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -91,7 +98,7 @@ export default function SignUp({ navigation }) {
         <View className="-mt-40 -top-44 items-center justify-center w-full">
           <View className="">
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-              <Text className="font-bold pointer-events-none text-4xl mb-2 rounded-">
+              <Text className="font-bold pointer-events-none text-4xl mb-2 dark:text-white">
                 Sign Up
               </Text>
             </TouchableWithoutFeedback>
@@ -105,7 +112,6 @@ export default function SignUp({ navigation }) {
                 fieldState: { error },
               }) => (
                 <>
-                  
                   <TextInput
                     value={value}
                     onChangeText={onChange}
@@ -127,7 +133,8 @@ export default function SignUp({ navigation }) {
                 required: "email is required",
                 pattern: {
                   value: Email_rgex,
-                  message: " Invalid email address. Please enter a valid email.",
+                  message:
+                    " Invalid email address. Please enter a valid email.",
                 },
               }}
               render={({
@@ -180,10 +187,11 @@ export default function SignUp({ navigation }) {
               )}
             />
           </View>
-          <TouchableOpacity className="flex pt-4 flex-row gap-2 pl-44 items-center">
-            <Text onPress={() => navigation.navigate("Login")}>
-              Already have an account ?
-            </Text>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("Login")}
+            className="flex pt-4 flex-row gap-2 pl-44 items-center"
+          >
+            <Text className="dark:text-white">Already have an account ?</Text>
             <Svg
               width="16"
               height="8"
@@ -207,7 +215,7 @@ export default function SignUp({ navigation }) {
             </Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-            <Text className="mt-4">Continue without an account</Text>
+            <Text className="mt-4 dark:text-white">Continue without an account</Text>
           </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>

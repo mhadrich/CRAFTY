@@ -1,10 +1,10 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import Svg, { Path } from "react-native-svg";
 
 function BagIcon() {
   return (
-    <View className="w-9 h-9 bg-white rounded-full shadow items-center justify-center">
+    <View className="w-9 h-9 bg-white dark:bg-black rounded-full shadow items-center justify-center">
       <Svg
         width="16"
         height="13"

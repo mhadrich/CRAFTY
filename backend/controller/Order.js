@@ -12,17 +12,39 @@ const POST = async (req, res) => {
         userId,
         items,
       } = req.body;
-      const Order = await prisma.Order.create({
+      const order = await prisma.order.create({
         data: {
           dateOfDelivery,
           trackingNumber,
           deliveredProcessing,
           userId,
-          items,
+          items: {
+            create: [
+              {
+                item: {
+                  connect: {
+                    id: 1
+                  }
+                },
+                quantity: 3
+              },
+              {
+                item: {
+                  connect: {
+                    id: 3
+                  }
+                },
+                quantity: 2
+              }
+            ]
+          }
         },
+        include: {
+          items: true
+        }
       });
 
-      return res.status(201).json({ Order });
+      return res.status(201).json({ order });
     } catch (error) {
       console.error(error);
       return res.status(500).json({ error: "Cannot Create Order" });
@@ -31,7 +53,7 @@ const POST = async (req, res) => {
     return res.status(405).json({ error: "Method not allowed" });
   }
 };
-
+ 
 /* Get Orders */
 const GET = async (req, res) => {
   try {

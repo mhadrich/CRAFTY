@@ -15,7 +15,7 @@ function Chat({ route }) {
   const { otherUserId } = route.params;
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
-  const [chatid, setchatid] = useState("");
+  const [ chatid, setchatid] = useState("");
  
   const ScrollViewRef = useRef();
   const userid = authState.userId*1
@@ -53,7 +53,7 @@ function Chat({ route }) {
   useEffect(() => {
     
     ScrollViewRef.current.scrollToEnd({ animated: true })
-    socket.emit("joinChat", { userid, otherUserId });
+    socket.emit("joinChat", { userId:userid, otherUserId });
 
     getChatID(userid, otherUserId);
     getMessage( otherUserId);

@@ -59,7 +59,7 @@ const Checkout = ({ navigation, route }) => {
     }
   },[prms])
   return (
-    <View className="dark:bg-[#111111] p-4 pt-6">
+    <View className="dark:bg-[#111111] h-screen p-4 pt-6">
       <ChkShipAdrs
         navigation={navigation}
         data={address}

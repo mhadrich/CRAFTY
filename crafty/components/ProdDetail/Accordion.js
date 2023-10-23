@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, TouchableOpacity } from "react-native";
+import { Text, View, TouchableOpacity, useColorScheme } from "react-native";
 // import data from "data.json";
 import { Svg, Path } from "react-native-svg";
 
@@ -22,6 +22,7 @@ const data = [
 ];
 
 export default function Accordion() {
+  const color = useColorScheme();
   const [currentIndex, setCurrentIndex] = React.useState(null);
   const [isRotated, setIsRotated] = React.useState(false);
 
@@ -43,7 +44,7 @@ export default function Accordion() {
             >
               <View className="flex-grow">
                 <View className="flex flex-row p-4 justify-between items-center">
-                  <Text className="text-base tracking-wide items-center justify-between">
+                  <Text className="text-base tracking-wide items-center justify-between dark:text-white">
                     {Title}
                   </Text>
                   <Svg
@@ -54,7 +55,7 @@ export default function Accordion() {
                   >
                     <Path
                       d="M0.726562 7.06L3.7799 4L0.726562 0.94L1.66656 -4.10887e-08L5.66656 4L1.66656 8L0.726562 7.06Z"
-                      fill="#222222"
+                      fill={color==="light" ? "#222222" : "#ffffff"}
                     />
                   </Svg>
                 </View>
@@ -66,13 +67,13 @@ export default function Accordion() {
                     </Text>
                     <Text
                       key={Description}
-                      className="text-sm leading-6 text-left mb-6"
+                      className="text-sm leading-6 text-left mb-6 dark:text-white"
                     >
                       {Description}
                     </Text>
                   </View>
                 )}
-                <View className="border-t opacity-25"/>
+                <View className="border-t opacity-25 dark:border-white"/>
               </View>
             </TouchableOpacity>
           );

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import Welcomepage from "./screens/Welcomepage";
@@ -31,7 +31,6 @@ import ItemReviewCard from "./components/ProdDetail/ItemReviewCard";
 import ArticleComments from "./components/Article/ArticleComments";
 import ItemReviewsList from "./components/ProdDetail/ItemReviewsList";
 import WriteArticle from "./screens/Article/WriteArticle";
-
 import Profile from "./screens/profile";
 import MyOrders from "./components/profile/MyOrders";
 import OrderDetails from "./components/profile/OrderDetails";
@@ -40,13 +39,32 @@ import ChangePassword from "./components/profile/ChangePassword";
 import AddItem from "./screens/AddItem";
 import Favorites from "./screens/Favorites";
 import FavNavSearch from "./components/Favorites.js/FavNavSearch";
+import { useColorScheme } from "react-native";
+import { StatusBar } from "react-native";
+import Loading from "./components/Loading";
+
 const Stack = createStackNavigator();
 
 export default function App() {
+  const color = useColorScheme();
+  const [headerColor, setHeaderColor] = useState("");
+  const [statusColor, setStatusColor] = useState("");
+  useEffect(() => {
+    if (color === "dark") {
+      setHeaderColor("#111111");
+      setStatusColor("light-content");
+    } else {
+      setHeaderColor("#f9f9f9");
+      setStatusColor("dark-content");
+    }
+  }, [color]);
   return (
     <NavigationContainer>
       <Authprovider>
-        <Stack.Navigator initialRouteName="Home">
+        <Stack.Navigator
+          initialRouteName="Welcomepage"
+          screenOptions={{ headerStyle: { backgroundColor: `${headerColor}` } }}
+        >
           <Stack.Screen
             name="Welcomepage"
             component={Welcomepage}
@@ -249,7 +267,16 @@ export default function App() {
               headerTitle: (props) => <FavNavSearch navigation={navigation} />,
             })}
           />
+          <Stack.Screen
+              name="Loading"
+              component={Loading}
+              options={{ headerShown: false }}
+            />
         </Stack.Navigator>
+        <StatusBar
+          barStyle={`${statusColor}`}
+          backgroundColor={`${headerColor}`}
+        />
       </Authprovider>
     </NavigationContainer>
   );

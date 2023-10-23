@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Text,
   View,
@@ -7,32 +7,39 @@ import {
   Keyboard,
   KeyboardAvoidingView,
 } from "react-native";
+import Loading from "../../components/Loading";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { Path, Svg } from "react-native-svg";
 import { useForm, Controller } from "react-hook-form";
 import { useAuth } from "../../components/Authprovider/Authprovider";
 import ADRESS_API from "../../Api";
+
+
 export default function Login({ navigation }) {
-  const inputs = "mb-4 w-96 h-16 pl-3 bg-white rounded-md";
+  const inputs = "mb-4 w-96 h-16 pl-3 bg-white rounded-md dark:bg-[#333333] dark:text-white";
   const inputsError =
-    "mb-4 w-96 h-16 pl-3 bg-white rounded-md border border-red-500  ";
+    "mb-4 w-96 h-16 pl-3 bg-white rounded-md border border-red-500 dark:bg-[#333333] dark:text-white ";
   const Email_rgex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
   const { control, handleSubmit, formState: { errors } } = useForm()
   const { onLogin, onSignUp ,authState } = useAuth()
+  const [loading,setLoading]=useState(false)
   const LoginFunc = async(data) => {
     console.log("register", data);
+    setLoading(true)
     const res = await onLogin(data.Email, data.Password);
     console.log("🚀 ~ file: SignUp.js:28 ~ Login ~ res:", res);
     if (res === 200) {
       console.log("hello");
+      setLoading(false)
       navigation.navigate("Home");
     } else {
-      alert(res);
+      alert("LOGIN FAILED WRONG CREDENTIALS");
     }
   };
+  
   return (
-    <SafeAreaView className="flex-1 bg-[f9f9f9] items-center w-screen h-screen">
+    <SafeAreaView className="flex-1 bg-[f9f9f9] dark:bg-[#111111] items-center w-screen h-screen">
       <KeyboardAvoidingView
         keyboardVerticalOffset={100}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -79,7 +86,7 @@ export default function Login({ navigation }) {
         <View className="-mt-40 -top-52 items-center justify-center w-full">
           <View className="gap-4">
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-              <Text className="font-bold pointer-events-none text-4xl mb-2">
+              <Text className="font-bold pointer-events-none text-4xl mb-2 dark:text-white">
                 Login
               </Text>
             </TouchableWithoutFeedback>
@@ -144,7 +151,7 @@ export default function Login({ navigation }) {
             className="flex pt-4 flex-row gap-2 pl-48 items-center"
             onPress={() => navigation.navigate("ForgetPassword")}
           >
-            <Text> Forgot your password ? </Text>
+            <Text className="dark:text-white"> Forgot your password ? </Text>
             <Svg
               width="16"
               height="8"

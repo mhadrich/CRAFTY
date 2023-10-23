@@ -1,5 +1,5 @@
-import { View, Text } from "react-native";
-import React, { useRef, useState } from "react";
+import { View, Text, useColorScheme } from "react-native";
+import React, { useEffect, useRef, useState } from "react";
 import CategoryPill from "../components/Home/CategoryPill";
 import FilteringButtons from "../components/Home/FilteringButtons";
 import { ScrollView } from "react-native-gesture-handler";
@@ -8,6 +8,11 @@ import WheelPickerExpo from "react-native-wheel-picker-expo";
 import BottomSheet from "react-native-simple-bottom-sheet";
 
 const AllArticles = ({ navigation }) => {
+  const dark = useColorScheme();
+  const [color, setColor] = useState("");
+  useEffect(() => {
+    dark === "dark" ? setColor("#333333") : setColor("#ffffff");
+  }, [dark]);
   const [sliderStart, setSliderStart] = useState(0);
   const [sort, setSort] = useState(null);
   const panelRef = useRef(null);
@@ -33,27 +38,29 @@ const AllArticles = ({ navigation }) => {
           showsVerticalScrollIndicator={false}
         >
           <View className="-top-2 flex scale-90 flex-row ">
-            <ArticleCard navigation={navigation}/>
-            <ArticleCard navigation={navigation}/>
+            <ArticleCard navigation={navigation} />
+            <ArticleCard navigation={navigation} />
           </View>
           <View className="-top-2 flex scale-90 flex-row ">
-            <ArticleCard navigation={navigation}/>
-            <ArticleCard navigation={navigation}/>
+            <ArticleCard navigation={navigation} />
+            <ArticleCard navigation={navigation} />
           </View>
           <View className="-top-2 flex scale-90 flex-row ">
-            <ArticleCard navigation={navigation}/>
-            <ArticleCard navigation={navigation}/>
+            <ArticleCard navigation={navigation} />
+            <ArticleCard navigation={navigation} />
           </View>
           <View className="-top-2 flex scale-90 flex-row ">
-            <ArticleCard navigation={navigation}/>
-            <ArticleCard navigation={navigation}/>
+            <ArticleCard navigation={navigation} />
+            <ArticleCard navigation={navigation} />
           </View>
-          
         </ScrollView>
       </View>
       {bsOpen && (
         <BottomSheet
           className="justify-center items-center"
+          wrapperStyle={{
+            backgroundColor: `${color}`,
+          }}
           isOpen={true}
           onClose={() => setBSOpen(false)}
           sliderMinHeight={0}
@@ -62,7 +69,7 @@ const AllArticles = ({ navigation }) => {
         >
           <View className="h-96">
             <WheelPickerExpo
-              selectedStyle={{ borderColor: "#333333", borderWidth: 0.2 }}
+              backgroundColor={`${color}`}
               height={300}
               width={"%100"}
               initialSelectedIndex={sliderStart}
