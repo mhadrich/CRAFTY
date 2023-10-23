@@ -29,14 +29,12 @@ const Fresh = ({ navigation }) => {
           </Text>
         </View>
         <View className="-left-12">
-          <TouchableOpacity onPress={() => navigation.navigate("AllProd")}>
-            <Text className="dark:text-white text-xs font-normal">
-              View all
-            </Text>
+          <TouchableOpacity onPress={() => navigation.navigate("AllProd",{data:data})}>
+            <Text className="dark:text-white text-xs font-normal">View all</Text>
           </TouchableOpacity>
         </View>
       </View>
-      <View className="flex flex-row items-start justify-start">
+      <View className="flex flex-row-reverse items-start justify-start">
         <ScrollView
           className="pl-4"
           horizontal={true}

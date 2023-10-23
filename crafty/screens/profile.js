@@ -19,19 +19,19 @@ const Profile = ({ navigation }) => {
     const fetchData = async () => {
       try {
         const userData = await axios.get(
-          `${ADRESS_API}:4000/user/getuserById/${userId}`
+          `${ADRESS_API}:4000/user/getuserById/${userId*1}`
         );
         setData(userData.data);
         const userOrders = await axios.get(
-          `http//${ADRESS_API}:4000/order/getorderbyuserId/${userId}`
+          `http//${ADRESS_API}:4000/order/getorderbyuserId/${userId*1}`
         );
         setOrders(userOrders.data);
         const userAddress = await axios.get(
-          `${ADRESS_API}:4000/adress/getadressByUserId/${userId}`
+          `${ADRESS_API}:4000/adress/getadressByUserId/${userId*1}`
         );
         setAddress(userAddress.data);
         const userReviews = await axios.get(
-          `${ADRESS_API}:4000/review/getreviewbyuseId/${userId}`
+          `${ADRESS_API}:4000/review/getreviewbyuseId/${userId*1}`
         );
         setReviews(userReviews.data);
       } catch (error) {

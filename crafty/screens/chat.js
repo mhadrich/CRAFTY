@@ -78,7 +78,7 @@ function Chat({ route }) {
   };
   socket.on("message", (message) => {
     setMessages([...messages, message]);
-    ScrollViewRef.current.scrollToEnd({ animated: true })
+    // ScrollViewRef.current.scrollToEnd({ animated: true })
   });
 
   return (

@@ -1,9 +1,9 @@
-{
+  {
   "name": "backend",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {
+  "scripts": {  
     "seed":"node seed.js" ,
     "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"

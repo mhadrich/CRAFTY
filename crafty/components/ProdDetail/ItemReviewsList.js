@@ -15,7 +15,7 @@ import { Rating } from "react-native-ratings";
 import * as ImagePicker from "expo-image-picker";
 import { Cloudinary } from "@cloudinary/url-gen";
 
-const ItemReviewsList = ({ close }) => {
+const ItemReviewsList = ({ close ,reviews}) => {
   const color = useColorScheme();
   const [writing, setWriting] = useState(false);
   const [image0, setImage0] = useState(null);
@@ -121,10 +121,8 @@ const ItemReviewsList = ({ close }) => {
           )}
           <View className="bottom-20">
             <ScrollView className="pt-6">
-              <ItemReviewCard />
-              <ItemReviewCard />
-              <ItemReviewCard />
-              <ItemReviewCard />
+             { reviews.map((review)=>{ return  (<ItemReviewCard review={review} />)
+              })}
             </ScrollView>
           </View>
           <View className="bottom-96 z-10 items-end ">

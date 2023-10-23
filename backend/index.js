@@ -15,7 +15,7 @@ const NotificationRoute = require('./Routes/NotificationRoute.js')
 const FavouriteItemRoute = require('./Routes/FavouriteItemRoute.js')
 const WishlistRoute = require('./Routes/WishlistRoute.js')
 const ChatRoute = require('./Routes/chatRoute.js')
-
+const CartRoute =require('./Routes/CartRoutes.js')
 
 
 
@@ -85,7 +85,7 @@ io.on('connection', (socket) => {
     console.log(`User disconnected: ${socket.id}`);
   });
 });
-
+app.use("/cart",CartRoute);
  app.use("/item",ItemRoute);
 app.use("/article",ArticleRoute);
 app.use("/order",OrderRoute);

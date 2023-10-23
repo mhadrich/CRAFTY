@@ -123,7 +123,7 @@ const ProductDetail = ({ navigation,route}) => {
             sliderMaxHeight={650}
             ref={(ref) => (panelRef.current = ref)}
           >
-            <ItemReviewsList close={setBSOpen} />
+            <ItemReviewsList close={setBSOpen} reviews={item.reviews} />
           </BottomSheet>
         </View>
       )}

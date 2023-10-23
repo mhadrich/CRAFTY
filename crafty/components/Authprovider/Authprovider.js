@@ -14,7 +14,24 @@ export const Authprovider = ({ children }) => {
     token: null,
     authenticated: false,
     userId: null,
+    
   });
+  const[fav,setFav]=useState([])
+  const GetFavorite = async () => {
+    const ID = await secureStore.getItemAsync(Userid_Key);
+    try {
+      const res = await axios.get(`http://${ADRESS_API}:4000/favourite/getfavourite/${ID}`);
+
+      console.log("🚀 😎😎😎😎😎😎😎😎😎~ file: Authprovider.js:24 ~ GetFavorite ~ res:", res.data)
+      if (res){
+      setFav(res.data)
+      console.log(fav,"favvvvvvv");
+    }
+    } catch (error) {
+      console.log("Error fetching favorites:", error);
+      return []; 
+    }
+  }
   useEffect(() => {
     const getToken = async () => {
       const token = await secureStore.getItemAsync(Token_Key)
@@ -26,13 +43,17 @@ export const Authprovider = ({ children }) => {
         setAuthState({
           token: token,
           authenticated: true,
-          userId : ID
+          userId : ID ,
+          fav:[]
         });
       }
     };
     getToken();
+    GetFavorite()
+   
   }, []);
-
+   
+ 
   const SignUp = async (email, password, name, lastname, role) => {
     try {
     const  res=  await axios.post(`http:/${ADRESS_API}:4000/auth/signup`, {
@@ -64,6 +85,7 @@ export const Authprovider = ({ children }) => {
             token: response.data.token,
             authenticated: true,
             userId : response.data.id
+            
           });
           axios.defaults.headers.common[
             "Authorization"
@@ -82,7 +104,8 @@ export const Authprovider = ({ children }) => {
       }
     };
     const Logout = async () => {
-      await secureStore.deleteItemAsync(Token_Key);
+      await secureStore.deleteItemAsync(Token_Key)
+      await secureStore.deleteItemAsync(Userid_Key);
       axios.defaults.headers.common["Authorization"] = ``;
       setAuthState({ token: null, authenticated: false ,userId :null });
     };
@@ -92,6 +115,7 @@ export const Authprovider = ({ children }) => {
     onLogin: Login,
     onLogout: Logout,
     authState,
+    fav
   };
   return <Authcontext.Provider value={value}>{children}</Authcontext.Provider>;
 };

@@ -23,6 +23,7 @@ function Karousel({data}) {
   //     text: "Up your decor game",
   //   },
   // ];
+
   const width = Dimensions.get("window").width;
   return (
     <View style={{ flex: 1 }}>
@@ -36,14 +37,14 @@ function Karousel({data}) {
         scrollAnimationDuration={2000}
         renderItem={({ item }) => (
           <View className="flex-1">
-            <Image source={{ uri: item.url }} className="flex-1" />
+            <Image source={{ uri:  item.url ? item.url : item.coverImage}} className="flex-1" />
             <View className="absolute top-3/4 bottom-0 left-0 right-0 justify-center items-center">
               <LinearGradient
                 pointerEvents="none"
                 colors={["rgba(0,0,0,0)", "rgba(0,0,0,1)"]}
                 className="w-screen top-4 h-28"
               />
-              <Text className="text-white bottom-14 font-bold text-3xl">{item.text ?item.text :""}</Text>
+              <Text className="text-white bottom-14 font-bold text-3xl">{item.title ? item.title:item.text}</Text>
             </View>
           </View>
         )}
