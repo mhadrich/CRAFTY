@@ -70,13 +70,13 @@ const Profile = ({ navigation }) => {
               />
               <View>
                 <Text className="text-2xl font-bold dark:text-white">
-                  {"John Doe" || data.name}
+                  {"Amine" || data.name}
                 </Text>
                 <Text className="text-[#999] text-base">
-                  {"@johndoe" || data.email}
+                  {"amineslimani67@gmail.com" || data.email}
                 </Text>
                 <Text className="text-[#999] text-base">
-                  {"user/crafter" || data.role}
+                  {"user" || data.role}
                 </Text>
               </View>
             </View>
