@@ -33,20 +33,20 @@ import { useAuth } from "../../components/Authprovider/Authprovider.js";
 //   },
 // ];
 
-const cards = [
-  {
-    name: "Jane Doe",
-    cardNumber: "1234567812345678",
-    expiryDate: "10/26",
-    cvv: "123",
-  },
-  {
-    name: "Jhon Doe",
-    cardNumber: "5678123456781231",
-    expiryDate: "10/28",
-    cvv: "456",
-  },  
-];
+// const cards = [
+//   {
+//     name: "Jane Doe",
+//     cardNumber: "1234567812345678",
+//     expiryDate: "10/26",
+//     cvv: "123",
+//   },
+//   {
+//     name: "Jhon Doe",
+//     cardNumber: "5678123456781231",
+//     expiryDate: "10/28",
+//     cvv: "456",
+//   },  
+// ];
 
 const Checkout = ({ navigation, route }) => {
   
@@ -55,7 +55,12 @@ const Checkout = ({ navigation, route }) => {
   const [cardsList, setCards] = useState([]);
 
   
-  const [defaultCard,setDefaultCard] = useState(cards[0]);
+  const [defaultCard,setDefaultCard] = useState(  {
+    name: "Jane Doe",
+    cardNumber: "1234567812345678",
+    expiryDate: "10/26",
+    cvv: "123",
+  });
   const [defaultAddress,setDefaultAddress] = useState({});
   const [deliveryPrice, setDeliveryPrice] = useState(5);
   const prms= route.params
@@ -73,8 +78,24 @@ const Checkout = ({ navigation, route }) => {
       console.log(err ,"err");
       }
   }
+  const GetCard =async ()=>{
+    try {
+    
+   
+      const response = await axios.get(`http://${ADRESS_API}:4000/payment/getAllByUserId/${authState.userId*1}` )
+      
+      console.log("🚀 ~ file: Checkout.js:82 ~ GetCard ~ response :", response .data)
+      setCards(response.data)
+      setDefaultCard(response.data[0])
+    }
+      
+    catch (err) {
+      console.log(err ,"err");
+      }
+  }
   useEffect(()=>{
     GetAdress()
+    GetCard()
   },[])
   useEffect(()=>{
    
@@ -95,7 +116,7 @@ const Checkout = ({ navigation, route }) => {
       />
       <ChkPymnt
         navigation={navigation}
-        data={cards}
+        data={cardsList}
         render={defaultCard.cardNumber}
       />
       <ChkDelivery fn={setDeliveryPrice} />

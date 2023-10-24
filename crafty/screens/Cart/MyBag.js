@@ -24,7 +24,7 @@ const MyBag = ({ navigation }) => {
     
    
       const response = await axios.get(`http://${ADRESS_API}:4000/cart/getcart/${authState.userId*1}` )
-      console.log("🚀 ~ file: MyBag.js:27 ~ GetCart ~ response:", response.data.cart.items[0].item)
+      console.log("🚀 ~ file: MyBag.js:27 ~ GetCart ~ response:", response.data.cart.items[0] )
       setData(response.data.cart)
     }
       
@@ -92,7 +92,7 @@ const MyBag = ({ navigation }) => {
           </Text>
         </View>
         <TouchableOpacity
-          onPress={() => navigation.navigate("Checkout")}
+          onPress={() => navigation.navigate("Checkout",{amount :cartTotal , cartId :data.id})}
           className="mt-6 bg-[#BF9B7A] h-12 w-fit rounded-full justify-center items-center"
         >
           <Text className="text-center text-white text-sm font-medium leading-tight">
