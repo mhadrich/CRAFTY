@@ -145,7 +145,7 @@ const Settings = ({ navigation }) => {
         </View>
       </View>
       {bsOpen && (
-        <View className="-bottom-[20%]  z-50 w-screen">
+        <View className="-bottom-[10%]  z-50 w-screen">
           <BottomSheet
             isOpen={true}
             wrapperStyle={{
@@ -153,7 +153,7 @@ const Settings = ({ navigation }) => {
             }}
             onClose={() => setBSOpen(false)}
             sliderMinHeight={0}
-            sliderMaxHeight={600}
+            sliderMaxHeight={1000}
             ref={(ref) => (panelRef.current = ref)}
           >
             <ChangePassword navigation={navigation} />
