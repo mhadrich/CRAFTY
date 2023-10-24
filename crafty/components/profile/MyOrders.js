@@ -24,43 +24,43 @@ export default MyOrders = ({ navigation }) => {
     fetchData();
   }, [userId]);
 
-  const dummyData = [
-    {
-      id: 1,
-      deliveredProcessing: "Delivered",
-      dateOfDelivery: "2023-10-10",
-      trackingNumber: "IW3475453455",
-      quantity: 3,
-      items: [{ price: 120 }, { name: "Makah" }],
-    },
-    {
-      id: 2,
-      deliveredProcessing: "Processing",
-      dateOfDelivery: "2023-10-12",
-      trackingNumber: "IW3475453456",
-      quantity: 2,
-      items: [{ price: 80 }, { name: "Makah" }],
-    },
-    {
-      id: 3,
-      deliveredProcessing: "Cancelled",
-      dateOfDelivery: "2023-10-15",
-      trackingNumber: "IW3475453457",
-      quantity: 1,
-      items: [{ price: 10 }, { name: "Makah" }],
-    },
-    {
-      id: 4,
-      deliveredProcessing: "Delivered",
-      dateOfDelivery: "2023-10-15",
-      trackingNumber: "IW3475453457",
-      quantity: 1,
-      items: [{ price: 50 }, { name: "Makah" }],
-    },
-  ];
-  useEffect(() => {
-    setOrders(dummyData);
-  }, []);
+  // const dummyData = [
+  //   {
+  //     id: 1,
+  //     deliveredProcessing: "Delivered",
+  //     dateOfDelivery: "2023-10-10",
+  //     trackingNumber: "IW3475453455",
+  //     quantity: 3,
+  //     items: [{ price: 120 }, { name: "Makah" }],
+  //   },
+  //   {
+  //     id: 2,
+  //     deliveredProcessing: "Processing",
+  //     dateOfDelivery: "2023-10-12",
+  //     trackingNumber: "IW3475453456",
+  //     quantity: 2,
+  //     items: [{ price: 80 }, { name: "Makah" }],
+  //   },
+  //   {
+  //     id: 3,
+  //     deliveredProcessing: "Cancelled",
+  //     dateOfDelivery: "2023-10-15",
+  //     trackingNumber: "IW3475453457",
+  //     quantity: 1,
+  //     items: [{ price: 10 }, { name: "Makah" }],
+  //   },
+  //   {
+  //     id: 4,
+  //     deliveredProcessing: "Delivered",
+  //     dateOfDelivery: "2023-10-15",
+  //     trackingNumber: "IW3475453457",
+  //     quantity: 1,
+  //     items: [{ price: 50 }, { name: "Makah" }],
+  //   },
+  // ];
+  // useEffect(() => {
+  //   setOrders(dummyData);
+  // }, []);
   const delivredOrders = orders.filter((e) => {
     return e.deliveredProcessing === "Delivered";
   });
@@ -70,6 +70,7 @@ export default MyOrders = ({ navigation }) => {
   const cancelledOrders = orders.filter((e) => {
     return e.deliveredProcessing === "Cancelled";
   });
+  
   return (
     <View className=" dark:bg-[#111111] w-screen h-screen items-center">
       <View className="flex flex-col  mt-[10%] w-11/12 items-start ">

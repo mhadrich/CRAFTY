@@ -26,7 +26,9 @@ const Courses = () => {
         <Card img={webImg} title="For Users" text={text1} />
         <Card img={appImg} title="For Crafters" text={text2} />
       </div>
-
+      <div>
+        <img></img>
+      </div>
       <div className="mt-8 text-center">
         <p className="text-xl font-semibold">
           Coming Soon to Your Favorite App Stores:

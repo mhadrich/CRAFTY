@@ -76,31 +76,31 @@ const GETById = async (req, { params }) => {
   }
 };
 /*GET Review By UserId */
-const GETByUserId = async (req, { params }) => {
+const GETByUserId = async (req, res) => {
   try {
-    if (!params || !params.userId) {
-      throw new Error("userId parameter is missing");
+    const { id } = req.params;
+    if (!id) {
+      return res.status(400).json({ error: "id parameter is missing" });
     }
 
-    const { userId } = params;
-    const Review = await prisma.Review.findUnique({
-      where: { userId },
+    const userId = parseInt(id);
+
+    const reviews = await prisma.review.findMany({
+      where: {
+        userId: userId,
+      },
     });
 
-    if (!user) {
-      return new Response(JSON.stringify({ error: "Review not found" }), {
-        status: 404,
-      });
+    if (!reviews) {
+      return res.status(404).json({ message: "reviews not found" });
     }
-
-    return new Response(JSON.stringify(Review));
+    return res.status(200).json(reviews);
   } catch (error) {
     const message =
       error instanceof Error ? error.message : "An unknown error occurred";
-    return new Response(
-      JSON.stringify({ message: "Error fetching Review", error: message }),
-      { status: 500 }
-    );
+    return res
+      .status(500)
+      .json({ message: "Error fetching review by Userid", error: message });
   }
 };
 /*UPDATE Review*/

@@ -39,15 +39,15 @@ const GETBYEMAIL = async (req, res) => {
 };
 
 /*GET User by id*/
-const GETBYID = async (req, { params }) => {
+const GETBYID = async (req, res) => {
   try {
     const { id } = req.params;
     if (!id) {
       return res.status(400).json({ error: "id parameter is missing" });
     }
-    const user = await prisma.user.findFirst({
+    const user = await prisma.user.findUnique({
       where: {
-        id: id,
+        id: parseInt(id),
       },
     });
 

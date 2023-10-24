@@ -1,6 +1,6 @@
 import { View, Text, Image, Pressable, useColorScheme } from "react-native";
 import React, { useEffect, useState } from "react";
-import HeartIcon from "./HeartIcon";
+// import HeartIcon from "./HeartIcon";
 import { Rating } from "react-native-ratings";
 import { Cloudinary } from "@cloudinary/url-gen";
 import { useAuth } from "./Authprovider/Authprovider";
@@ -36,9 +36,7 @@ const ProdCard = ({ navigation, data, moreItems }) => {
   const myImage = cld.image("sample");
   return (
     <View className="pr-4">
-      <Pressable
-        onPress={() => navigation.navigate("ProductDetail", { item: data, moreItems: moreItems })}
-      >
+      <Pressable onPress={()=>navigation.navigate("ProductDetail",{item:data})}>
         <Image
           className="w-40 h-44 rounded-lg"
           source={{ uri: data ? data.images[0].url : "#" }}
@@ -51,7 +49,7 @@ const ProdCard = ({ navigation, data, moreItems }) => {
         }}
         className="-top-5 -right-32 "
       >
-        <HeartIcon state={like} />
+        {/* <HeartIcon state={like} /> */}
       </Pressable>
       <View className="-top-8  items-start justify-start">
         <View className="flex flex-row pb-1">
@@ -68,15 +66,9 @@ const ProdCard = ({ navigation, data, moreItems }) => {
             ({data ? data.reviews.length : ""})
           </Text>
         </View>
-        <Text className="dark:text-white text-neutral-400 text-xs">
-          {data ? data.user.name : "RG"}
-        </Text>
-        <Text className="dark:text-white w-36 text-base font-semibold">
-          {data ? data.name : ""}
-        </Text>
-        <Text className="dark:text-white w-11 text-sm font-medium leading-tight">
-          {data ? data.price : ""}$
-        </Text>
+        <Text className="dark:text-white text-neutral-400 text-xs">{data ? data.user.name : "RG"}</Text>
+         <Text className="dark:text-white w-28 text-base font-semibold">{data ?data.name :""}</Text> 
+        <Text className="dark:text-white w-11 text-sm font-medium leading-tight">{data ?data.price :""}$</Text>
       </View>
     </View>
   );

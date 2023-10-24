@@ -17,7 +17,7 @@ const About = () => {
         <p className=" text-lightText text-justify ">
           We are a dedicated team hailing from{" "}
           <span className="text-pink-500">RBK</span> , driven by a shared
-          passion for crafting and innovation. CRAFTY represents our vision to
+          passion for crafting and innovation. <span className="font-bold text-brightGreen">CRAFTY</span> represents our vision to
           unite craft enthusiasts and skilled artisans through an innovative
           mobile app. With our expertise and commitment, we aim to revolutionize
           the crafting experience, creating a platform that seamlessly connects

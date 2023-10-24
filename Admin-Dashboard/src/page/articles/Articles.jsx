@@ -14,7 +14,7 @@ import axios from "axios";
 import Reasons from "./Reasons";
 function Articles() {
   const [comment, setComment] = useState([]);
-  const [selectedValue, setSelectedValue] = useState(null); 
+  const [selectedValue, setSelectedValue] = useState(null);
   const [trigger, setTrigger] = useState(false);
   const [title, settitle] = useState("");
   const [data, setdata] = useState([]);
@@ -203,7 +203,9 @@ function Articles() {
               id="combo-box-demo"
               options={Reasons}
               sx={{ width: 300 }}
-              renderInput={(params) => <TextField {...params} label="Reasons" />}
+              renderInput={(params) => (
+                <TextField {...params} label="Reasons" />
+              )}
               onChange={(event, newValue) => {
                 setComment([...comment, { id: row.id, label: newValue.label }]);
                 setSelectedValue(true);

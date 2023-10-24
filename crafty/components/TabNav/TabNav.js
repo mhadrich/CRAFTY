@@ -2,13 +2,12 @@ import { View, Text, Pressable, useColorScheme } from "react-native";
 import React from "react";
 import { Svg, Path } from "react-native-svg";
 import { useRoute } from "@react-navigation/native";
-
 const TabNav = ({ navigation }) => {
-  const color = useColorScheme();
   const route = useRoute();
   const active = route.name;
   const txtActive = "text-xs font-semibold text-[#BF9B7A]";
   const txtInactive = "text-xs text-[#9B9B9B]";
+  const color = useColorScheme();
   return (
     <View className="absolute z-50 bottom-0 items-center justify-center w-screen h-24 pb-4 bg-[#f9f9f9] dark:bg-[#111111] shadow">
       <View className="w-screen p-8 flex flex-row justify-between">
