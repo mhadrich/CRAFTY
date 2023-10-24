@@ -40,18 +40,38 @@ const AllProd = ({ navigation, route }) => {
           <FilteringButtons open={setBSOpen} sort={sort} />
         </View>
         <ScrollView
-          className=" flex flex-wrap dark:bg-[#111111] w-screen pl-7 pt-9 "
+          className="w-screen h-screen dark:bg-[#111111] pt-2 mb-96"
           showsVerticalScrollIndicator={false}
         >
-          <View className="flex  flex-wrap ">
-            {data &&
-              data.map((item, key) => {
-                return (
-                  <ProdCard navigation={navigation} data={item} index={key} />
-                );
-              })}
-
-            <View className="p-4" />
+          <View className="flex flex-row justify-center gap-6 mb-20">
+            <View>
+              {data &&
+                data.map((item, key) => {
+                  if (key % 2 === 0) {
+                    return (
+                      <ProdCard
+                        navigation={navigation}
+                        data={item}
+                        index={key}
+                      />
+                    );
+                  }
+                })}
+            </View>
+            <View>
+              {data &&
+                data.map((item, key) => {
+                  if (key % 2 !== 0) {
+                    return (
+                      <ProdCard
+                        navigation={navigation}
+                        data={item}
+                        index={key}
+                      />
+                    );
+                  }
+                })}
+            </View>
           </View>
         </ScrollView>
       </View>

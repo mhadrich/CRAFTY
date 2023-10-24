@@ -35,19 +35,39 @@ const AllArticles = ({ navigation, route }) => {
           <FilteringButtons open={setBSOpen} sort={sort} />
         </View>
         <ScrollView
-          className="w-screen dark:bg-[#111111] pt-5"
+          className="w-screen h-screen dark:bg-[#111111]"
           showsVerticalScrollIndicator={false}
         >
-          {data &&
-            data.map((article, key) => {
-              return (
-                <ArticleCard
-                  navigation={navigation}
-                  article={article}
-                  key={key}
-                />
-              );
-            })}
+          <View className="flex flex-row justify-center">
+            <View>
+              {data &&
+                data.map((article, key) => {
+                  if (key % 2 === 0) {
+                    return (
+                      <ArticleCard
+                        navigation={navigation}
+                        article={article}
+                        key={key}
+                      />
+                    );
+                  }
+                })}
+            </View>
+            <View>
+              {data &&
+                data.map((article, key) => {
+                  if (key % 2 !== 0) {
+                    return (
+                      <ArticleCard
+                        navigation={navigation}
+                        article={article}
+                        key={key}
+                      />
+                    );
+                  }
+                })}
+            </View>
+          </View>
         </ScrollView>
       </View>
       {bsOpen && (

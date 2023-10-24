@@ -4,11 +4,13 @@ const Logoimg = require("../assets/crafty.gif");
 import { useAuth } from "../components/Authprovider/Authprovider";
 
 const Welcomepage = ({ navigation }) => {
-  const { authState } = useAuth()
+  const { authState } = useAuth();
 
   useEffect(() => {
     setTimeout(() => {
-  authState.authenticated ?    navigation.navigate("Login") :navigation.navigate("Home");
+      authState.authenticated
+        ? navigation.navigate("SignUp")
+        : navigation.navigate("Home");
     }, 2000);
   }, []);
 

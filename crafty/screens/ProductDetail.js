@@ -19,12 +19,25 @@ import BottomSheet from "react-native-simple-bottom-sheet";
 import ItemReviewsList from "../components/ProdDetail/ItemReviewsList";
 
 const ProductDetail = ({ navigation, route }) => {
-  const { item } = route.params;
-
+  AddToFavorite = async () => {
+    try {
+      res = await axios.post(
+        `http://${ADRESS_API}:4000/favourite/addfavourite`,
+        { userId: authState && authState.userId * 1, itemId: data && data.id }
+      );
+      console.log(res, "res 👌👌👌👌👌👌👌");
+    } catch (error) {
+      console.log(
+        "🚀 ~  file: ProdCard.js:16 ~ AddToFavorite=async ~ error:",
+        error
+      );
+    }
+  };
+  const { item, moreItems } = route.params;
+  console.log("the more items", moreItems);
   const dark = useColorScheme();
   const [color, setColor] = useState("");
   useEffect(() => {
-    console.log("data 🤞🤞🤞🤞🤞🤞🤞🤞:", item);
     dark === "dark" ? setColor("#333333") : setColor("#ffffff");
   }, [dark]);
   const [like, setLike] = useState(false);
@@ -33,7 +46,9 @@ const ProductDetail = ({ navigation, route }) => {
   return (
     <View>
       <ScrollView className=" dark:bg-[#111111]">
-        <Karousel data={item.images} />
+        <View className="-my-8">
+          <Karousel data={item.images} />
+        </View>
         <View className=" flex flex-row justify-between  p-4 items-center">
           <Pressable
             className="h-12 w-72 p-2 rounded-lg border-1 bg-white dark:bg-black "
@@ -52,7 +67,14 @@ const ProductDetail = ({ navigation, route }) => {
               </Svg>
             </View>
           </Pressable>
-          <HeartIcon state={like} />
+          <Pressable
+            onPressOut={() => {
+              AddToFavorite();
+              setLike(!like);
+            }}
+          >
+            <HeartIcon state={like} />
+          </Pressable>
           <Pressable onPress={() => navigation.navigate("MyBag")}>
             {/* <BagIcon /> */}
           </Pressable>
@@ -95,7 +117,7 @@ const ProductDetail = ({ navigation, route }) => {
         </TouchableOpacity>
 
         <View>
-          <Accordion details={item}/>
+          <Accordion details={item} />
         </View>
 
         <Text className="text-lg font-medium p-4 mt-2 dark:text-white">
@@ -107,11 +129,10 @@ const ProductDetail = ({ navigation, route }) => {
             showsHorizontalScrollIndicator={false}
             horizontal={true}
           >
-            <ProdCard />
-            <ProdCard />
-            <ProdCard />
-            <ProdCard />
-            <ProdCard />
+            {moreItems &&
+              moreItems.map((item, key) => (
+                <ProdCard navigation={navigation} data={item} key={key} />
+              ))}
           </ScrollView>
         </View>
       </ScrollView>

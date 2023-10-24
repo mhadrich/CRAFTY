@@ -263,15 +263,15 @@ export default function App() {
             name="Favorites"
             component={Favorites}
             options={({ navigation }) => ({
-              headerLeft: null,
-              headerTitle: (props) => <FavNavSearch navigation={navigation} />,
+              headerTitle: "Your favorites",
+              headerTintColor: "#8C633F",
             })}
           />
           <Stack.Screen
-              name="Loading"
-              component={Loading}
-              options={{ headerShown: false }}
-            />
+            name="Loading"
+            component={Loading}
+            options={{ headerShown: false }}
+          />
         </Stack.Navigator>
         <StatusBar
           barStyle={`${statusColor}`}

@@ -121,7 +121,7 @@ model CartItem {
     name         String
    
 
-    description  String 
+    description  String @db.LongText 
     price        Int
     images       Image[]
     tags         Tag[] 
