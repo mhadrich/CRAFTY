@@ -19,7 +19,22 @@ import BottomSheet from "react-native-simple-bottom-sheet";
 import ItemReviewsList from "../components/ProdDetail/ItemReviewsList";
 
 const ProductDetail = ({ navigation, route }) => {
-  const { item } = route.params;
+  AddToFavorite = async () => {
+    try {
+      res = await axios.post(
+        `http://${ADRESS_API}:4000/favourite/addfavourite`,
+        { userId: authState && authState.userId * 1, itemId: data && data.id }
+      );
+      console.log(res, "res 👌👌👌👌👌👌👌");
+    } catch (error) {
+      console.log(
+        "🚀 ~  file: ProdCard.js:16 ~ AddToFavorite=async ~ error:",
+        error
+      );
+    }
+  };
+  const { item, moreItems } = route.params;
+  console.log("the more items", moreItems);
   const dark = useColorScheme();
   const [color, setColor] = useState("");
   useEffect(() => {
@@ -52,7 +67,14 @@ const ProductDetail = ({ navigation, route }) => {
               </Svg>
             </View>
           </Pressable>
-          <HeartIcon state={like} />
+          <Pressable
+            onPressOut={() => {
+              AddToFavorite();
+              setLike(!like);
+            }}
+          >
+            <HeartIcon state={like} />
+          </Pressable>
           <Pressable onPress={() => navigation.navigate("MyBag")}>
             <BagIcon />
           </Pressable>
@@ -107,11 +129,10 @@ const ProductDetail = ({ navigation, route }) => {
             showsHorizontalScrollIndicator={false}
             horizontal={true}
           >
-            <ProdCard />
-            <ProdCard />
-            <ProdCard />
-            <ProdCard />
-            <ProdCard />
+            {moreItems &&
+              moreItems.map((item, key) => (
+                <ProdCard navigation={navigation} data={item} key={key} />
+              ))}
           </ScrollView>
         </View>
       </ScrollView>

@@ -8,7 +8,7 @@ import axios from "axios";
 import ADRESS_API from "../Api";
 import { CloudinaryTransformable } from "@cloudinary/url-gen/assets/CloudinaryTransformable";
 
-const ProdCard = ({ navigation, data }) => {
+const ProdCard = ({ navigation, data, moreItems }) => {
   const { authState } = useAuth();
   const [Data, setData] = useState(false);
   AddToFavorite = async () => {
@@ -30,7 +30,6 @@ const ProdCard = ({ navigation, data }) => {
       setData(data);
     }
   }, [data]);
-  console.log(data, "data from prodCard");
   const cld = new Cloudinary({ cloud: { cloudName: "ddtfqfamn" } });
   const color = useColorScheme();
   const [like, setLike] = useState(false);
@@ -38,7 +37,7 @@ const ProdCard = ({ navigation, data }) => {
   return (
     <View className="pr-4">
       <Pressable
-        onPress={() => navigation.navigate("ProductDetail", { item: data })}
+        onPress={() => navigation.navigate("ProductDetail", { item: data, moreItems: moreItems })}
       >
         <Image
           className="w-40 h-44 rounded-lg"

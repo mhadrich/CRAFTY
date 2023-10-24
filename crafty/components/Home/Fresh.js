@@ -49,7 +49,7 @@ const Fresh = ({ navigation }) => {
               .slice(0)
               .reverse()
               .map((item, e) => {
-                return <ProdCard navigation={navigation} data={item} key={e} />;
+                return <ProdCard navigation={navigation} data={item} moreItems={data} key={e} />;
               })}
         </ScrollView>
       </View>
