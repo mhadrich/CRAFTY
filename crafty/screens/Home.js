@@ -1,6 +1,5 @@
 import Fresh from "../components/Home/Fresh";
-import React,{useEffect,useState} from "react";
-import Karousel from "../components/Home/Carousel";
+import React from "react";
 import { LinearGradient } from "expo-linear-gradient";
 import { Dimensions, Image, Text, View } from "react-native";
 import Carousel from "react-native-reanimated-carousel";
@@ -8,8 +7,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import Recent from "../components/Home/Recent";
 import Articles from "../components/Home/Articles";
 import TabNav from "../components/TabNav/TabNav";
-import axios from "axios"
-import ADRESS_API from "../Api"
+
 const Home = ({ navigation }) => {
   const Images = [
     {

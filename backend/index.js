@@ -31,15 +31,14 @@ app.use(express.json());
 app.use(cors());
 app.use("/auth", authroute);
 app.use("/reset", resertRroute);
-const server = http.createServer(app)
-const io =  socket_io(server)
-const prisma = require ("./lib/prisma.js") 
+const server = http.createServer(app);
+const io = socket_io(server);
+const prisma = require("./lib/prisma.js");
 
-
-io.on('connection', (socket) => {
+io.on("connection", (socket) => {
   console.log(`User connected: ${socket.id}`);
 
-  socket.on('joinChat', async ({ userId, otherUserId }) => {
+  socket.on("joinChat", async ({ userId, otherUserId }) => {
     const chat = await prisma.chat.findFirst({
       where: {
         AND: [
@@ -61,27 +60,25 @@ io.on('connection', (socket) => {
     }
   });
 
-  socket.on('sendMessage', async ({ chatId, userId, text }) => {
-    
-    console.log("🚀 ~ file: index.js:93 ~ socket.on ~ text:", text)
-    
+  socket.on("sendMessage", async ({ chatId, userId, text }) => {
+    console.log("🚀 ~ file: index.js:93 ~ socket.on ~ text:", text);
+
     try {
       const message = await prisma.message.create({
         data: {
           text,
-          sender:  userId  ,
-          chatId:   chatId*1 ,
+          sender: userId,
+          chatId: chatId * 1,
         },
       });
 
-      io.to(chatId).emit('message', message);
+      io.to(chatId).emit("message", message);
     } catch (error) {
       console.error(error);
     }
   });
-  
 
-  socket.on('disconnect', () => {
+  socket.on("disconnect", () => {
     console.log(`User disconnected: ${socket.id}`);
   });
 });

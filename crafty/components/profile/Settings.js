@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { View, Text, Switch, TouchableOpacity, useColorScheme } from "react-native";
 import axios from "axios";
-import ADRESS_API from "../../Api";
 import { ScrollView, TextInput } from "react-native-gesture-handler";
 import BottomSheet from "react-native-simple-bottom-sheet";
 import ChangePassword from "./ChangePassword";
@@ -16,6 +15,7 @@ const Settings = ({ navigation }) => {
     dateOfBirth: "2003-07-16",
     password: "*********",
   });
+
   const [salesEnabled, setSalesEnabled] = useState(false);
   const [newArrivalsEnabled, setNewArrivalsEnabled] = useState(false);
   const [deliveryStatusEnabled, setDeliveryStatusEnabled] = useState(false);
@@ -38,7 +38,15 @@ const Settings = ({ navigation }) => {
 
   const [bsOpen, setBSOpen] = useState(false);
   const panelRef = useRef(null);
-
+  useEffect(() => {
+    axios
+      .get()
+      .then((res) => {
+        setnewInformation.name(res.data.name);
+        setnewInformation.dateOfBirth(res.data.dateOfBirth);
+      })
+      .catch((error) => console.log(error, "setting's data failed"));
+  }, [newInformation]);
   return (
     <View className=" w-screen h-screen dark:bg-[#111111] items-center">
       <View
@@ -137,7 +145,7 @@ const Settings = ({ navigation }) => {
         </View>
       </View>
       {bsOpen && (
-        <View className="-bottom-[20%]  z-50 w-screen">
+        <View className="-bottom-[10%]  z-50 w-screen">
           <BottomSheet
             isOpen={true}
             wrapperStyle={{
@@ -145,7 +153,7 @@ const Settings = ({ navigation }) => {
             }}
             onClose={() => setBSOpen(false)}
             sliderMinHeight={0}
-            sliderMaxHeight={600}
+            sliderMaxHeight={1000}
             ref={(ref) => (panelRef.current = ref)}
           >
             <ChangePassword navigation={navigation} />

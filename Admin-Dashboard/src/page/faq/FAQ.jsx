@@ -17,7 +17,7 @@ const FAQ = () => {
   return (
     <Box>
       <Header
-        title="Settings"
+        title="FAQ"
         subTitle="Configure and manage your application settings here"
       />
 

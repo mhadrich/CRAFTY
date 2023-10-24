@@ -138,11 +138,11 @@ const GET = async (req, res) => {
       .send({ message: "Error fetching Orders", error: message });
   }
 };
-/*GET Article By UserID */
+/*GET Article By ID */
 const GETById = async (req, { params }) => {
   try {
     if (!params || !params.Id) {
-      throw new Error("userId parameter is missing");
+      throw new Error("Id parameter is missing");
     }
     const { Id } = params;
     const Order = await prisma.order.findUnique({
@@ -194,6 +194,7 @@ const GETByUserId = async (req, res) => {
     return res.status(500).json({ message: "Error fetching orders", error:error});
   }
 };
+
 /*UPDATE Order*/
 const UPDATE = async (req, { params }) => {
   try {

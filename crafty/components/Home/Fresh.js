@@ -29,8 +29,12 @@ const Fresh = ({ navigation }) => {
           </Text>
         </View>
         <View className="-left-12">
-          <TouchableOpacity onPress={() => navigation.navigate("AllProd",{data:data})}>
-            <Text className="dark:text-white text-xs font-normal">View all</Text>
+          <TouchableOpacity
+            onPress={() => navigation.navigate("AllProd", { data: data })}
+          >
+            <Text className="dark:text-white text-xs font-normal">
+              View all
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -41,13 +45,12 @@ const Fresh = ({ navigation }) => {
           showsHorizontalScrollIndicator={false}
         >
           {data &&
-            data.map((item, e) => {
-              console.log(
-                "🚀 ~ file: Fresh.js:40 ~ >{data&&data.map ~ item:",
-                item
-              );
-              return <ProdCard navigation={navigation} data={item} key={e} />;
-            })}
+            data
+              .slice(0)
+              .reverse()
+              .map((item, e) => {
+                return <ProdCard navigation={navigation} data={item} moreItems={data} key={e} />;
+              })}
         </ScrollView>
       </View>
     </View>

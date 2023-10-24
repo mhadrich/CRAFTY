@@ -7,7 +7,7 @@ const  {GET,GETBYEMAIL,GETBYID,UPDATE,DELETE}= require("../controller/User_RUD")
 
 router.get("/getusers",GET);
 router.get("/getuserByEmail/:email",GETBYEMAIL);
-router.get("/getuserById",GETBYID)
+router.get("/getuserById/:id",GETBYID)
 router.put("/updateuser/:id",UPDATE);
 router.delete("/deleteuser/:id",DELETE) 
 

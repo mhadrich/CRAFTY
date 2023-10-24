@@ -177,8 +177,6 @@ const TopBar = ({ open, handleDrawerOpen, setMode }) => {
               }}
               color="inherit"
             >
-              <small> Try the dark mode &nbsp; &nbsp;</small>
-
               <LightModeOutlinedIcon />
             </IconButton>
           ) : (
@@ -196,8 +194,6 @@ const TopBar = ({ open, handleDrawerOpen, setMode }) => {
               }}
               color="inherit"
             >
-              <small> Try the Light mode &nbsp; &nbsp;</small>
-
               <DarkModeOutlinedIcon />
             </IconButton>
           )}

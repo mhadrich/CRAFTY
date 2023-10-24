@@ -8,7 +8,7 @@ const  {POST,GET,GETById,GETByUserId,UPDATE,DELETE}= require("../controller/Revi
 router.post("/addreview",POST);
 router.get("/getreviews",GET);
 router.get("/getreview/:id",GETById);
-router.get("/getreviewbyuseId/:userId",GETByUserId);
+router.get("/getreviewbyuseId/:id",GETByUserId);
 router.put("/updatereview",UPDATE);
 router.delete("/deletereview",DELETE) 
 

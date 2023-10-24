@@ -5,15 +5,14 @@ require("dotenv").config();
 const POST = async (req, res) => {
   if (req.method === "POST") {
     try {
-      const {  title, description, coverImage, likes, userId ,image} =
-        req.body;
+      const { title, description, coverImage, likes, userId, image } = req.body;
       const Article = await prisma.article.create({
         data: {
           images: {
             create: image,
           },
           title,
-        
+
           description,
           coverImage,
           likes,
@@ -34,7 +33,7 @@ const POST = async (req, res) => {
 /* Get Articles */
 const GET = async (req, res) => {
   try {
-    const Articles = await prisma.Article.findMany({include:{user:true}});
+    const Articles = await prisma.Article.findMany({ include: { user: true } });
     return res.status(200).json(Articles);
   } catch (error) {
     const message =
@@ -73,6 +72,39 @@ const GETById = async (req, { params }) => {
     );
   }
 };
+
+/*GET Article By UserId */
+const GETByUserId = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!id) {
+      return res.status(400).json({ error: "id parameter is missing" });
+    }
+
+    const userId = parseInt(id);
+
+    const article = await prisma.article.findMany({
+      where: {
+        userId: userId,
+      },
+    });
+
+    if (!article) {
+      return res.status(404).json({ message: "Article not found" });
+    }
+
+    return res.status(200).json(article);
+  } catch (error) {
+    const message =
+      error instanceof Error ? error.message : "An unknown error occurred";
+    return res
+      .status(500)
+      .json({ message: "Error fetching article by Userid", error: message });
+  }
+};
+
+
+
 /*UPDATE Article*/
 const UPDATE = async (req, res) => {
   try {
@@ -135,4 +167,4 @@ const DELETE = async (req, res) => {
   }
 };
 
-module.exports = { POST, GET, GETById, UPDATE, DELETE };
+module.exports = { POST, GET, GETById, GETByUserId, UPDATE, DELETE };

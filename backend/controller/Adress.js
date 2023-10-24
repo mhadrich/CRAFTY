@@ -42,9 +42,9 @@ const GET = async (req, res) => {
 /*GET adress by id*/
 const GETBYID = async (req, res) => {
   try {
-    const { userId } = req.params;
-    if (!userId) {
-      return res.status(400).json({ error: "userId parameter is missing" });
+    const { id } = req.params;
+    if (!id) {
+      return res.status(400).json({ error: "id parameter is missing" });
     }
     const adress = await prisma.adress.findMany({
       where: {
@@ -52,7 +52,10 @@ const GETBYID = async (req, res) => {
       },
     });
 
-    return res.status(200).json(adress);
+    if (!adresses) {
+      return res.status(404).json({ message: "adresses not found" });
+    }
+    return res.status(200).json(adresses);
   } catch (error) {
     
     return res
@@ -113,4 +116,4 @@ const DELETE = async (req, { params }) => {
   }
 };
 
-module.exports = { POST, GET, GETBYID, UPDATE, DELETE };
+module.exports = { POST, GET, GETByUserId, UPDATE, DELETE };

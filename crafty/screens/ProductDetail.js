@@ -20,10 +20,24 @@ import ItemReviewsList from "../components/ProdDetail/ItemReviewsList";
 import axios from "axios";
 import ADRESS_API from "../Api"
 import { useAuth } from "../components/Authprovider/Authprovider";
-const ProductDetail = ({ navigation,route}) => {
+const ProductDetail = ({ navigation, route }) => {
   const { authState  } = useAuth();
-  const { item } = route.params
-
+  AddToFavorite = async () => {
+    try {
+      res = await axios.post(
+        `http://${ADRESS_API}:4000/favourite/addfavourite`,
+        { userId: authState && authState.userId * 1, itemId: data && data.id }
+      );
+      console.log(res, "res 👌👌👌👌👌👌👌");
+    } catch (error) {
+      console.log(
+        "🚀 ~  file: ProdCard.js:16 ~ AddToFavorite=async ~ error:",
+        error
+      );
+    }
+  };
+  const { item, moreItems } = route.params;
+  console.log("the more items", moreItems);
   const dark = useColorScheme();
   const [color, setColor] = useState("");
   const AddToCart =async ()=>{
@@ -54,11 +68,17 @@ const ProductDetail = ({ navigation,route}) => {
   return (
     <View>
       <ScrollView className=" dark:bg-[#111111]">
-        <Karousel  data={item.images}/>
+        <View className="-my-8">
+          <Karousel data={item.images} />
+        </View>
         <View className=" flex flex-row justify-between  p-4 items-center">
-          <Pressable className="h-12 w-72 p-2 rounded-lg border-1 bg-white dark:bg-black " onPress={()=>{navigation.navigate("Chat", {  otherUserId: item.user.id})}}>
+          <Pressable
+            className="h-12 w-72 p-2 rounded-lg border-1 bg-white dark:bg-black "
+            onPress={() => {
+              navigation.navigate("Chat", { otherUserId: item.user.id });
+            }}
+          >
             <View className="flex flex-row items-center justify-between">
-              
               <Text className="dark:text-white"> Message seller</Text>
               <Svg className="rotate-45 mr-2 w-7 h-8" viewBox="0 0 32 32">
                 <Path
@@ -69,7 +89,14 @@ const ProductDetail = ({ navigation,route}) => {
               </Svg>  
             </View>
           </Pressable>
-          <HeartIcon state={like} />
+          <Pressable
+            onPressOut={() => {
+              AddToFavorite();
+              setLike(!like);
+            }}
+          >
+            <HeartIcon state={like} />
+          </Pressable>
           <Pressable onPress={() => {AddToCart()}}>
             <BagIcon /> 
           </Pressable>
@@ -77,7 +104,7 @@ const ProductDetail = ({ navigation,route}) => {
         <View className="flex flex-row justify-between px-4 mt-4">
           <Text className="font-semibold text-2xl dark:text-white">A&C</Text>
           <Text className="font-semibold text-2xl dark:text-white">
-            $  {item.price}
+            $ {item.price}
           </Text>
         </View>
         <Text className=" text-xs font-normal pl-4 text-slate-300">
@@ -112,7 +139,7 @@ const ProductDetail = ({ navigation,route}) => {
         </TouchableOpacity>
 
         <View>
-          <Accordion details={item}/>
+          <Accordion details={item} />
         </View>
 
         <Text className="text-lg font-medium p-4 mt-2 dark:text-white">
@@ -124,11 +151,10 @@ const ProductDetail = ({ navigation,route}) => {
             showsHorizontalScrollIndicator={false}
             horizontal={true}
           >
-            <ProdCard />
-            <ProdCard />
-            <ProdCard />
-            <ProdCard />
-            <ProdCard />
+            {moreItems &&
+              moreItems.map((item, key) => (
+                <ProdCard navigation={navigation} data={item} key={key} />
+              ))}
           </ScrollView>
         </View>
       </ScrollView>
