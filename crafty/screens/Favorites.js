@@ -52,7 +52,7 @@ const Favorites = ({ navigation }) => {
         </ScrollView>
       )}
       {fav && fav.length === 0 && (
-        <View className="justify-center items-center">
+        <View className="justify-center items-center opacity-50">
           <Text className="text-xl font-semibold dark:text-white mb-2">
             No favorites found
           </Text>
