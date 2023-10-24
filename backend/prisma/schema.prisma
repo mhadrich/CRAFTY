@@ -31,6 +31,7 @@ model User {
   chats           Chat[]          @relation("ChatMembers")
   cart            Cart[]
   notification Notification[]
+  PaymentCard   PaymentCard[]
 }
 
 enum Role {
@@ -81,30 +82,35 @@ model Review {
   user        User     @relation(fields: [userId], references: [id])
   item        Item     @relation(fields: [itemId], references: [id])
 }
-
+model PaymentCard {
+  id           Int      @id @default(autoincrement())
+  cardNumber   String
+  expiryDate   String
+  cvv          String
+  userId       Int
+  user         User     @relation(fields: [userId], references: [id])
+}
 model Order {
   id                  Int     @id @default(autoincrement())
   dateOfDelivery      String
   trackingNumber      String
+  
   deliveredProcessing Boolean
   userId              Int
-  items               OrderItem[]
+   addressId           Int
+  address             Adress @relation(fields: [addressId], references: [id])            
   user                User    @relation(fields: [userId], references: [id])
 }
 
-model OrderItem {
-  id        Int     @id @default(autoincrement())
-  itemId    Int
-  quantity  Int   // Add a 'quantity' field
-  order     Order   @relation(fields: [orderId], references: [id])
-  orderId   Int
-  item      Item    @relation(fields: [itemId], references: [id])
-}
-model Cart {
+
+model Cart { 
+  
   id       Int      @id @default(autoincrement())
   userId   Int
   user     User     @relation(fields: [userId], references: [id])
   items    CartItem[]
+   
+
 }
 
 model CartItem {
@@ -121,7 +127,8 @@ model CartItem {
     name         String
    
 
-    description  String 
+    description  String          @db.LongText
+
     price        Int
     images       Image[]
     tags         Tag[] 
@@ -132,7 +139,7 @@ model CartItem {
     cart         CartItem []
     reviews      Review[]
   
-    order        OrderItem    []      
+         
     favoriteItem FavouriteItem[]
   }
 
@@ -164,8 +171,8 @@ model Adress {
   postalCode Int
   userId     Int
   user       User   @relation(fields: [userId], references: [id])
+  order  Order[]
 }
-
 model FavouriteItem {
   id     Int  @id @default(autoincrement())
   userId Int

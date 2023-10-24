@@ -1,5 +1,5 @@
 import { View, Text, Pressable, Keyboard } from "react-native";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import CartItem from "../../components/Cart/CartItem";
 import {
   ScrollView,
@@ -10,11 +10,31 @@ import {
 import { Svg, Path } from "react-native-svg";
 import { SafeAreaView } from "react-native-safe-area-context";
 import TabNav from "../../components/TabNav/TabNav";
-
+import axios from "axios";
+import ADRESS_API from "../../Api"
+import { useAuth } from "../../components/Authprovider/Authprovider";
 const MyBag = ({ navigation }) => {
   
   const [cartTotal, setCartTotal] = useState(90);
   const scrollViewRef = useRef();
+  const { authState  } = useAuth();
+  const [data, setData] = useState([]);
+  const GetCart =async ()=>{
+    try {
+    
+   
+      const response = await axios.get(`http://${ADRESS_API}:4000/cart/getcart/${authState.userId*1}` )
+      console.log("🚀 ~ file: MyBag.js:27 ~ GetCart ~ response:", response.data.cart.items[0].item)
+      setData(response.data.cart)
+    }
+      
+    catch (err) {
+      console.log(err ,"err");
+      }
+  }
+  useEffect(()=>{
+    GetCart()
+  },[])
   return (
     <SafeAreaView className=" dark:bg-[#111111] w-screen h-screen p-4 ">
       <TabNav navigation={navigation}/>
@@ -24,15 +44,13 @@ const MyBag = ({ navigation }) => {
           className="max-h-96"
           ref={scrollViewRef}
           showsVerticalScrollIndicator={false}
-        >
-          <CartItem total={setCartTotal} current={cartTotal} />
-          <CartItem total={setCartTotal} current={cartTotal} />
-          <CartItem total={setCartTotal} current={cartTotal} />
-          <CartItem total={setCartTotal} current={cartTotal} />
-          <CartItem total={setCartTotal} current={cartTotal} />
-          <CartItem total={setCartTotal} current={cartTotal} />
-          <CartItem total={setCartTotal} current={cartTotal} />
-          <CartItem total={setCartTotal} current={cartTotal} />
+        >{data.items&&data.items.map((item,key)=>{
+
+        return (  <CartItem total={setCartTotal} current={cartTotal} data={item} key={key}/>)
+
+        })
+        
+          }
 
         </ScrollView>
       </TouchableWithoutFeedback>

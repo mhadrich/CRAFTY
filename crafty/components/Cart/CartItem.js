@@ -3,13 +3,21 @@ import React, { useEffect, useState } from "react";
 import { Svg, Path } from "react-native-svg";
 
 const CartItem = (props) => {
-  const { total } = props;
+  const { total,data } = props;
   const [panel, setPanel] = useState(false);
   const [panelStyle, setPanelStyle] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [unitPrice, setUnitPrice] = useState(30);
   const [totalPrice, setTotalPrice] = useState(0);
+  useEffect(()=>{ console.log(data,"🎈🎈🎈")
+  const set =async ()=>{
+    setUnitPrice(data.item.price)
+     setQuantity(data.quantity)
+  }
+  set()
+  },[])
   useEffect(() => {
+   
     setTotalPrice(unitPrice * quantity);
   }, [quantity]);
   useEffect(() => {
@@ -32,11 +40,11 @@ const CartItem = (props) => {
       </View>
       <Image
         className="w-24 h-24 rounded-l-lg"
-        src="https://i.etsystatic.com/22703156/r/il/8f4019/3358914263/il_1588xN.3358914263_dlpj.jpg"
+        src={data.item.images[1].url}
       />
       <View className="bg-white dark:bg-[#333333] w-9/12 h-24 rounded-r-lg p-4">
         <View className="flex flex-row h-6 justify-between">
-          <Text className="text-base font-semibold">Wood Map</Text>
+          <Text className="text-base font-semibold">{data.item.name}</Text>
           <Pressable
             onPress={() => setPanel(!panel)}
             className="bottom-1 left-2"

@@ -88,7 +88,9 @@ const getCart = async (req, res) => {
             include: {
                 items: {
                     include: {
-                        item: true,
+                        item:{ 
+                            include : {images :true}
+                        },
                     },
                 },
             },
