@@ -108,7 +108,7 @@ const Profile = ({ navigation }) => {
           </View>
           <View className="divide-y divide-slate-200">
             {/* User settings */}
-            {data.role === "crafter" && (
+            {data.role === "user" && (
               <View>
                 <View className="flex justify-between ml-4 mb-3 mt-3 ">
                   <TouchableOpacity
@@ -129,7 +129,7 @@ const Profile = ({ navigation }) => {
                 </View>
               </View>
             )}
-            {data.role === "crafter" && (
+            {data.role === "user" && (
               <View>
                 <View className="flex justify-between ml-4 mb-3 mt-3">
                   <TouchableOpacity
@@ -148,7 +148,7 @@ const Profile = ({ navigation }) => {
                 </View>
               </View>
             )}
-            {data.role === "crafter" && (
+            {data.role === "user" && (
               <View>
                 <View className="flex justify-between ml-4 mb-3 mt-3">
                   <TouchableOpacity
@@ -168,7 +168,7 @@ const Profile = ({ navigation }) => {
               </View>
             )}
 
-            {data.role === "crafter" && (
+            {data.role === "user" && (
               <View>
                 <View className="flex justify-between ml-4 mb-3 mt-3">
                   <TouchableOpacity
@@ -189,7 +189,7 @@ const Profile = ({ navigation }) => {
             )}
 
             {/* crafter settings */}
-            {data.role === "user" && (
+            {data.role === "crafter" && (
               <View>
                 <View className="flex justify-between ml-4 mb-3 mt-3 ">
                   <TouchableOpacity
@@ -203,7 +203,7 @@ const Profile = ({ navigation }) => {
                 </View>
               </View>
             )}
-            {data.role === "user" && (
+            {data.role === "crafter" && (
               <View>
                 <View className="flex justify-between ml-4 mb-3 mt-3 ">
                   <TouchableOpacity
@@ -222,7 +222,7 @@ const Profile = ({ navigation }) => {
                 </View>
               </View>
             )}
-            {data.role === "user" && (
+            {data.role === "crafter" && (
               <View>
                 <View className="flex justify-between ml-4 mb-3 mt-3 ">
                   <TouchableOpacity
@@ -236,7 +236,7 @@ const Profile = ({ navigation }) => {
                 </View>
               </View>
             )}
-            {data.role === "user" && (
+            {data.role === "crafter" && (
               <View>
                 <View className="flex justify-between ml-4 mb-3 mt-3 ">
                   <TouchableOpacity

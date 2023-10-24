@@ -1,29 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { TouchableOpacity, ScrollView } from "react-native-gesture-handler";
-import { useAuth } from "../Authprovider/Authprovider";
-import axios from "axios";
-import ADRESS_API from "../../Api";
-
-export default MyOrders = ({ navigation }) => {
+export default MyOrders = ({ navigation, route }) => {
+  const { orders } = route.params;
   const [activeButton, setActiveButton] = useState("Delivered");
-  const { authState } = useAuth();
-  const { userId } = authState;
-  const [orders, setOrders] = useState([]);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const userOrders = await axios.get(
-          `${ADRESS_API}:4000/order/getorderbyuserId/${userId}`
-        );
-        setOrders(userOrders.data);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchData();
-  }, [userId]);
-
   // const dummyData = [
   //   {
   //     id: 1,
@@ -70,7 +50,7 @@ export default MyOrders = ({ navigation }) => {
   const cancelledOrders = orders.filter((e) => {
     return e.deliveredProcessing === "Cancelled";
   });
-  
+
   return (
     <View className=" dark:bg-[#111111] w-screen h-screen items-center">
       <View className="flex flex-col  mt-[10%] w-11/12 items-start ">
