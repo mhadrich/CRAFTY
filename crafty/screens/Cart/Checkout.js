@@ -9,44 +9,6 @@ import axios from "axios";
 import ADRESS_API from "../../Api"
 import { useAuth } from "../../components/Authprovider/Authprovider.js";
 
-// const address = [
-//   {
-//     name: "Jane Doe",
-//     street: "3 Newbridge Court Chino Hills",
-//     city: "CA",
-//     postal: "91709",
-//     country: "United States",
-//   },
-//   {
-//     name: "Jhon Doe",
-//     street: "51 Riverside Chino Hills",
-//     city: "CA",
-//     postal: "91709",
-//     country: "United States",
-//   },
-//   {
-//     name: "M H",
-//     street: "34 Chem's Street",
-//     city: "Tunis",
-//     postal: "1002",
-//     country: "Tunisia",
-//   },
-// ];
-
-// const cards = [
-//   {
-//     name: "Jane Doe",
-//     cardNumber: "1234567812345678",
-//     expiryDate: "10/26",
-//     cvv: "123",
-//   },
-//   {
-//     name: "Jhon Doe",
-//     cardNumber: "5678123456781231",
-//     expiryDate: "10/28",
-//     cvv: "456",
-//   },  
-// ];
 
 const Checkout = ({ navigation, route }) => {
   
@@ -61,7 +23,13 @@ const Checkout = ({ navigation, route }) => {
     expiryDate: "10/26",
     cvv: "123",
   });
-  const [defaultAddress,setDefaultAddress] = useState({});
+  const [defaultAddress,setDefaultAddress] = useState( {
+        name: "Jane Doe",
+        street: "3 Newbridge Court Chino Hills",
+        city: "CA",
+        postal: "91709",
+        country: "United States",
+      });
   const [deliveryPrice, setDeliveryPrice] = useState(5);
   const prms= route.params
   const GetAdress =async ()=>{
@@ -97,16 +65,17 @@ const Checkout = ({ navigation, route }) => {
     GetAdress()
     GetCard()
   },[])
-  useEffect(()=>{
-   
-    if(prms!==undefined){
-      if(prms.state.address){
-        setDefaultAddress(prms.state.address)
-      } else if(prms.state.card){
-        setDefaultCard(prms.state.card)
+  useEffect(() => {
+    if (prms !== undefined) {
+      if (prms.state) {
+        if (prms.state.address) {
+          setDefaultAddress(prms.state.address);
+        } else if (prms.state.card) {
+          setDefaultCard(prms.state.card);
+        }
       }
     }
-  },[prms])
+  }, [prms]);
   return (
     <View className="dark:bg-[#111111] h-screen p-4 pt-6">
       <ChkShipAdrs

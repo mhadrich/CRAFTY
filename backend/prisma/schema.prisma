@@ -32,6 +32,7 @@ model User {
   cart            Cart[]
   notification Notification[]
   PaymentCard   PaymentCard[]
+  payments        Payment[]
 }
 
 enum Role {
@@ -70,6 +71,14 @@ model Image {
   
   
 }
+model OrderItem {
+  id         Int    @id @default(autoincrement())
+  orderId    Int
+  order      Order  @relation(fields: [orderId], references: [id])
+  itemId     Int
+  item       Item   @relation(fields: [itemId], references: [id])
+  quantity   Int
+}
 
 model Review {
   id          Int      @id @default(autoincrement())
@@ -84,22 +93,37 @@ model Review {
 }
 model PaymentCard {
   id           Int      @id @default(autoincrement())
+  CardHolder   String
   cardNumber   String
   expiryDate   String
   cvv          String
   userId       Int
   user         User     @relation(fields: [userId], references: [id])
+   payments Payment[] 
 }
+model Payment {
+  id            Int      @id @default(autoincrement())
+  amount        Int
+  paymentDate   DateTime
+  orderId       Int
+  order         Order    @relation(fields: [orderId], references: [id])
+  userId        Int
+  user          User     @relation(fields: [userId], references: [id])
+  paymentCardId Int?     // This field references the PaymentCard model
+  paymentCard   PaymentCard? @relation(fields: [paymentCardId], references: [id])
+}
+
 model Order {
-  id                  Int     @id @default(autoincrement())
+  id                  Int      @id @default(autoincrement())
   dateOfDelivery      String
-  trackingNumber      String
-  
+  trackingNumber      String 
   deliveredProcessing Boolean
   userId              Int
-   addressId           Int
-  address             Adress @relation(fields: [addressId], references: [id])            
-  user                User    @relation(fields: [userId], references: [id])
+  addressId           Int
+  address             Adress   @relation(fields: [addressId], references: [id])
+  user                User     @relation(fields: [userId], references: [id])
+  payments            Payment[]
+  items              OrderItem[]
 }
 
 
@@ -138,7 +162,7 @@ model CartItem {
     wishList     Wishlist[]
     cart         CartItem []
     reviews      Review[]
-  
+  OrderItem       OrderItem[]
          
     favoriteItem FavouriteItem[]
   }
