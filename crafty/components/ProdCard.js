@@ -36,7 +36,7 @@ const ProdCard = ({ navigation, data, moreItems }) => {
   const myImage = cld.image("sample");
   return (
     <View className="pr-4">
-      <Pressable onPress={()=>navigation.navigate("ProductDetail",{item:data})}>
+      <Pressable onPress={()=>navigation.navigate("ProductDetail",{item:data, moreItems:moreItems })}>
         <Image
           className="w-40 h-44 rounded-lg"
           source={{ uri: data ? data.images[0].url : "#" }}
