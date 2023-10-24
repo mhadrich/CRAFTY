@@ -42,8 +42,8 @@ const GET = async (req, res) => {
 /*GET adress by id*/
 const GETBYID = async (req, res) => {
   try {
-    const { id } = req.params;
-    if (!id) {
+    const { userId } = req.params;
+    if (!userId) {
       return res.status(400).json({ error: "id parameter is missing" });
     }
     const adress = await prisma.adress.findMany({
@@ -52,11 +52,12 @@ const GETBYID = async (req, res) => {
       },
     });
 
-    if (!adresses) {
+    if (!adress) {
       return res.status(404).json({ message: "adresses not found" });
     }
-    return res.status(200).json(adresses);
+    return res.status(200).json(adress);
   } catch (error) {
+     console.log("🚀 ~ file: Adress.js:60 ~ GETBYID ~ error:", error)
     
     return res
       .status(500)
@@ -116,4 +117,4 @@ const DELETE = async (req, { params }) => {
   }
 };
 
-module.exports = { POST, GET, GETByUserId, UPDATE, DELETE };
+module.exports = { POST, GET, GETBYID, UPDATE, DELETE };
