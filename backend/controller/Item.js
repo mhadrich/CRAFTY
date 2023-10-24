@@ -87,6 +87,36 @@ const GETById = async (req, { params }) => {
     );
   }
 };
+/*GET item By UserId */
+const GETByUserId = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!id) {
+      return res.status(400).json({ error: "id parameter is missing" });
+    }
+
+    const userId = parseInt(id);
+
+    const item = await prisma.item.findMany({
+      where: {
+        userId: userId,
+      },
+    });
+
+    if (!item) {
+      return res.status(404).json({ message: "item not found" });
+    }
+
+    return res.status(200).json(item);
+  } catch (error) {
+    const message =
+      error instanceof Error ? error.message : "An unknown error occurred";
+    return res
+      .status(500)
+      .json({ message: "Error fetching item by Userid", error: message });
+  }
+};
+
 /*UPDATE Item */
 const UPDATE = async (req, { params }) => {
   try {
@@ -138,4 +168,4 @@ const DELETE = async (req, { params }) => {
   }
 };
 
-module.exports = { POST, GET, GETById, UPDATE, DELETE };
+module.exports = { POST, GET, GETById,GETByUserId, UPDATE, DELETE };

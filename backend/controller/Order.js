@@ -23,25 +23,25 @@ const POST = async (req, res) => {
               {
                 item: {
                   connect: {
-                    id: 1
-                  }
+                    id: 1,
+                  },
                 },
-                quantity: 3
+                quantity: 3,
               },
               {
                 item: {
                   connect: {
-                    id: 3
-                  }
+                    id: 3,
+                  },
                 },
-                quantity: 2
-              }
-            ]
-          }
+                quantity: 2,
+              },
+            ],
+          },
         },
         include: {
-          items: true
-        }
+          items: true,
+        },
       });
 
       return res.status(201).json({ order });
@@ -53,7 +53,7 @@ const POST = async (req, res) => {
     return res.status(405).json({ error: "Method not allowed" });
   }
 };
- 
+
 /* Get Orders */
 const GET = async (req, res) => {
   try {
@@ -67,11 +67,11 @@ const GET = async (req, res) => {
       .send({ message: "Error fetching Orders", error: message });
   }
 };
-/*GET Article By UserID */
+/*GET Article By ID */
 const GETById = async (req, { params }) => {
   try {
     if (!params || !params.Id) {
-      throw new Error("userId parameter is missing");
+      throw new Error("Id parameter is missing");
     }
     const { Id } = params;
     const Order = await prisma.order.findUnique({
@@ -95,33 +95,34 @@ const GETById = async (req, { params }) => {
   }
 };
 /*GET Article By UserID */
-const GETByUserId = async (req, { params }) => {
+const GETByUserId = async (req, res) => {
   try {
-    if (!params || !params.userId) {
-      throw new Error("userId parameter is missing");
+    const { id } = req.params;
+    if (!id) {
+      return res.status(400).json({ error: "id parameter is missing" });
     }
 
-    const { userId } = params;
-    const Order = await prisma.order.findUnique({
-      where: { userId },
+    const userId = parseInt(id);
+
+    const orders = await prisma.order.findMany({
+      where: {
+        userId: userId,
+      },
     });
 
-    if (!user) {
-      return new Response(JSON.stringify({ error: "Order not found" }), {
-        status: 404,
-      });
+    if (!orders) {
+      return res.status(404).json({ message: "orders not found" });
     }
-
-    return new Response(JSON.stringify(Order));
+    return res.status(200).json(orders);
   } catch (error) {
     const message =
       error instanceof Error ? error.message : "An unknown error occurred";
-    return new Response(
-      JSON.stringify({ message: "Error fetching Order", error: message }),
-      { status: 500 }
-    );
+    return res
+      .status(500)
+      .json({ message: "Error fetching order by Userid", error: message });
   }
 };
+
 /*UPDATE Order*/
 const UPDATE = async (req, { params }) => {
   try {

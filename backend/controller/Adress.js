@@ -40,25 +40,31 @@ const GET = async (req, res) => {
 };
 
 /*GET adress by id*/
-const GETBYID = async (req, { params }) => {
+const GETByUserId = async (req, res) => {
   try {
-    const { userId } = req.params;
-    if (!userId) {
-      return res.status(400).json({ error: "userId parameter is missing" });
+    const { id } = req.params;
+    if (!id) {
+      return res.status(400).json({ error: "id parameter is missing" });
     }
-    const adress = await prisma.adress.findFirst({
+
+    const userId = parseInt(id);
+
+    const adresses = await prisma.adress.findMany({
       where: {
         userId: userId,
       },
     });
 
-    return res.status(200).json(adress);
+    if (!adresses) {
+      return res.status(404).json({ message: "adresses not found" });
+    }
+    return res.status(200).json(adresses);
   } catch (error) {
     const message =
       error instanceof Error ? error.message : "An unknown error occurred";
     return res
       .status(500)
-      .json({ message: "Error fetching adress by user id", error: message });
+      .json({ message: "Error fetching adress by Userid", error: message });
   }
 };
 
@@ -114,4 +120,4 @@ const DELETE = async (req, { params }) => {
   }
 };
 
-module.exports = { POST, GET, GETBYID, UPDATE, DELETE };
+module.exports = { POST, GET, GETByUserId, UPDATE, DELETE };

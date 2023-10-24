@@ -2,7 +2,6 @@ import { View, Text, Pressable, useColorScheme } from "react-native";
 import React from "react";
 import { Svg, Path } from "react-native-svg";
 import { useRoute } from "@react-navigation/native";
-
 const TabNav = ({ navigation }) => {
   const route = useRoute();
   const active = route.name;
