@@ -31,7 +31,9 @@ const ProductDetail = ({ navigation, route }) => {
   return (
     <View>
       <ScrollView className=" dark:bg-[#111111]">
-        <Karousel data={item.images} />
+        <View className="-my-8">
+          <Karousel data={item.images} />
+        </View>
         <View className=" flex flex-row justify-between  p-4 items-center">
           <Pressable
             className="h-12 w-72 p-2 rounded-lg border-1 bg-white dark:bg-black "
