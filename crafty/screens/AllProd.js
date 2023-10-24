@@ -52,7 +52,7 @@ const AllProd = ({ navigation, route }) => {
                       <ProdCard
                         navigation={navigation}
                         data={item}
-                        index={key}
+                        key={key}
                       />
                     );
                   }
@@ -66,7 +66,7 @@ const AllProd = ({ navigation, route }) => {
                       <ProdCard
                         navigation={navigation}
                         data={item}
-                        index={key}
+                        key={key}
                       />
                     );
                   }
