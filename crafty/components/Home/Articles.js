@@ -11,8 +11,11 @@ const Articles = ({ navigation }) => {
     axios
       .get(`http://${ADRESS_API}:4000/article/getarticles`)
       .then((response) => {
-        console.log("🚀 ~ file: Articles.js:14 ~ useEffect ~ response.data👍:", response.data)
-        return setData(response.data)
+        console.log(
+          "🚀 ~ file: Articles.js:14 ~ useEffect ~ response.data👍:",
+          response.data
+        );
+        return setData(response.data);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -27,9 +30,11 @@ const Articles = ({ navigation }) => {
         </View>
         <View className="-left-12">
           <TouchableOpacity
-          onPress={() => navigation.navigate("AllArticles",{data:data})}
+            onPress={() => navigation.navigate("AllArticles", { data: data })}
           >
-            <Text className="text-xs dark:text-white font-normal">View all</Text>
+            <Text className="text-xs dark:text-white font-normal">
+              View all
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -39,8 +44,15 @@ const Articles = ({ navigation }) => {
           horizontal={true}
           showsHorizontalScrollIndicator={false}
         >
-        { data.map ((article)=>{ return(<ArticleCard navigation={navigation} article={article}/>)} )
-         }
+          {data.map((article, key) => {
+            return (
+              <ArticleCard
+                navigation={navigation}
+                article={article}
+                key={key}
+              />
+            );
+          })}
         </ScrollView>
       </View>
     </View>

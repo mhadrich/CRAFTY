@@ -20,7 +20,7 @@ const Favorites = ({ navigation }) => {
     <View className=" w-screen h-full justify-center items-center dark:bg-[#111111]">
       <TabNav navigation={navigation} />
       {fav && fav.length > 0 && (
-        <ScrollView className="pt-6 pl-4">
+        <ScrollView className="pt-6 pl-4" showsVerticalScrollIndicator={false}>
           <View className="flex flex-row gap-6">
             <View>
               {fav.map((item, key) => {
