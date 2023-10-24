@@ -3,11 +3,11 @@ import React, { useEffect, useState } from "react";
 import { Svg, Path } from "react-native-svg";
 
 const CartItem = (props) => {
-  const { total,data } = props;
+  const { total,data ,itemminus,itemplus } = props;
   const [panel, setPanel] = useState(false);
   const [panelStyle, setPanelStyle] = useState(false);
   const [quantity, setQuantity] = useState(1);
-  const [unitPrice, setUnitPrice] = useState(30);
+  const [unitPrice, setUnitPrice] = useState(data.item.price);
   const [totalPrice, setTotalPrice] = useState(0);
   useEffect(()=>{ console.log(data,"🎈🎈🎈")
   const set =async ()=>{
@@ -70,6 +70,8 @@ const CartItem = (props) => {
           <View className=" flex flex-row">
             <Pressable
               onPress={() => {
+                console.log(data.item.id ,"id")
+                itemminus(data.item.id*1)
                 setQuantity(quantity - 1);
                 total(totalPrice);
               }}
@@ -82,6 +84,7 @@ const CartItem = (props) => {
             </View>
             <Pressable
               onPress={() => {
+                itemplus(data.item.id*1)
                 setQuantity(quantity + 1);
                 total(totalPrice);
               }}

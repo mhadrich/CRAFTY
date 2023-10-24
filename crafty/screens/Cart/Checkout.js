@@ -11,12 +11,13 @@ import { useAuth } from "../../components/Authprovider/Authprovider.js";
 
 
 const Checkout = ({ navigation, route }) => {
+   
   
   const { authState  } = useAuth();
   const [addresses, setAddress] = useState([]);
   const [cardsList, setCards] = useState([]);
 
-  
+  const [amount, setAmount] = useState(0);
   const [defaultCard,setDefaultCard] = useState(  {
     name: "Jane Doe",
     cardNumber: "1234567812345678",
@@ -24,6 +25,7 @@ const Checkout = ({ navigation, route }) => {
     cvv: "123",
   });
   const [defaultAddress,setDefaultAddress] = useState( {
+         
         name: "Jane Doe",
         street: "3 Newbridge Court Chino Hills",
         city: "CA",
@@ -61,6 +63,48 @@ const Checkout = ({ navigation, route }) => {
       console.log(err ,"err");
       }
   }
+  const ConfirmOrder =  async() =>{
+    try {
+      const  generateRandomTrackingNumber =(length)=> {
+        const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"; 
+        let trackingNumber = "";
+      
+        for (let i = 0; i < length; i++) {
+          const randomIndex = Math.floor(Math.random() * characters.length);
+          trackingNumber += characters.charAt(randomIndex);
+        }
+      
+        return trackingNumber;
+      }
+      
+     
+      const trackingNumber = generateRandomTrackingNumber(8); 
+      
+   
+      const response = await axios.post(`http://${ADRESS_API}:4000/order/addorder`,
+       
+      {
+  userId: authState.userId*1,
+  cardId: defaultAddress.id,
+  addressId: defaultCard.id,
+  dateOfDelivery: `${Date.now()}`,
+  trackingNumber: trackingNumber,
+  deliveredProcessing: true
+}
+      
+      )
+      
+      console.log("🚀 ~ file: Checkout.js:97 ~ ConfirmOrder ~  response:",  response.data)
+      // navigation.navigate("Success")
+    }
+      
+    catch (err) {
+      console.log(err ,"err");
+      }
+    
+
+
+  }
   useEffect(()=>{
     GetAdress()
     GetCard()
@@ -89,9 +133,9 @@ const Checkout = ({ navigation, route }) => {
         render={defaultCard.cardNumber}
       />
       <ChkDelivery fn={setDeliveryPrice} />
-      <ChkAmount delivery={deliveryPrice} />
+      <ChkAmount delivery={deliveryPrice}  amount={prms.amount}/>
       <TouchableOpacity
-        onPress={() => navigation.navigate("Success")}
+        onPress={() =>{ ConfirmOrder()} }
         className="mt-6 bg-[#BF9B7A] h-12 w-fit rounded-full justify-center items-center"
       >
         <Text className="text-center text-white text-sm font-medium leading-tight">

@@ -7,12 +7,12 @@ require("dotenv").config();
 
 
 
-const  calculateCartTotal = async(cardId) => {
+const  calculateCartTotal = async(cartId) => {
   try {
     
     const cartItems = await prisma.cartItem.findMany({
       where: {
-        cartId:cardId,
+        cartId:cartId,
       },
       include: {
         item: {
@@ -23,7 +23,7 @@ const  calculateCartTotal = async(cardId) => {
       },
     });
 
-    // Step 2: Calculate the total price
+   
     let total = 0;
     for (const cartItem of cartItems) {
       total += cartItem.quantity * cartItem.item.price;
@@ -31,7 +31,7 @@ const  calculateCartTotal = async(cardId) => {
 
     return total;
   } catch (error) {
-    // Handle errors
+    
     throw error;
   } finally {
     await prisma.$disconnect();
@@ -39,9 +39,24 @@ const  calculateCartTotal = async(cardId) => {
 }
 const POST = async (req, res) => {
   try {
+    
     const cardId = req.body.cardId;
     const userId = req.body.userId;
-    const amount = await calculateCartTotal(cardId)
+    const userCart = await prisma.cart.findFirst({
+      where: {
+          userId:userId,
+      },
+      include: {
+          items: {
+              include: {
+                  item:{ 
+                      include : {images :true}
+                  },
+              },
+          },
+      },
+  });
+    const amount = await calculateCartTotal(userCart.id)
    
     const addressId = req.body.addressId;
 
@@ -80,7 +95,7 @@ const POST = async (req, res) => {
 
     const cartItems = await prisma.cartItem.findMany({
       where: {
-        cartId:cardId,
+        cartId:userCart.id,
       },
     });
 
@@ -96,7 +111,7 @@ const POST = async (req, res) => {
 
     await prisma.cartItem.deleteMany({
       where: {
-        cartId:cardId,
+        cartId:userCart.id,
       },
     });
 
@@ -231,4 +246,5 @@ const DELETE = async (req, { params }) => {
   }
 };
 
-module.exports = { POST, GET, GETById, GETByUserId, UPDATE, DELETE };
+
+module.exports = { POST, GET, GETById, GETByUserId, UPDATE, DELETE ,calculateCartTotal};
