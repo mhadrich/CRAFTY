@@ -1,12 +1,14 @@
+import { useRoute } from "@react-navigation/native";
 import React, { useState, useEffect } from "react";
-import { View } from "react-native";
+import { Text, View } from "react-native";
 import { Svg, Path } from "react-native-svg";
 
 export default function HeartIcon(props) {
+  const route = useRoute();
+  const active = route.name;
   const { state } = props;
   const [theFill, setTheFill] = useState("");
   const [theD, setTheD] = useState("");
-
   useEffect(() => {
     if (state) {
       setTheD(
@@ -23,9 +25,14 @@ export default function HeartIcon(props) {
 
   return (
     <View className="w-9 h-9 bg-white dark:bg-black rounded-full shadow items-center justify-center">
-      <Svg width={14} height={12} viewBox="0 0 14 12" fill="none">
-        <Path fillRule="evenodd" clipRule="evenodd" d={theD} fill={theFill} />
-      </Svg>
+      {active === "Favorites" && (
+        <Text className="dark:text-white text-xl font-thin scale-y-75">X</Text>
+      )}
+      {active !== "Favorites" && (
+        <Svg width={14} height={12} viewBox="0 0 14 12" fill="none">
+          <Path fillRule="evenodd" clipRule="evenodd" d={theD} fill={theFill} />
+        </Svg>
+      )}
     </View>
   );
 }

@@ -51,7 +51,7 @@ const WriteArticle = () => {
         }}
         className="bg-[#BF9B7A] text-white w-96 h-12 p-2 mt-4 rounded-full justify-center items-center"
       >
-        <Text className="text-center text-white ">SUBMIT REVIEW</Text>
+        <Text className="text-center text-white ">SUBMIT ARTICLE</Text>
       </TouchableOpacity>
     </View>
   );

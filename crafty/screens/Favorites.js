@@ -5,25 +5,53 @@ import { useAuth } from "../components/Authprovider/Authprovider";
 import axios from "axios";
 import ADRESS_API from "../Api";
 import { ScrollView } from "react-native-gesture-handler";
+import TabNav from "../components/TabNav/TabNav";
 
 const Favorites = ({ navigation }) => {
   const { authState, fav } = useAuth();
 
   const [data, setData] = useState([]);
-  console.log(fav, "helloooo");
+  console.log(fav, "this");
 
   // useEffect(() => {
-  //   console.log("🚀 ~ file: Favorites.js:10 ~ Favorites ~  authState :",  fav )
   // }, [fav]);
 
   return (
-    <View className=" w-screen h-full flex flex-col justify-center items-center dark:bg-[#111111]">
-      {console.log("🚀 ~ file: Favorites.js:23 ~ Favorites ~ authState:", fav)}
-      {fav && fav.length > 0 ? (
-        fav.map((item, key) => (
-          <ProdCard navigation={navigation} data={item.item} key={key} />
-        ))
-      ) : (
+    <View className=" w-screen h-full justify-center items-center dark:bg-[#111111]">
+      <TabNav navigation={navigation} />
+      {fav && fav.length > 0 && (
+        <ScrollView className="pt-6 pl-4">
+          <View className="flex flex-row gap-6">
+            <View>
+              {fav.map((item, key) => {
+                if (key % 2 === 0) {
+                  return (
+                    <ProdCard
+                      navigation={navigation}
+                      data={item.item}
+                      key={key}
+                    />
+                  );
+                }
+              })}
+            </View>
+            <View>
+              {fav.map((item, key) => {
+                if (key % 2 !== 0) {
+                  return (
+                    <ProdCard
+                      navigation={navigation}
+                      data={item.item}
+                      key={key}
+                    />
+                  );
+                }
+              })}
+            </View>
+          </View>
+        </ScrollView>
+      )}
+      {fav && fav.length === 0 && (
         <View className="justify-center items-center">
           <Text className="text-xl font-semibold dark:text-white mb-2">
             No favorites found
