@@ -160,7 +160,7 @@ const ItemReviewsList = ({ close, reviews }) => {
             {image && (
               <Image
                 source={{ uri: image }}
-                className="w-28 h-28 rounded shadow mr-3"
+                className="w-28 h-28 rounded mr-3"
               />
             )}
             <TouchableOpacity
