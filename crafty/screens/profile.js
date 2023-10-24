@@ -112,7 +112,9 @@ const Profile = ({ navigation }) => {
               <View>
                 <View className="flex justify-between ml-4 mb-3 mt-3 ">
                   <TouchableOpacity
-                    onPress={() => navigation.navigate("MyOrders")}
+                    onPress={() =>
+                      navigation.navigate("MyOrders", { orders: orders })
+                    }
                   >
                     <View className="flex flex-row justify-between">
                       <Text className="text-base font-bold dark:text-white">
@@ -165,23 +167,7 @@ const Profile = ({ navigation }) => {
                 </View>
               </View>
             )}
-            {data.role === "user" && (
-              <View>
-                <View className="flex justify-between ml-4 mb-3 mt-3">
-                  <TouchableOpacity onPress={() => navigation.navigate("")}>
-                    <View className="flex flex-row justify-between">
-                      <Text className="text-base font-bold dark:text-white">
-                        PromoCodes
-                      </Text>
-                      <Icon />
-                    </View>
-                    <Text className="text-[#999] text-s">
-                      You have special promocodes
-                    </Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-            )}
+
             {data.role === "user" && (
               <View>
                 <View className="flex justify-between ml-4 mb-3 mt-3">
@@ -221,7 +207,9 @@ const Profile = ({ navigation }) => {
               <View>
                 <View className="flex justify-between ml-4 mb-3 mt-3 ">
                   <TouchableOpacity
-                    onPress={() => navigation.navigate("AllProd")}
+                    onPress={() =>
+                      navigation.navigate("AllProd", { data: items })
+                    }
                   >
                     <View className="flex flex-row justify-between">
                       <Text className="text-base font-bold">my Items</Text>
@@ -252,7 +240,9 @@ const Profile = ({ navigation }) => {
               <View>
                 <View className="flex justify-between ml-4 mb-3 mt-3 ">
                   <TouchableOpacity
-                    onPress={() => navigation.navigate("AllArticles")}
+                    onPress={() =>
+                      navigation.navigate("AllArticles", { data: articles })
+                    }
                   >
                     <View className="flex flex-row justify-between">
                       <Text className="text-base font-bold">my Articles </Text>
