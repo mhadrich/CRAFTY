@@ -6,7 +6,7 @@ const ArticleCard = ({ navigation ,article}) => {
   console.log("🚀 ~ file: ArticleCard.js:6 ~ ArticleCard ~ article:", article)
   
   return (
-    <TouchableOpacity className="pr-4" onPress={()=>navigation.navigate("ArticleView",{article:article}) }>
+    <TouchableOpacity className="scale-95" onPress={()=>navigation.navigate("ArticleView",{article:article}) }>
       <Image
         className="w-52 h-48 rounded-t-lg"
         src={article.coverImage? article.coverImage :"#"}

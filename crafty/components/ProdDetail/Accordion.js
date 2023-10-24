@@ -7,7 +7,7 @@ export default function Accordion({ details }) {
   const data = [
     {
       Title: "Item Details",
-      Description: `${details.description}`
+      Description: `${details.description}`,
     },
     {
       Title: "Shipping Infos",
