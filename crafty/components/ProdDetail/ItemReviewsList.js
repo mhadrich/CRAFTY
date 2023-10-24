@@ -6,7 +6,7 @@ import {
   Pressable,
   useColorScheme,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ItemReviewCard from "./ItemReviewCard";
 import { ScrollView, TextInput } from "react-native-gesture-handler";
 import { LinearGradient } from "expo-linear-gradient";
@@ -14,63 +14,40 @@ import { Svg, Path } from "react-native-svg";
 import { Rating } from "react-native-ratings";
 import * as ImagePicker from "expo-image-picker";
 import { Cloudinary } from "@cloudinary/url-gen";
+import axios from "axios";
 
-const ItemReviewsList = ({ close ,reviews}) => {
+const ItemReviewsList = ({ close, reviews }) => {
   const color = useColorScheme();
   const [writing, setWriting] = useState(false);
-  const [image0, setImage0] = useState(null);
-  const [image1, setImage1] = useState(null);
-  const [image2, setImage2] = useState(null);
-  const [images, setImages] = useState(image0, image1, image2);
-  const [remove, setRemove] = useState("hidden");
+  const [image, setImage] = useState(null);
+  const [imageUrl, setImageUrl] = useState(null);
+  const [message, setMessage] = useState("Select an image");
+  console.log("THE IMAGE URL ==========", imageUrl);
 
-  // const cloudinary = new Cloudinary({
-  //   cloud: {
-  //     cloudName: "ddtfqfamn",
-  //   },
-  //   url: {
-  //     secure: true,
-  //   },
-  // });
-
-  const cloudinary = new Cloudinary({
-    cloud_name: "ddtfqfamn",
-    api_key: "353754651858781",
-    api_secret: "anpaciBczbcHWRa3o88SMGpL99I",
-  });
-
-  const uploadToCloudinary = async (uri) => {
+  const uploadImageToCloudinary = async (imageUri) => {
     try {
-      if (uri) {
-        const response = await fetch(uri);
-        const blob = await response.blob();
+      const data = new FormData();
+      data.append("file", {
+        uri: imageUri,
+        type: "image/jpeg",
+        name: "image.jpg",
+      });
+      data.append("upload_preset", "owfrai3q");
 
-        const formData = new FormData();
-        formData.append("file", blob, "image.jpg");
-        formData.append("upload_preset", "owfrai3q");
-
-        const cloudinaryURL =
-          "https://api.cloudinary.com/v1_1/ddtfqfamn/image/upload";
-
-        const result = await fetch(cloudinaryURL, {
-          method: "POST",
-          body: formData,
-        });
-
-        const data = await result.json();
-        if (data.secure_url) {
-          return data.secure_url;
-        } else {
-          console.error("Error uploading to Cloudinary:", data);
-          return null;
+      const response = await axios.post(
+        "https://api.cloudinary.com/v1_1/ddtfqfamn/image/upload",
+        data,
+        {
+          headers: {
+            "X-Requested-With": "XMLHttpRequest",
+          },
         }
-      } else {
-        console.error("Invalid 'uri' provided for upload.");
-        return null;
-      }
+      );
+
+      const imageUrl = response.data.secure_url;
+      setImageUrl(imageUrl);
     } catch (error) {
-      console.error("Error uploading to Cloudinary:", error);
-      return null;
+      console.error("Error uploading image to Cloudinary:", error);
     }
   };
 
@@ -81,23 +58,16 @@ const ItemReviewsList = ({ close ,reviews}) => {
       aspect: [4, 4],
       quality: 1,
       allowsMultipleSelection: true,
-      selectionLimit: 3,
+      selectionLimit: 1,
     });
-
-    console.log(result);
-    console.log("Cloudinary Object:", cloudinary);
     if (!result.canceled) {
-      const urls = await Promise.all(
-        result.assets.map(async (asset, index) => {
-          const url = await uploadToCloudinary(asset.uri);
-          return url || images[index];
-        })
-      );
-      setImage0(urls[0]);
-      setImage1(urls[1]);
-      setImage2(urls[2]);
+      const imageUri = result.assets[0].uri;
+      setImage(imageUri);
+      setMessage("Replace image");
+      uploadImageToCloudinary(imageUri);
     }
   };
+  
 
   return (
     <View>
@@ -121,7 +91,8 @@ const ItemReviewsList = ({ close ,reviews}) => {
           )}
           <View className="bottom-20">
             <ScrollView className="pt-6">
-             { reviews.map((review)=>{ return  (<ItemReviewCard review={review} />)
+              {reviews.map((review) => {
+                return <ItemReviewCard review={review} />;
               })}
             </ScrollView>
           </View>
@@ -171,7 +142,7 @@ const ItemReviewsList = ({ close ,reviews}) => {
             startingValue={0} //THIS TO UPDATE THE VALUES
             type="custom"
             ratingColor="#FFBA49"
-            tintColor={color==="light" ? "#ffffff" : "#333333"}
+            tintColor={color === "light" ? "#ffffff" : "#333333"}
             ratingBackgroundColor="#d5d5d5"
             readonly={false}
             imageSize={45}
@@ -186,82 +157,35 @@ const ItemReviewsList = ({ close ,reviews}) => {
             className="w-11/12 h-40 p-4 bg-[#f9f9f9] dark:bg-[#111111] dark:text-white rounded shadow mt-3"
           ></TextInput>
           <View className="flex flex-row w-11/12 mt-6 justify-start items-start">
-            {image0 && (
-              <Pressable onPress={() => setRemove("")}>
-                <Image
-                  source={{ uri: image0 }}
-                  className="w-28 h-28 rounded shadow mr-3"
-                />
-              </Pressable>
+            {image && (
+              <Image
+                source={{ uri: image }}
+                className="w-28 h-28 rounded mr-3"
+              />
             )}
-            {image1 && (
-              <Pressable onPress={() => setRemove("")}>
-                <Image
-                  source={{ uri: image1 }}
-                  className="w-28 h-28 rounded shadow mr-3"
-                />
-              </Pressable>
-            )}
-            {image2 && (
-              <Pressable onPress={() => setRemove("")}>
-                <Image
-                  source={{ uri: image2 }}
-                  className="w-28 h-28 rounded shadow mr-3"
-                />
-              </Pressable>
-            )}
-            {(image0 === null || image1 === null || image2 === null) && (
-              <TouchableOpacity
-                onPress={() => {
-                  pickImage();
-                }}
-                className="w-28 h-28 items-center justify-center bg-[#f9f9f9] dark:bg-[#111111] rounded shadow"
-              >
-                <View className="w-12 h-12 bg-[#BF9B7A] rounded-full mb-4 items-center justify-center">
-                  <Svg
-                    width="22"
-                    height="20"
-                    viewBox="0 0 22 20"
-                    fill="none"
-                  >
-                    <Path
-                      d="M10.9999 14.4667C12.9145 14.4667 14.4665 12.9146 14.4665 11C14.4665 9.0854 12.9145 7.53333 10.9999 7.53333C9.08528 7.53333 7.5332 9.0854 7.5332 11C7.5332 12.9146 9.08528 14.4667 10.9999 14.4667Z"
-                      fill={color==="light" ? "white" : "#111111"}
-                    />
-                    <Path
-                      d="M7.75033 0.166626L5.76783 2.33329H2.33366C1.14199 2.33329 0.166992 3.30829 0.166992 4.49996V17.5C0.166992 18.6916 1.14199 19.6666 2.33366 19.6666H19.667C20.8587 19.6666 21.8337 18.6916 21.8337 17.5V4.49996C21.8337 3.30829 20.8587 2.33329 19.667 2.33329H16.2328L14.2503 0.166626H7.75033ZM11.0003 16.4166C8.01033 16.4166 5.58366 13.99 5.58366 11C5.58366 8.00996 8.01033 5.58329 11.0003 5.58329C13.9903 5.58329 16.417 8.00996 16.417 11C16.417 13.99 13.9903 16.4166 11.0003 16.4166Z"
-                      fill={color==="light" ? "white" : "#111111"}
-                    />
-                  </Svg>
-                </View>
-                <Text className="text-center text-xs leading-3 dark:text-white">
-                  Select up to {"\n"} 3 images
-                </Text>
-              </TouchableOpacity>
-            )}
+            <TouchableOpacity
+              onPress={() => {
+                pickImage();
+              }}
+              className="w-28 h-28 items-center justify-center bg-[#f9f9f9] dark:bg-[#111111] rounded shadow"
+            >
+              <View className="w-12 h-12 bg-[#BF9B7A] rounded-full mb-4 items-center justify-center">
+                <Svg width="22" height="20" viewBox="0 0 22 20" fill="none">
+                  <Path
+                    d="M10.9999 14.4667C12.9145 14.4667 14.4665 12.9146 14.4665 11C14.4665 9.0854 12.9145 7.53333 10.9999 7.53333C9.08528 7.53333 7.5332 9.0854 7.5332 11C7.5332 12.9146 9.08528 14.4667 10.9999 14.4667Z"
+                    fill={color === "light" ? "white" : "#111111"}
+                  />
+                  <Path
+                    d="M7.75033 0.166626L5.76783 2.33329H2.33366C1.14199 2.33329 0.166992 3.30829 0.166992 4.49996V17.5C0.166992 18.6916 1.14199 19.6666 2.33366 19.6666H19.667C20.8587 19.6666 21.8337 18.6916 21.8337 17.5V4.49996C21.8337 3.30829 20.8587 2.33329 19.667 2.33329H16.2328L14.2503 0.166626H7.75033ZM11.0003 16.4166C8.01033 16.4166 5.58366 13.99 5.58366 11C5.58366 8.00996 8.01033 5.58329 11.0003 5.58329C13.9903 5.58329 16.417 8.00996 16.417 11C16.417 13.99 13.9903 16.4166 11.0003 16.4166Z"
+                    fill={color === "light" ? "white" : "#111111"}
+                  />
+                </Svg>
+              </View>
+              <Text className="text-center text-xs leading-3 dark:text-white">
+                {message}
+              </Text>
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity
-            onPress={() => {
-              setImage0(null);
-              setImage1(null);
-              setImage2(null);
-              setRemove("hidden");
-            }}
-            className={remove}
-          >
-            <Text className="text-xs text-red-500 opacity-80 mt-4">
-              Do you wanna pick your images again?
-            </Text>
-          </TouchableOpacity>
-          <Text
-            className={
-              remove === "hidden"
-                ? "text-xs  text-red-500 opacity-0 mt-4"
-                : "text-xs  text-red-500 hidden opacity-0 mt-4"
-            }
-          >
-            Do you wanna pick your images again?
-          </Text>
           <TouchableOpacity
             onPress={() => {
               close(false);
