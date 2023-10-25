@@ -48,7 +48,6 @@ model Article {
   likes       Int
   userId      Int
   user        User      @relation(fields: [userId], references: [id])
-  
   comments    Comment[]
 }
 

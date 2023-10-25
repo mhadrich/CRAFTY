@@ -12,7 +12,6 @@ const POST = async (req, res) => {
             create: image,
           },
           title,
-
           description,
           coverImage,
           likes,

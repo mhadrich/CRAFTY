@@ -1,6 +1,6 @@
 import { View, Text, Image, Pressable, useColorScheme } from "react-native";
 import React, { useEffect, useState } from "react";
-import HeartIcon from "./HeartIcon";
+// import HeartIcon from "./HeartIcon";
 import { Rating } from "react-native-ratings";
 import { Cloudinary } from "@cloudinary/url-gen";
 import { useAuth } from "./Authprovider/Authprovider";
@@ -49,7 +49,7 @@ const ProdCard = ({ navigation, data, moreItems }) => {
         }}
         className="-top-5 -right-32 "
       >
-        <HeartIcon state={like} />
+        {/* <HeartIcon state={like} /> */}
       </Pressable>
       <View className="-top-8  items-start justify-start">
         <View className="flex flex-row pb-1">
