@@ -63,15 +63,16 @@ const Profile = ({ navigation }) => {
         console.log(error);
       }
     };
-    if (data.role === "user") {
+    if (data && data.role === "user") {
       fetchUserData();
-    } else if (data.role === "crafter") {
+    } else if (data && data.role === "crafter") {
       fetchCrafterData();
     }
   }, []);
   const handleLogout = async () => {
     const res = await onLogout();
-    navigation.navigate("Home");
+    console.log("Goodbye");
+    navigation.navigate("Login");
   };
 
   if (authenticated) {
@@ -86,7 +87,7 @@ const Profile = ({ navigation }) => {
             <Image
               className="w-[70px] h-[70px] rounded-[200px] mr-5"
               source={{
-                uri: "http:s://www.bootdey.com/img/Content/avatar/avatar6.png",
+                uri: "https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes.png",
               }}
             />
             <View>
@@ -163,7 +164,7 @@ const Profile = ({ navigation }) => {
               </View>
             )}
 
-            {data.role === "user" && (
+            {/* {data.role === "user" && (
               <View>
                 <View className="flex justify-between ml-4 mb-3 mt-3">
                   <TouchableOpacity
@@ -181,7 +182,7 @@ const Profile = ({ navigation }) => {
                   </TouchableOpacity>
                 </View>
               </View>
-            )}
+            )} */}
 
             {/* crafter settings */}
             {data.role === "crafter" && (
@@ -254,7 +255,9 @@ const Profile = ({ navigation }) => {
             <View>
               <View className="flex justify-between ml-4 mb-3 mt-3">
                 <TouchableOpacity
-                  onPress={() => navigation.navigate("Settings")}
+                  onPress={() =>
+                    navigation.navigate("Settings", { data: data })
+                  }
                 >
                   <View className="flex flex-row justify-between">
                     <Text className="text-base font-bold dark:text-white">

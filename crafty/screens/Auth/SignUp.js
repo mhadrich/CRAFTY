@@ -215,7 +215,9 @@ export default function SignUp({ navigation }) {
             </Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate("Home")}>
-            <Text className="mt-4 dark:text-white">Continue without an account</Text>
+            <Text className="mt-4 dark:text-white">
+              Continue without an account
+            </Text>
           </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>

@@ -11,8 +11,12 @@ import BottomSheet from "react-native-simple-bottom-sheet";
 import * as ImagePicker from "expo-image-picker";
 import { Cloudinary } from "@cloudinary/url-gen";
 import axios from "axios";
+import { useAuth } from "../components/Authprovider/Authprovider";
 
 const AddItem = () => {
+  const { authState } = useAuth();
+  const { userId } = authState;
+
   const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
   const [message, setMessage] = useState("Select an image");
@@ -74,6 +78,33 @@ const AddItem = () => {
     }
   };
 
+  //post item
+  const [name, setName] = useState("");
+  const [tags, setTags] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
+  const postItem = async () => {
+    try {
+      const data = {
+        name,
+        category: cat,
+        tags,
+        description,
+        price,
+        imageUrl,
+        userId,
+      };
+      console.log(data);
+      const response = await axios.post(
+        `http://${ADRESS_API}:4000/item/additem`,
+        data
+      );
+      console.log("Post successful", response.data);
+    } catch (error) {
+      console.error("Error posting item:", error);
+    }
+  };
+
   return (
     <View className="w-screen h-screen px-4 items-start dark:bg-[#111111]">
       <ScrollView showsVerticalScrollIndicator={false}>
@@ -83,6 +114,8 @@ const AddItem = () => {
         <TextInput
           className="mb-4 w-full h-16 pl-3 bg-white dark:bg-[#333333] dark:text-white rounded-md shadow"
           placeholder={"Name"}
+          value={name}
+          onChangeText={(text) => setName(text)}
         />
         <Text className="text-lg mb-2 font-semibold leading-snug dark:text-white">
           Category
@@ -104,6 +137,8 @@ const AddItem = () => {
         <TextInput
           className="mb-4 w-full h-16 pl-3 bg-white dark:bg-[#333333] dark:text-white rounded-md shadow"
           placeholder={"Separate your tags using commas"}
+          value={tags}
+          onChangeText={(text) => setTags(text)}
         />
 
         <Text className="text-lg mb-2 font-semibold leading-snug dark:text-white">
@@ -114,6 +149,8 @@ const AddItem = () => {
           multiline={true}
           numberOfLines={20}
           className="p-6 mb-4 w-full h-96 bg-white dark:bg-[#333333] dark:text-white rounded-lg shadow"
+          value={description}
+          onChangeText={(text) => setDescription(text)}
         />
         <Text className="text-lg mb-2 font-semibold leading-snug dark:text-white">
           Price
@@ -122,6 +159,8 @@ const AddItem = () => {
           className="mb-4 w-full h-16 pl-3 bg-white dark:bg-[#333333] dark:text-white rounded-md shadow"
           keyboardType="numeric"
           placeholder={"Price"}
+          value={price}
+          onChangeText={(text) => setPrice(text)}
         />
         <View className="flex flex-row w-11/12 justify-start items-start">
           {image && (
@@ -158,7 +197,7 @@ const AddItem = () => {
         </View>
         <TouchableOpacity
           onPress={() => {
-            console.log("submitted");
+            postItem();
           }}
           className="bg-[#BF9B7A] text-white w-96 h-12 p-2 mt-4 rounded-full justify-center items-center"
         >

@@ -62,7 +62,7 @@ export default function App() {
     <NavigationContainer>
       <Authprovider>
         <Stack.Navigator
-          initialRouteName="Welcomepage"
+          initialRouteName="SignUp"
           screenOptions={{ headerStyle: { backgroundColor: `${headerColor}` } }}
         >
           <Stack.Screen
