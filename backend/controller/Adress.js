@@ -28,7 +28,7 @@ const POST = async (req, res) => {
 /* Get Adresss */
 const GET = async (req, res) => {
   try {
-    const Adresss = await prisma.Adress.findMany();
+    const Adresss = await prisma.adress.findMany();
     return res.status(200).json(Adresss);
   } catch (error) {
     const message =
@@ -40,31 +40,28 @@ const GET = async (req, res) => {
 };
 
 /*GET adress by id*/
-const GETByUserId = async (req, res) => {
+const GETBYID = async (req, res) => {
   try {
-    const { id } = req.params;
-    if (!id) {
+    const { userId } = req.params;
+    if (!userId) {
       return res.status(400).json({ error: "id parameter is missing" });
     }
-
-    const userId = parseInt(id);
-
-    const adresses = await prisma.adress.findMany({
+    const adress = await prisma.adress.findMany({
       where: {
-        userId: userId,
+        userId: userId*1,
       },
     });
 
-    if (!adresses) {
+    if (!adress) {
       return res.status(404).json({ message: "adresses not found" });
     }
-    return res.status(200).json(adresses);
+    return res.status(200).json(adress);
   } catch (error) {
-    const message =
-      error instanceof Error ? error.message : "An unknown error occurred";
+     console.log("🚀 ~ file: Adress.js:60 ~ GETBYID ~ error:", error)
+    
     return res
       .status(500)
-      .json({ message: "Error fetching adress by Userid", error: message });
+      .json({ message: "Error fetching adress by user id", error: error.message});
   }
 };
 
@@ -120,4 +117,4 @@ const DELETE = async (req, { params }) => {
   }
 };
 
-module.exports = { POST, GET, GETByUserId, UPDATE, DELETE };
+module.exports = { POST, GET, GETBYID, UPDATE, DELETE };

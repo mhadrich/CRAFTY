@@ -65,6 +65,53 @@ const CreateManyItems = async (items) => {
     console.log("🚀 ~ file: seed.js:92 ~ err:", err);
   }
 };
+const createManyPaymentCards = async (cardsData) => {
+  try {
+    const createdPaymentCards = await prisma.paymentCard.createMany({
+      data: cardsData.map((card) => ({
+        userId: card.userId,
+        CardHolder: card.name,
+        cardNumber: card.cardNumber,
+        expiryDate: card.expiryDate,
+        cvv: card.cvv,
+      })),
+    });
+
+    console.log({
+      message: "Payment cards created successfully",
+      paymentCards: createdPaymentCards,
+    });
+  } catch (error) {
+    console.error("Error creating payment cards:", error);
+  }
+};
+const CreateAdresses = async (Adress) => {
+ 
+    try {
+      const addressData = Adress 
+
+      const createdAddresses = await prisma.adress.createMany({
+        data: addressData.map((address) => {
+          const { street, city, postalCode, userId } = address;
+          return {
+            street,
+            city,
+            postalCode,
+            userId,
+          };
+        }),
+      });
+      console.log({
+        message: "Articles seeded successfully",
+        Addresses: createdAddresses,
+      });
+     
+    } catch (error) {
+      console.error("Error creating Adress:", error);
+      
+    }
+ 
+};
 
 const createManyArticles = async (articles) => {
   try {
@@ -250,6 +297,141 @@ const Users = [
     password: "securepass20",
   },
 ];
+const addressData = [
+  {
+    street: "123 Main St",
+    city: "New York",
+    postalCode: 10001,
+    userId: 1,
+  },
+  {
+    street: "456 Elm St",
+    city: "Los Angeles",
+    postalCode: 90001,
+    userId: 2,
+  },
+  {
+    street: "789 Oak St",
+    city: "Chicago",
+    postalCode: 60601,
+    userId: 3,
+  },
+  {
+    street: "321 Elm St",
+    city: "San Francisco",
+    postalCode: 94101,
+    userId: 4,
+  },
+  {
+    street: "555 Pine St",
+    city: "Miami",
+    postalCode: 33101,
+    userId: 5,
+  },
+  {
+    street: "987 Oak St",
+    city: "Dallas",
+    postalCode: 75201,
+    userId: 6,
+  },
+  {
+    street: "246 Elm St",
+    city: "Houston",
+    postalCode: 77001,
+    userId: 7,
+  },
+  {
+    street: "777 Main St",
+    city: "Seattle",
+    postalCode: 98101,
+    userId: 8,
+  },
+  {
+    street: "888 Oak St",
+    city: "Boston",
+    postalCode: 22101,
+    userId: 9,
+  },
+  {
+    street: "111 Elm St",
+    city: "Denver",
+    postalCode: 80201,
+    userId: 10,
+  },
+  {
+    street: "999 Pine St",
+    city: "Phoenix",
+    postalCode: 85001,
+    userId: 11,
+  },
+  {
+    street: "444 Main St",
+    city: "Philadelphia",
+    postalCode: 19101,
+    userId: 12,
+  },
+  {
+    street: "555 Oak St",
+    city: "San Diego",
+    postalCode: 92101,
+    userId: 13,
+  },
+  {
+    street: "222 Elm St",
+    city: "Las Vegas",
+    postalCode: 89101,
+    userId: 14,
+  },
+  {
+    street: "666 Pine St",
+    city: "Atlanta",
+    postalCode: 30301,
+    userId: 15,
+  },
+  {
+    street: "789 Main St",
+    city: "Detroit",
+    postalCode: 48201,
+    userId: 16,
+  },
+  {
+    street: "333 Oak St",
+    city: "Minneapolis",
+    postalCode: 55401,
+    userId: 17,
+  },
+  {
+    street: "123 Elm St",
+    city: "New Orleans",
+    postalCode: 70101,
+    userId: 18,
+  },
+  {
+    street: "888 Pine St",
+    city: "Portland",
+    postalCode: 97201,
+    userId: 19,
+  },
+  {
+    street: "555 Main St",
+    city: "San Antonio",
+    postalCode: 78201,
+    userId: 20,
+  },
+];
+
+
+const paymentCards = Users.map((user, index) => {
+  const userId = index + 1; // User IDs start from 1
+  return {
+    userId,
+    name: `${user.name} ${user.lastName}`,
+    cardNumber: `1234${index + 1}5678${index + 1}1234${index + 1}5678`,
+    expiryDate: `10/${25 + (index % 5)}`, // Expiry dates from 10/25 to 02/29
+    cvv: `12${index + 1}`,
+  };
+});
+
 
 const items = [
   {
@@ -380,9 +562,13 @@ const articles = [
   },
 ];
 const seed = async () => {
+
   await createManyUsers(Users);
   await CreateManyItems(items);
   await createManyArticles(articles);
+ await CreateAdresses(addressData) ;
+ await createManyPaymentCards(paymentCards) ;
 };
 
 seed();
+// 

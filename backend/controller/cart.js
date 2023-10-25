@@ -1,6 +1,6 @@
 const prisma = require("../lib/prisma.js");
 require("dotenv").config();
-
+const {calculateCartTotal}= require ("./Order.js")
 
 
 const addToCart = async (req, res) => {
@@ -80,7 +80,7 @@ const getCart = async (req, res) => {
     try {
         
         console.log("🚀 ~ file: cart.js:73 ~ getCart ~ userId:", userId)
-
+        
         const userCart = await prisma.cart.findFirst({
             where: {
                 userId:userId,
@@ -88,15 +88,19 @@ const getCart = async (req, res) => {
             include: {
                 items: {
                     include: {
-                        item: true,
+                        item:{ 
+                            include : {images :true}
+                        },
                     },
                 },
             },
         });
+        
         console.log("🚀 ~ file: cart.js:84 ~ getCart ~ userCart:", userCart)
-  
+   
         if (userCart) {
-            res.status(200).json({ cart: userCart });
+         const   amount =await calculateCartTotal(userCart.id) 
+            res.status(200).json({ cart: userCart , amount:amount });
         } else {
             res.status(404).json({ message: 'Cart not found for the user' });
         }

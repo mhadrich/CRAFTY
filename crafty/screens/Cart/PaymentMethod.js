@@ -54,7 +54,7 @@ const PaymentMethod = ({ navigation, route }) => {
                           Card Holder Name
                         </Text>
                         <Text className="text-center text-white text-sm font-semibold leading-snug">
-                          {element.name}
+                          {element.CardHolder}
                         </Text>
                       </View>
                       <View className=" justify-center items-center">
