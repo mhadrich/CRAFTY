@@ -15,7 +15,7 @@ const ChkShipAdrs = ({ navigation, data, render }) => {
           </Text>
           <Text className="text-[#8C633F] text-sm leading-tight">Change</Text>
         </View>
-        <Text className=" w-10/12 text-sm font-normal dark:text-white leading-tight">
+      <Text className=" w-10/12 text-sm font-normal dark:text-white leading-tight">
           {render.street}, {render.city} {render.postal},{"\n"}
           {render.country}
         </Text>

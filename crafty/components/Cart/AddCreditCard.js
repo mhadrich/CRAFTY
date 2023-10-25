@@ -1,8 +1,38 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import { TextInput } from "react-native-gesture-handler";
+import axios from "axios";
+import ADRESS_API from "../../Api"
+import { useAuth } from "../Authprovider/Authprovider";
 
 const AddCreditCard = ({ navigation }) => {
+
+
+  const { authState }=useAuth()
+  const AdCard =async ()=>{
+    try {
+    
+     
+     console.log(authState.userId,"newadress")
+      const response = await axios.post(`http://${ADRESS_API}:4000/payment/addPayment`,
+        {
+          
+          userId:authState.userId*1,
+          name :newCard.name,
+          cardNumber:newCard.cardNumber,
+          expiryDate:newCard.expiryDate,
+          cvv:newCard.cvv
+        }
+       )
+       
+       console.log("🚀 ~ file: AddCreditCard.js:26 ~ AdCard ~ response:", response)
+    
+    }
+      
+    catch (err) {
+      console.log(err.message ,"err");
+      }
+  }
   const [newCard, setNewCard] = useState({
     name: "",
     cardNumber: "",
@@ -47,10 +77,11 @@ const AddCreditCard = ({ navigation }) => {
       />
       <View className="w-fit justify-between">
         <TouchableOpacity
-          onPress={() =>
+          onPress={() =>{
+            AdCard()
             navigation.navigate("Checkout", {
               state: { card: newCard },
-            })
+            })}
           }
           className="z-50 bg-[#BF9B7A] h-12 w-fit rounded-full justify-center items-center"
         >

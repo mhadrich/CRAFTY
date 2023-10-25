@@ -92,7 +92,7 @@ const conversationget = async (req, res) => {
       }
     } catch (err) {
       console.error(err);
-      return res.status(500).send(err);
+      return res.status(500).send(err.message);
     }
   }
   

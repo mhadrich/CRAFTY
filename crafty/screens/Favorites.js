@@ -12,18 +12,35 @@ const Favorites = ({ navigation }) => {
 
   const [data, setData] = useState([]);
   console.log(fav, "this");
+  const GetFavorite = async () => {
+    const userId =authState.userId*1
+    try {
+      const res = await axios.get(`http://${ADRESS_API}:4000/favourite/getfavourite/${userId}`);
 
-  // useEffect(() => {
-  // }, [fav]);
+      console.log("🚀 ~ file: Favorites.js:20 ~ GetFavorite ~ res:", res.data)
+      
+      if (res){
+      setData(res.data)
+      
+    }
+    } catch (error) {
+      console.log("Error fetching favorites:", error);
+      return []; 
+    }
+  }
+
+  useEffect(() => {
+    GetFavorite()
+  }, []);
 
   return (
     <View className=" w-screen h-full justify-center items-center dark:bg-[#111111]">
       <TabNav navigation={navigation} />
-      {fav && fav.length > 0 && (
+      {data && data.length > 0 && (
         <ScrollView className="pt-6 pl-4" showsVerticalScrollIndicator={false}>
           <View className="flex flex-row gap-6">
             <View>
-              {fav.map((item, key) => {
+              {data.map((item, key) => {
                 if (key % 2 === 0) {
                   return (
                     <ProdCard
@@ -36,7 +53,7 @@ const Favorites = ({ navigation }) => {
               })}
             </View>
             <View>
-              {fav.map((item, key) => {
+              {data.map((item, key) => {
                 if (key % 2 !== 0) {
                   return (
                     <ProdCard
@@ -51,7 +68,7 @@ const Favorites = ({ navigation }) => {
           </View>
         </ScrollView>
       )}
-      {fav && fav.length === 0 && (
+      {data && data.length === 0 && (
         <View className="justify-center items-center">
           <Text className="text-xl font-semibold dark:text-white mb-2">
             No favorites found
