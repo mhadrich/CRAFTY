@@ -67,9 +67,9 @@ const Home = ({ navigation }) => {
           />
         </View>
         <Fresh navigation={navigation} />
-        <Recent />
-        <View className="pb-6"></View>
         <Articles navigation={navigation} />
+        <View className="pb-6"></View>
+        <Recent />
         <View className="pb-32"></View>
       </ScrollView>
     </View>

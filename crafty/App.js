@@ -217,8 +217,22 @@ export default function App() {
           </>
           {/* Chat screens */}
           <>
-            <Stack.Screen name="Chat" component={Chat} />
-            <Stack.Screen name="Conversation" component={Conversation} />
+            <Stack.Screen
+              name="Chat"
+              component={Chat}
+              options={{
+                headerTitle: "Message Seller",
+                headerTintColor: "#8C633F",
+              }}
+            />
+            <Stack.Screen
+              name="Conversation"
+              component={Conversation}
+              options={{
+                headerTitle: "Conversations",
+                headerTintColor: "#8C633F",
+              }}
+            />
           </>
           {/* profile */}
           <>

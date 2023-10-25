@@ -23,7 +23,7 @@ const Profile = ({ navigation }) => {
     const fetchData = async () => {
       try {
         const userData = await axios.get(
-          `http://${ADRESS_API}:4000/user/getuserById/5`
+          `http://${ADRESS_API}:4000/user/getuserById/${userId * 1}`
         );
         setData(userData.data);
       } catch (error) {
@@ -68,18 +68,13 @@ const Profile = ({ navigation }) => {
     } else if (data.role === "crafter") {
       fetchCrafterData();
     }
-  }, [userId]);
+  }, []);
   const handleLogout = async () => {
     const res = await onLogout();
-    if (res === 200) {
-      console.log("Goodbye");
-      navigation.navigate("Login");
-    } else {
-      alert(res);
-    }
+    navigation.navigate("Home");
   };
 
-  if (authenticated === false) {
+  if (authenticated) {
     return (
       <View className="dark:bg-[#111111] w-screen h-screen">
         <TabNav navigation={navigation} />
