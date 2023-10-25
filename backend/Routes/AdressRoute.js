@@ -5,14 +5,14 @@ const router = express.Router();
 const {
   POST,
   GET,
-  GETByUserId,
+  GETBYID,
   UPDATE,
   DELETE,
 } = require("../controller/Adress");
 
 router.post("/addadress", POST);
 router.get("/getadresss", GET);
-router.get("/getadressByUserId/:id", GETByUserId);
+router.get("/getadressByUserId/:userId", GETBYID);
 
 router.put("/updateadress", UPDATE);
 router.delete("/deleteadress", DELETE);

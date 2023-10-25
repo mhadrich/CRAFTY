@@ -13,15 +13,16 @@ const ProdCard = ({ navigation, data, moreItems }) => {
   const [Data, setData] = useState(false);
   AddToFavorite = async () => {
     try {
+      console.log(data,"id")
       res = await axios.post(
         `http://${ADRESS_API}:4000/favourite/addfavourite`,
-        { userId: authState && authState.userId * 1, itemId: data && data.id }
+        { userId: authState && authState.userId * 1, itemId:  data.id }
       );
-      console.log(res, "res 👌👌👌👌👌👌👌");
+     
     } catch (error) {
       console.log(
         "🚀 ~  file: ProdCard.js:16 ~ AddToFavorite=async ~ error:",
-        error
+        error.messa
       );
     }
   };

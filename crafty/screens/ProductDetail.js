@@ -17,8 +17,11 @@ import { Rating } from "react-native-ratings";
 import Reviews from "../components/ProdDetail/Reviews";
 import BottomSheet from "react-native-simple-bottom-sheet";
 import ItemReviewsList from "../components/ProdDetail/ItemReviewsList";
-
+import axios from "axios";
+import ADRESS_API from "../Api"
+import { useAuth } from "../components/Authprovider/Authprovider";
 const ProductDetail = ({ navigation, route }) => {
+  const { authState  } = useAuth();
   AddToFavorite = async () => {
     try {
       res = await axios.post(
@@ -37,7 +40,26 @@ const ProductDetail = ({ navigation, route }) => {
   console.log("the more items", moreItems);
   const dark = useColorScheme();
   const [color, setColor] = useState("");
+  const AddToCart =async ()=>{
+    try {
+      console.log(item.id,"item.id")
+      console.log(item.id,"item.id")
+      const response = await axios.post(`http://${ADRESS_API}:4000/cart/addtocart`,{
+        userId: authState.userId*1,      
+       
+        itemId:item.id ,       
+        quantity: 1       
+      }
+      
+
+      )
+    }
+    catch (err) {
+      console.log(err);
+      }
+  }
   useEffect(() => {
+    
     dark === "dark" ? setColor("#333333") : setColor("#ffffff");
   }, [dark]);
   const [like, setLike] = useState(false);
@@ -64,7 +86,7 @@ const ProductDetail = ({ navigation, route }) => {
                   d="M19.47,31a2,2,0,0,1-1.8-1.09l-4-7.57a1,1,0,0,1,1.77-.93l4,7.57L29,3.06,3,12.49l9.8,5.26,8.32-8.32a1,1,0,0,1,1.42,1.42l-8.85,8.84a1,1,0,0,1-1.17.18L2.09,14.33a2,2,0,0,1,.25-3.72L28.25,1.13a2,2,0,0,1,2.62,2.62L21.39,29.66A2,2,0,0,1,19.61,31Z"
                   fill={dark === "light" ? "#101820" : "#ffffff"}
                 />
-              </Svg>
+              </Svg>  
             </View>
           </Pressable>
           <Pressable
@@ -75,8 +97,8 @@ const ProductDetail = ({ navigation, route }) => {
           >
             {/* <HeartIcon state={like} /> */}
           </Pressable>
-          <Pressable onPress={() => navigation.navigate("MyBag")}>
-            {/* <BagIcon /> */}
+          <Pressable onPress={() => {AddToCart()}}>
+            <BagIcon /> 
           </Pressable>
         </View>
         <View className="flex flex-row justify-between px-4 mt-4">

@@ -10,15 +10,14 @@ import { useAuth } from "../components/Authprovider/Authprovider";
 const socket = io(`http://${ADRESS_API}:4000/`);
 
 function Chat({ route }) {
-
-  const { authState } = useAuth()
+  const { authState } = useAuth();
   const { otherUserId } = route.params;
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
-  const [ chatid, setchatid] = useState("");
- 
+  const [chatid, setchatid] = useState("");
+
   const ScrollViewRef = useRef();
-  const userid = authState.userId*1
+  const userid = authState.userId * 1;
   const getChatID = async (user1, user2) => {
     try {
       const res = await axios.post(`http://${ADRESS_API}:4000/chat/getId`, {
@@ -34,9 +33,7 @@ function Chat({ route }) {
     }
   };
 
-  const getMessage = async ( otherUserId) => {
-    
-
+  const getMessage = async (otherUserId) => {
     try {
       const res = await axios.post(
         `http://${ADRESS_API}:4000/chat/getmessage`,
@@ -51,17 +48,15 @@ function Chat({ route }) {
     }
   };
   useEffect(() => {
-    
-    ScrollViewRef.current.scrollToEnd({ animated: true })
-    socket.emit("joinChat", { userId:userid, otherUserId });
+    ScrollViewRef.current.scrollToEnd({ animated: true });
+    socket.emit("joinChat", { userId: userid, otherUserId });
 
     getChatID(userid, otherUserId);
-    getMessage( otherUserId);
-      
+    getMessage(otherUserId);
+
     return () => {
       socket.emit("leaveChat", { userid, otherUserId });
     };
-
   }, []);
 
   const SenderMessageStyle =
@@ -74,7 +69,6 @@ function Chat({ route }) {
       text: newMessage,
     });
     setNewMessage("");
-   
   };
   socket.on("message", (message) => {
     setMessages([...messages, message]);
@@ -82,8 +76,7 @@ function Chat({ route }) {
   });
 
   return (
-    <View className="flex-1 h-screen bg-[#f9f9f9]">
-
+    <View className="flex-1 h-screen dark:bg-[#111111]">
       <ScrollView className="flex-col col-revers px-6 " ref={ScrollViewRef}>
         {messages &&
           messages.map((message, index) => (
@@ -111,24 +104,30 @@ function Chat({ route }) {
                 </Text>
               </View>
               <Text className=" text-right text-gray-700 mb-2 mr-2 mt-0 text-xs">
-                {String(new Date(message.createdAt).getHours()).padStart(2, '0')}:{String(new Date(message.createdAt).getMinutes()).padStart(2, '0')}
+                {String(new Date(message.createdAt).getHours()).padStart(
+                  2,
+                  "0"
+                )}
+                :
+                {String(new Date(message.createdAt).getMinutes()).padStart(
+                  2,
+                  "0"
+                )}
               </Text>
             </View>
           ))}
       </ScrollView>
-      <View className="flex-row space-x-1  bg-white  items-center h-20">
-
+      <View className="flex-row space-x-1  bg-white dark:bg-[#111111] dark:border-t dark:border-[#555555] items-center justify-center pb-4 h-24">
         <TextInput
           placeholder="Type your message..."
           value={newMessage}
           onChangeText={(text) => setNewMessage(text)}
-          className=" mr-1  px-6  ml-[5%] w-[79%] h-[60%]    border-gray-400 border rounded-3xl  tex"
-          onFocus={() =>
-            ScrollViewRef.current.scrollToEnd({ animated: true })
-          }
+          className="w-[79%] h-10 border-gray-400 dark:bg-[#111111] px-4 border rounded-full"
+          onFocus={() => ScrollViewRef.current.scrollToEnd({ animated: true })}
         />
-        <TouchableOpacity onPress={sendMessage} className="ml-40 w-10  "><Logo className=" w-6" /></TouchableOpacity>
-
+        <TouchableOpacity onPress={sendMessage} className="pl-2 w-10">
+          <Logo className=" w-6" />
+        </TouchableOpacity>
       </View>
     </View>
   );

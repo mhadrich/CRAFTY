@@ -1,8 +1,11 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import { TextInput } from "react-native-gesture-handler";
-
+import axios from "axios";
+import ADRESS_API from "../../Api"
+import { useAuth } from "../Authprovider/Authprovider";
 const AddShippingAddress = ({ navigation }) => {
+  const { authState }=useAuth()
   const [newAddress, setNewAddress] = useState({
     name: "",
     street: "",
@@ -10,6 +13,26 @@ const AddShippingAddress = ({ navigation }) => {
     postal: "",
     country: "Tunisia",
   });
+  const AdAdress =async ()=>{
+    try {
+    
+     console.log(newAddress,"newadress")
+     
+     console.log(authState.userId,"newadress")
+      const response = await axios.post(`http://${ADRESS_API}:4000/adress/addadress`,{
+        street: newAddress.street ,
+        city:newAddress.city,
+        postalCode:newAddress.postal*1,
+        userId:authState.userId*1
+      } )
+      console.log("🚀 ~ file: MyBag.js:27 ~ GetAD ~ response:", response.data)
+    
+    }
+      
+    catch (err) {
+      console.log(err.message ,"err");
+      }
+  }
 
   const handleInputChange = (field, value) => {
     setNewAddress({
@@ -21,12 +44,7 @@ const AddShippingAddress = ({ navigation }) => {
   const inputs = "w-fit h-16 pl-3 bg-[#f9f9f9] dark:bg-[#111111] dark:text-white rounded-md shadow-sm";
   return (
     <View className="w-fit h-screen gap-4">
-      <TextInput
-        className={inputs}
-        placeholder={"Full name"}
-        onChangeText={(query) => handleInputChange("name", query)}
-        value={newAddress.name}
-      />
+   
       <TextInput
         className={inputs}
         placeholder={"Street"}
@@ -48,10 +66,11 @@ const AddShippingAddress = ({ navigation }) => {
       />
       <View className="w-fit justify-between">
         <TouchableOpacity
-          onPress={() =>
+          onPress={() =>{
+          AdAdress()
             navigation.navigate("Checkout", {
               state: { address: newAddress },
-            })
+            })}
           }
           className="z-50 bg-[#BF9B7A] h-12 w-fit rounded-full justify-center items-center"
         >

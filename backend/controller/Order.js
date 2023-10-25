@@ -1,63 +1,134 @@
 const prisma = require("../lib/prisma.js");
 require("dotenv").config();
 
-/* Create Order */
-const POST = async (req, res) => {
-  if (req.method === "POST") {
-    try {
-      const {
-        dateOfDelivery,
-        trackingNumber,
-        deliveredProcessing,
-        userId,
-        items,
-      } = req.body;
-      const order = await prisma.order.create({
-        data: {
-          dateOfDelivery,
-          trackingNumber,
-          deliveredProcessing,
-          userId,
-          items: {
-            create: [
-              {
-                item: {
-                  connect: {
-                    id: 1,
-                  },
-                },
-                quantity: 3,
-              },
-              {
-                item: {
-                  connect: {
-                    id: 3,
-                  },
-                },
-                quantity: 2,
-              },
-            ],
+
+
+
+
+
+
+const  calculateCartTotal = async(cartId) => {
+  try {
+    
+    const cartItems = await prisma.cartItem.findMany({
+      where: {
+        cartId:cartId,
+      },
+      include: {
+        item: {
+          select: {
+            price: true,
           },
         },
-        include: {
-          items: true,
+      },
+    });
+
+   
+    let total = 0;
+    for (const cartItem of cartItems) {
+      total += cartItem.quantity * cartItem.item.price;
+    }
+
+    return total;
+  } catch (error) {
+    
+    throw error;
+  } finally {
+    await prisma.$disconnect();
+  }
+}
+const POST = async (req, res) => {
+  try {
+    
+    const cardId = req.body.cardId;
+    const userId = req.body.userId;
+    const userCart = await prisma.cart.findFirst({
+      where: {
+          userId:userId,
+      },
+      include: {
+          items: {
+              include: {
+                  item:{ 
+                      include : {images :true}
+                  },
+              },
+          },
+      },
+  });
+    const amount = await calculateCartTotal(userCart.id)
+   
+    const addressId = req.body.addressId;
+
+    const orderDetails = {
+      dateOfDelivery: req.body.dateOfDelivery,
+      trackingNumber: req.body.trackingNumber,
+      deliveredProcessing: req.body.deliveredProcessing,
+    };
+
+    const newOrder = await prisma.order.create({
+      data: {
+        userId,
+        addressId,
+        ...orderDetails,
+        payments: {
+          create: {
+            amount,
+            paymentDate: new Date(),
+            paymentCard: {
+              connect: {
+                id: cardId,
+              },
+            },
+            user: {
+              connect: {
+                id: userId,
+              },
+            },
+          },
+        },
+      },
+      include: {
+        payments: true,
+      },
+    });
+
+    const cartItems = await prisma.cartItem.findMany({
+      where: {
+        cartId:userCart.id,
+      },
+    });
+
+    for (const cartItem of cartItems) {
+      await prisma.orderItem.create({
+        data: {
+          orderId: newOrder.id,
+          itemId: cartItem.itemId,
+          quantity: cartItem.quantity,
         },
       });
-
-      return res.status(201).json({ order });
-    } catch (error) {
-      console.error(error);
-      return res.status(500).json({ error: "Cannot Create Order" });
     }
-  } else {
-    return res.status(405).json({ error: "Method not allowed" });
-  }
-};
 
+    await prisma.cartItem.deleteMany({
+      where: {
+        cartId:userCart.id,
+      },
+    });
+
+    res.status(201).json(newOrder);
+  } catch (error) {
+    console.error('Error adding order:', error);
+    res.status(500).json({ error: 'An error occurred while adding the order'  ,mes:error});
+  } 
+}
+
+
+
+ 
 /* Get Orders */
 const GET = async (req, res) => {
   try {
-    const Orders = await prisma.Order.findMany();
+    const Orders = await prisma.order.findMany();
     return res.status(200).json(Orders);
   } catch (error) {
     const message =
@@ -97,29 +168,30 @@ const GETById = async (req, { params }) => {
 /*GET Article By UserID */
 const GETByUserId = async (req, res) => {
   try {
-    const { id } = req.params;
-    if (!id) {
-      return res.status(400).json({ error: "id parameter is missing" });
-    }
+    const userId = req.params.userId; // Use req.params to get the userId from the URL parameters
 
-    const userId = parseInt(id);
+    if (!userId) {
+      throw new Error("userId parameter is missing");
+    }
 
     const orders = await prisma.order.findMany({
-      where: {
-        userId: userId,
-      },
+      where: { userId: Number(userId) }, // Convert userId to a number if needed
+      include: {
+        address: true, // Include the address details
+        payments: true, // Include payment details
+        items : true
+    },
     });
 
-    if (!orders) {
-      return res.status(404).json({ message: "orders not found" });
+    if (!orders || orders.length === 0) {
+      return res.status(404).json({ error: "Orders not found" });
     }
+
     return res.status(200).json(orders);
   } catch (error) {
-    const message =
-      error instanceof Error ? error.message : "An unknown error occurred";
-    return res
-      .status(500)
-      .json({ message: "Error fetching order by Userid", error: message });
+    console.log("🚀 ~ file: Order.js:177 ~ GETByUserId ~ error:", error)
+    
+    return res.status(500).json({ message: "Error fetching orders", error:error});
   }
 };
 
@@ -175,4 +247,5 @@ const DELETE = async (req, { params }) => {
   }
 };
 
-module.exports = { POST, GET, GETById, GETByUserId, UPDATE, DELETE };
+
+module.exports = { POST, GET, GETById, GETByUserId, UPDATE, DELETE ,calculateCartTotal};

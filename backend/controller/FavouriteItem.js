@@ -6,17 +6,38 @@ const POST = async (req, res) => {
   if (req.method === "POST") {
     try {
       const { userId, itemId } = req.body;
-      const FavouriteItem = await prisma.favouriteItem.create({
-        data: {
+
+      // Check if the favorite item already exists for the user and item.
+      const existingFavoriteItem = await prisma.favouriteItem.findFirst({
+        where: {
           userId,
           itemId,
         },
       });
 
-      return res.status(201).json({ FavouriteItem });
+      if (existingFavoriteItem) {
+        // If it exists, delete the favorite item.
+        await prisma.favouriteItem.delete({
+          where: {
+            id: existingFavoriteItem.id,
+          },
+        });
+
+        return res.status(200).json({ message: "Favorite item deleted" });
+      } else {
+        // If it doesn't exist, create a new favorite item.
+        const newFavoriteItem = await prisma.favouriteItem.create({
+          data: {
+            userId,
+            itemId,
+          },
+        });
+
+        return res.status(201).json({ message: "Favorite item created", FavouriteItem: newFavoriteItem });
+      }
     } catch (error) {
       console.error(error);
-      return res.status(500).json({ error: "Cannot Create FavouriteItem" });
+      return res.status(500).json({ error: "An error occurred" });
     }
   } else {
     return res.status(405).json({ error: "Method not allowed" });

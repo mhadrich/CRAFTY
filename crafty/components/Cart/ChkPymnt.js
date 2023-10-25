@@ -3,6 +3,8 @@ import React from "react";
 import { Svg, Path } from "react-native-svg";
 
 const ChkPymnt = ({ navigation, data, render }) => {
+  console.log("🚀 ~ file: ChkPymnt.js:6 ~ ChkPymnt ~ data:", data)
+  
   return (
     <Pressable
       className="gap-4"
