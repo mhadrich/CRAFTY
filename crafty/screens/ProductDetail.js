@@ -18,10 +18,12 @@ import Reviews from "../components/ProdDetail/Reviews";
 import BottomSheet from "react-native-simple-bottom-sheet";
 import ItemReviewsList from "../components/ProdDetail/ItemReviewsList";
 import axios from "axios";
-import ADRESS_API from "../Api"
+import ADRESS_API from "../Api";
 import { useAuth } from "../components/Authprovider/Authprovider";
+import TabNav from "../components/TabNav/TabNav";
 const ProductDetail = ({ navigation, route }) => {
-  const { authState  } = useAuth();
+  const [toggle, setToggle] = useState(false);
+  const { authState } = useAuth();
   AddToFavorite = async () => {
     try {
       res = await axios.post(
@@ -40,26 +42,25 @@ const ProductDetail = ({ navigation, route }) => {
   console.log("the more items", moreItems);
   const dark = useColorScheme();
   const [color, setColor] = useState("");
-  const AddToCart =async ()=>{
+  const AddToCart = async () => {
     try {
-      console.log(item.id,"item.id")
-      console.log(item.id,"item.id")
-      const response = await axios.post(`http://${ADRESS_API}:4000/cart/addtocart`,{
-        userId: authState.userId*1,      
-       
-        itemId:item.id ,       
-        quantity: 1       
-      }
-      
-
-      )
-    }
-    catch (err) {
+      console.log(item.id, "item.id");
+      console.log(item.id, "item.id");
+      const response = await axios.post(
+        `http://${ADRESS_API}:4000/cart/addtocart`,
+        {
+          userId: authState.userId * 1,
+          itemId: item.id,
+          quantity: 1,
+        }
+      );
+      setToggle(true);
+      setTimeout(()=>{setToggle(false)},2000)
+    } catch (err) {
       console.log(err);
-      }
-  }
+    }
+  };
   useEffect(() => {
-    
     dark === "dark" ? setColor("#333333") : setColor("#ffffff");
   }, [dark]);
   const [like, setLike] = useState(false);
@@ -67,6 +68,7 @@ const ProductDetail = ({ navigation, route }) => {
   const [bsOpen, setBSOpen] = useState(false);
   return (
     <View>
+      <TabNav navigation={navigation} />
       <ScrollView className=" dark:bg-[#111111]">
         <View className="-my-8">
           <Karousel data={item.images} />
@@ -86,7 +88,7 @@ const ProductDetail = ({ navigation, route }) => {
                   d="M19.47,31a2,2,0,0,1-1.8-1.09l-4-7.57a1,1,0,0,1,1.77-.93l4,7.57L29,3.06,3,12.49l9.8,5.26,8.32-8.32a1,1,0,0,1,1.42,1.42l-8.85,8.84a1,1,0,0,1-1.17.18L2.09,14.33a2,2,0,0,1,.25-3.72L28.25,1.13a2,2,0,0,1,2.62,2.62L21.39,29.66A2,2,0,0,1,19.61,31Z"
                   fill={dark === "light" ? "#101820" : "#ffffff"}
                 />
-              </Svg>  
+              </Svg>
             </View>
           </Pressable>
           <Pressable
@@ -97,10 +99,21 @@ const ProductDetail = ({ navigation, route }) => {
           >
             <HeartIcon state={like} />
           </Pressable>
-          <Pressable onPress={() => {AddToCart()}}>
-            <BagIcon /> 
+          <Pressable
+            onPress={() => {
+              AddToCart();
+            }}
+          >
+            <BagIcon />
           </Pressable>
         </View>
+        {toggle && (
+          <View className="items-center justify-center">
+            <Text className="absolute text-xs opacity-80 text-[#707324]">
+              Item added successfully
+            </Text>
+          </View>
+        )}
         <View className="flex flex-row justify-between px-4 mt-4">
           <Text className="font-semibold text-2xl dark:text-white">A&C</Text>
           <Text className="font-semibold text-2xl dark:text-white">
@@ -147,7 +160,7 @@ const ProductDetail = ({ navigation, route }) => {
         </Text>
         <View className="flex flex-row mb-4 items-start justify-start">
           <ScrollView
-            className="px-4"
+            className="px-4 mb-20"
             showsHorizontalScrollIndicator={false}
             horizontal={true}
           >

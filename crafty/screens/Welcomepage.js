@@ -9,8 +9,8 @@ const Welcomepage = ({ navigation }) => {
   useEffect(() => {
     setTimeout(() => {
       authState.authenticated
-        ? navigation.navigate("SignUp")
-        : navigation.navigate("Home");
+        ? navigation.navigate("Home")
+        : navigation.navigate("SignUp");
     }, 2000);
   }, []);
 

@@ -2,13 +2,16 @@ import { View, useColorScheme } from "react-native";
 import React from "react";
 import { Svg, Path } from "react-native-svg";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
+import { useAuth } from "../Authprovider/Authprovider";
 
 const SearchNav = ({ navigation }) => {
+  const { setQuery } = useAuth();
   const color = useColorScheme();
   return (
     <View className="w-screen justify-center items-center">
       <View className="w-9/12 h-10 right-4 pl-8 bg-[#BF9B7A] opacity-25 dark:opacity-50 rounded-3xl"></View>
       <TextInput
+        onChangeText={(e)=>setQuery(e)}
         placeholder="Search Crafty"
         className="absolute w-10/12 h-10 px-8 opacity-70 dark:text-white"
       ></TextInput>

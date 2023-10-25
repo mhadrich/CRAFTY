@@ -6,109 +6,104 @@ import ChkDelivery from "../../components/Cart/ChkDelivery";
 import ChkAmount from "../../components/Cart/ChkAmount";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import axios from "axios";
-import ADRESS_API from "../../Api"
+import ADRESS_API from "../../Api";
 import { useAuth } from "../../components/Authprovider/Authprovider.js";
 
-
 const Checkout = ({ navigation, route }) => {
-   
-  
-  const { authState  } = useAuth();
+  const { authState } = useAuth();
   const [addresses, setAddress] = useState([]);
   const [cardsList, setCards] = useState([]);
 
   const [amount, setAmount] = useState(0);
-  const [defaultCard,setDefaultCard] = useState(  {
+  const [defaultCard, setDefaultCard] = useState({
     name: "Jane Doe",
     cardNumber: "1234567812345678",
     expiryDate: "10/26",
     cvv: "123",
   });
-  const [defaultAddress,setDefaultAddress] = useState( {
-         
-        name: "Jane Doe",
-        street: "3 Newbridge Court Chino Hills",
-        city: "CA",
-        postal: "91709",
-        country: "United States",
-      });
+  const [defaultAddress, setDefaultAddress] = useState({
+    name: "Jane Doe",
+    street: "3 Newbridge Court Chino Hills",
+    city: "CA",
+    postal: "91709",
+    country: "United States",
+  });
   const [deliveryPrice, setDeliveryPrice] = useState(5);
-  const prms= route.params
-  const GetAdress =async ()=>{
+  const prms = route.params;
+  const GetAdress = async () => {
     try {
-    
-   
-      const response = await axios.get(`http://${ADRESS_API}:4000/adress/getadressByUserId/${authState.userId*1}` )
-      console.log("🚀 ~ file: MyBag.js:27 ~ GetAD ~ response:", response.data)
-      setAddress(response.data)
-      setDefaultAddress(response.data[0])
+      const response = await axios.get(
+        `http://${ADRESS_API}:4000/adress/getadressByUserId/${
+          authState.userId * 1
+        }`
+      );
+      console.log("🚀 ~ file: MyBag.js:27 ~ GetAD ~ response:", response.data);
+      setAddress(response.data);
+      setDefaultAddress(response.data[0]);
+    } catch (err) {
+      console.log(err, "err");
     }
-      
-    catch (err) {
-      console.log(err ,"err");
-      }
-  }
-  const GetCard =async ()=>{
+  };
+  const GetCard = async () => {
     try {
-    
-   
-      const response = await axios.get(`http://${ADRESS_API}:4000/payment/getAllByUserId/${authState.userId*1}` )
-      
-      console.log("🚀 ~ file: Checkout.js:82 ~ GetCard ~ response :", response .data)
-      setCards(response.data)
-      setDefaultCard(response.data[0])
+      const response = await axios.get(
+        `http://${ADRESS_API}:4000/payment/getAllByUserId/${
+          authState.userId * 1
+        }`
+      );
+
+      console.log(
+        "🚀 ~ file: Checkout.js:82 ~ GetCard ~ response :",
+        response.data
+      );
+      setCards(response.data);
+      setDefaultCard(response.data[0]);
+    } catch (err) {
+      console.log(err, "err");
     }
-      
-    catch (err) {
-      console.log(err ,"err");
-      }
-  }
-  const ConfirmOrder =  async() =>{
+  };
+  const ConfirmOrder = async () => {
     try {
-      const  generateRandomTrackingNumber =(length)=> {
-        const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"; 
+      const generateRandomTrackingNumber = (length) => {
+        const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         let trackingNumber = "";
-      
+
         for (let i = 0; i < length; i++) {
           const randomIndex = Math.floor(Math.random() * characters.length);
           trackingNumber += characters.charAt(randomIndex);
         }
-      
+
         return trackingNumber;
-      }
-      
-     
-      const trackingNumber = generateRandomTrackingNumber(8); 
-      
-   
-      const response = await axios.post(`http://${ADRESS_API}:4000/order/addorder`,
-       
-      {
-  userId: authState.userId*1,
-  cardId: defaultAddress.id,
-  addressId: defaultCard.id,
-  dateOfDelivery: `${Date.now()}`,
-  trackingNumber: trackingNumber,
-  deliveredProcessing: true
-}
-      
-      )
-      
-      console.log("🚀 ~ file: Checkout.js:97 ~ ConfirmOrder ~  response:",  response.data)
-      // navigation.navigate("Success")
+      };
+
+      const trackingNumber = generateRandomTrackingNumber(8);
+
+      const response = await axios.post(
+        `http://${ADRESS_API}:4000/order/addorder`,
+
+        {
+          userId: authState.userId * 1,
+          cardId: defaultAddress.id,
+          addressId: defaultCard.id,
+          dateOfDelivery: `${Date.now()}`,
+          trackingNumber: trackingNumber,
+          deliveredProcessing: true,
+        }
+      );
+
+      console.log(
+        "🚀 ~ file: Checkout.js:97 ~ ConfirmOrder ~  response:",
+        response.data
+      );
+      navigation.navigate("Success");
+    } catch (err) {
+      console.log(err, "err");
     }
-      
-    catch (err) {
-      console.log(err ,"err");
-      }
-    
-
-
-  }
-  useEffect(()=>{
-    GetAdress()
-    GetCard()
-  },[])
+  };
+  useEffect(() => {
+    GetAdress();
+    GetCard();
+  }, []);
   useEffect(() => {
     if (prms !== undefined) {
       if (prms.state) {
@@ -125,7 +120,7 @@ const Checkout = ({ navigation, route }) => {
       <ChkShipAdrs
         navigation={navigation}
         data={addresses}
-        render = {defaultAddress}
+        render={defaultAddress}
       />
       <ChkPymnt
         navigation={navigation}
@@ -133,9 +128,11 @@ const Checkout = ({ navigation, route }) => {
         render={defaultCard.cardNumber}
       />
       <ChkDelivery fn={setDeliveryPrice} />
-      <ChkAmount delivery={deliveryPrice}  amount={prms.amount}/>
+      <ChkAmount delivery={deliveryPrice} amount={prms.amount} />
       <TouchableOpacity
-        onPress={() =>{ ConfirmOrder()} }
+        onPress={() => {
+          ConfirmOrder();
+        }}
         className="mt-6 bg-[#BF9B7A] h-12 w-fit rounded-full justify-center items-center"
       >
         <Text className="text-center text-white text-sm font-medium leading-tight">
