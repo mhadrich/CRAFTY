@@ -11,87 +11,89 @@ import { Svg, Path } from "react-native-svg";
 import { SafeAreaView } from "react-native-safe-area-context";
 import TabNav from "../../components/TabNav/TabNav";
 import axios from "axios";
-import ADRESS_API from "../../Api"
+import ADRESS_API from "../../Api";
 import { useAuth } from "../../components/Authprovider/Authprovider";
 const MyBag = ({ navigation }) => {
-  
+  const [toggle, setToggle] = useState(false);
   const [cartTotal, setCartTotal] = useState(90);
   const scrollViewRef = useRef();
-  const { authState  } = useAuth();
+  const { authState } = useAuth();
   const [data, setData] = useState([]);
-  const [amount,setAmount]=useState(0)
-  const [trigger,setTrigger]=useState(false)
-  const GetCart =async ()=>{
+  const [amount, setAmount] = useState(0);
+  const [trigger, setTrigger] = useState(false);
+  const GetCart = async () => {
     try {
-    
-   
-      const response = await axios.get(`http://${ADRESS_API}:4000/cart/getcart/${authState.userId*1}` )
-      console.log("🚀 ~ file: MyBag.js:27 ~ GetCart ~ response:", response.data.amount )
-      setData(response.data.cart)
-      setAmount(response.data.amount)
+      const response = await axios.get(
+        `http://${ADRESS_API}:4000/cart/getcart/${authState.userId * 1}`
+      );
+      console.log(
+        "🚀 ~ file: MyBag.js:27 ~ GetCart ~ response:",
+        response.data.amount
+      );
+      setData(response.data.cart);
+      setAmount(response.data.amount);
+    } catch (err) {
+      console.log(err, "err");
     }
-      
-    catch (err) {
-      console.log(err ,"err");
-      }
-  }
-  const itemplus =async (id)=>{
+  };
+  const itemplus = async (id) => {
     try {
-      
-      const response = await axios.post(`http://${ADRESS_API}:4000/cart/addtocart`,{
-        userId: authState.userId*1,      
-       
-        itemId:id ,       
-        quantity: 1       
-      }
-      
+      const response = await axios.post(
+        `http://${ADRESS_API}:4000/cart/addtocart`,
+        {
+          userId: authState.userId * 1,
 
-      )
-      setTrigger(!trigger)
-    }
-    catch (err) {
+          itemId: id,
+          quantity: 1,
+        }
+      );
+      setTrigger(!trigger);
+    } catch (err) {
       console.log(err);
-      }
-  }
-  const itemMinus =async (id)=>{
-    try {
-      
-      const response = await axios.post(`http://${ADRESS_API}:4000/cart/addtocart`,{
-        userId: authState.userId*1,      
-       
-        itemId:id ,       
-        quantity:-1 
-
-      }
-      
-
-      )
-      setTrigger(!trigger)
     }
-    catch (err) {
+  };
+  const itemMinus = async (id) => {
+    try {
+      const response = await axios.post(
+        `http://${ADRESS_API}:4000/cart/addtocart`,
+        {
+          userId: authState.userId * 1,
+
+          itemId: id,
+          quantity: -1,
+        }
+      );
+      setTrigger(!trigger);
+    } catch (err) {
       console.log(err);
-      }
-  }
-  useEffect(()=>{
-    GetCart()
-  },[trigger])
+    }
+  };
+  useEffect(() => {
+    GetCart();
+  }, [trigger]);
   return (
     <SafeAreaView className=" dark:bg-[#111111] w-screen h-screen p-4 ">
-      <TabNav navigation={navigation}/>
+      <TabNav navigation={navigation} />
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <Text className=" dark:text-white text-4xl pb-6 font-bold">My Bag</Text>
         <ScrollView
           className="max-h-96"
           ref={scrollViewRef}
           showsVerticalScrollIndicator={false}
-        >{data.items&&data.items.map((item,key)=>{
-
-        return (  <CartItem total={setCartTotal} current={cartTotal} data={item} key={key} itemminus={itemMinus} itemplus={itemplus}/>)
-
-        })
-        
-          }
-
+        >
+          {data.items &&
+            data.items.map((item, key) => {
+              return (
+                <CartItem
+                  total={setCartTotal}
+                  current={cartTotal}
+                  data={item}
+                  key={key}
+                  itemminus={itemMinus}
+                  itemplus={itemplus}
+                />
+              );
+            })}
         </ScrollView>
       </TouchableWithoutFeedback>
       <View className="pb-20">
@@ -131,14 +133,36 @@ const MyBag = ({ navigation }) => {
             {amount}$
           </Text>
         </View>
-        <TouchableOpacity
-          onPress={() => navigation.navigate("Checkout",{amount :amount , cartId :data.id})}
-          className="mt-6 bg-[#BF9B7A] h-12 w-fit rounded-full justify-center items-center"
-        >
-          <Text className="text-center text-white text-sm font-medium leading-tight">
-            CHECK OUT
-          </Text>
-        </TouchableOpacity>
+        {amount !== 0 && (
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate("Checkout", {
+                amount: amount,
+                cartId: data.id,
+              })
+            }
+            className="mt-6 bg-[#BF9B7A] h-12 w-fit rounded-full justify-center items-center"
+          >
+            <Text className="text-center text-white text-sm font-medium leading-tight">
+              CHECK OUT
+            </Text>
+          </TouchableOpacity>
+        )}
+        {amount === 0 && (
+          <Pressable onPress={()=>setToggle(true)}
+            className="mt-6 bg-gray-300 h-12 w-fit rounded-full justify-center items-center"
+          >
+            <Text className="text-center text-white text-sm font-medium leading-tight">
+              CHECK OUT
+            </Text>
+          </Pressable>
+        )}
+        {toggle && (
+            <View className="justify-center items-center mt-52 opacity-70">
+            <Text className="text-2xl font-bold dark:text-white">Your cart is empty</Text>
+            <Text className="text-xs dark:text-white">Please add some items before proceeding</Text>
+            </View>
+          )}
       </View>
     </SafeAreaView>
   );

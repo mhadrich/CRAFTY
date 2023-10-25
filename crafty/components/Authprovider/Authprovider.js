@@ -16,6 +16,7 @@ export const Authprovider = ({ children }) => {
     userId: null,
     
   });
+  const[query,setQuery]=useState('')
   const[fav,setFav]=useState([])
   const GetFavorite = async () => {
     const ID = await secureStore.getItemAsync(Userid_Key);
@@ -115,7 +116,9 @@ export const Authprovider = ({ children }) => {
     onLogin: Login,
     onLogout: Logout,
     authState,
-    fav
+    fav,
+    setQuery: setQuery,
+    query : query
   };
   return <Authcontext.Provider value={value}>{children}</Authcontext.Provider>;
 };

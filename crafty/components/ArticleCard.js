@@ -3,7 +3,6 @@ import React from "react";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
 const ArticleCard = ({ navigation ,article}) => {
-  console.log("🚀 ~ file: ArticleCard.js:6 ~ ArticleCard ~ article:", article)
   
   return (
     <TouchableOpacity className="scale-95" onPress={()=>navigation.navigate("ArticleView",{article:article}) }>

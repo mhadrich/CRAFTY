@@ -122,7 +122,7 @@ function Chat({ route }) {
           placeholder="Type your message..."
           value={newMessage}
           onChangeText={(text) => setNewMessage(text)}
-          className="w-[79%] h-10 border-gray-400 dark:bg-[#111111] px-4 border rounded-full"
+          className="w-[79%] h-10 border-gray-400 dark:bg-[#111111] dark:text-white px-4 border rounded-full"
           onFocus={() => ScrollViewRef.current.scrollToEnd({ animated: true })}
         />
         <TouchableOpacity onPress={sendMessage} className="pl-2 w-10">
