@@ -41,9 +41,15 @@ import Favorites from "./screens/Favorites";
 import FavNavSearch from "./components/Favorites.js/FavNavSearch";
 import { useColorScheme } from "react-native";
 import { StatusBar } from "react-native";
+import { LogBox } from "react-native";
 import Loading from "./components/Loading";
 
 const Stack = createStackNavigator();
+
+// Ignore log notification by message
+LogBox.ignoreLogs(["Warning: ..."]);
+//Ignore all log notifications
+LogBox.ignoreAllLogs();
 
 export default function App() {
   const color = useColorScheme();

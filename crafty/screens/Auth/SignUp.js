@@ -160,11 +160,11 @@ export default function SignUp({ navigation }) {
               control={control}
               name="Password"
               rules={{
-                required: "password  is required",
+                required: "Password  is required",
                 pattern: {
                   value: Passwoerd_regex,
                   message:
-                    "Password must contain at least one digit, one lowercase letter, one uppercase letter, and be at least 8 characters long.",
+                    "Password is not secure enough.",
                 },
               }}
               render={({

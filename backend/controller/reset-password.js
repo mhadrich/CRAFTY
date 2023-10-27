@@ -1,46 +1,47 @@
-const { google } = require("googleapis");
-const prisma = require("../lib/prisma.js");
+
+const { google } = require('googleapis');
+const prisma = require("../lib/prisma.js")
 const OAuth2 = google.auth.OAuth2;
 const nodemailer = require("nodemailer");
-const bcrypt = require("bcrypt");
-const CLIENT_ID =
-  "158506994862-p6mi7ndl4m8f576p7fcbpq3kjq4v3kkb.apps.googleusercontent.com";
+const bcrypt = require("bcrypt")
+const CLIENT_ID = "158506994862-p6mi7ndl4m8f576p7fcbpq3kjq4v3kkb.apps.googleusercontent.com"
 const CLIENT_SECRET = "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";
 const REDIRECT_URI = "https://developers.google.com/oauthplayground";
-const REFRESH_TOKEN =
-  "1//04fRQRpLJ0KTnCgYIARAAGAQSNwF-L9IrzYhf-QAVXapR3Ay_c4kB_7gnN0NCZRt6aABGauaffzl94cCfOTrokm65yO8f6YVywK8";
-const oAuth2Client = new OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI);
+const REFRESH_TOKEN = "1//04fRQRpLJ0KTnCgYIARAAGAQSNwF-L9IrzYhf-QAVXapR3Ay_c4kB_7gnN0NCZRt6aABGauaffzl94cCfOTrokm65yO8f6YVywK8";
+const oAuth2Client = new OAuth2(
+    CLIENT_ID,
+    CLIENT_SECRET,
+    REDIRECT_URI
+);
 oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
 const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    type: "OAuth2",
-    user: "rayenguedri24@gmail.com",
-    clientId: CLIENT_ID,
-    clientSecret: CLIENT_SECRET,
-    refreshToken: REFRESH_TOKEN,
-    accessToken:
-      "ya29.a0AfB_byAD-bb4UZH1MO2MCjNoRAqHhC3i3XQfBgogxth2PT3kuX9-lCl39pWWBi8d48I9KAJhoJhaHpCuq9e0pRcvZRu9My4KHaxqCM5_WJBUexxvy-2QQLmaam4226vMOaMfkPG-Dpim_unHVQCood25AQ1i6Lqbswq3aCgYKAX4SARISFQGOcNnCVhqNvryRMRpgluguBBNRCA0171",
-  },
+    service: "gmail",
+    auth: {
+        type: "OAuth2",
+        user: "rayenguedri24@gmail.com",
+        clientId: CLIENT_ID,
+        clientSecret: CLIENT_SECRET,
+        refreshToken: REFRESH_TOKEN,
+        accessToken: "ya29.a0AfB_byAD-bb4UZH1MO2MCjNoRAqHhC3i3XQfBgogxth2PT3kuX9-lCl39pWWBi8d48I9KAJhoJhaHpCuq9e0pRcvZRu9My4KHaxqCM5_WJBUexxvy-2QQLmaam4226vMOaMfkPG-Dpim_unHVQCood25AQ1i6Lqbswq3aCgYKAX4SARISFQGOcNnCVhqNvryRMRpgluguBBNRCA0171",
+    },
 });
 const verificationCodeMap = new Map();
 
 const Sendverification = async (req, res) => {
-  const { email } = req.body;
+    const { email } = req.body;
 
-  const user = await prisma.user.findFirst({ where: { email: email } });
-  console.log(
-    "🚀 ~ file: reset-password.js:35 ~ Sendverification ~ user :",
-    user
-  );
 
-  if (user) {
-    const verificationCode = Math.floor(1000 + Math.random() * 9000);
-    const mailOptions = {
-      from: "NoReply@Crafty.com",
-      to: email,
-      subject: "Password Reset Verification Code",
-      html: `<!DOCTYPE html>
+    const user = await 
+    prisma.user.findFirst({ where: { email: email } });
+    console.log("🚀 ~ file: reset-password.js:35 ~ Sendverification ~ user :", user )
+    
+    if (user) {
+        const verificationCode = Math.floor(1000 + Math.random() * 9000);
+        const mailOptions = {
+            from: "NoReply@Crafty.com",
+            to: email,
+            subject: "Password Reset Verification Code",
+            html: `<!DOCTYPE html>
             <html>
             <head>
               <meta charset="utf-8">
@@ -91,53 +92,61 @@ const Sendverification = async (req, res) => {
             </body>
             </html>
             `,
-    };
-    transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        console.log(error);
-        res.status(500).send(error);
-      } else {
-        console.log("Email sent: " + info.response);
-        res.status(200).json("Email sent successfully");
-        verificationCodeMap.set(email, verificationCode);
-        console.log("Verification code for", email, "is", verificationCode);
-      }
-    });
-  } else {
-    return res.status(205).send("Email not found");
-  }
-};
+        };
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                console.log(error);
+                res.status(500).send(error);
+            } else {
+                console.log("Email sent: " + info.response);
+                res.status(200).json("Email sent successfully");
+                verificationCodeMap.set(email, verificationCode);
+                console.log("Verification code for", email, "is", verificationCode);
+            }
+        });
+       
+        
+    }else{
+        return   res.status(205).send("Email not found");
+    }
 
-const Verify = (req, res) => {
-  const { email, code } = req.body;
-  console.log("email:", email);
-  console.log("code:", typeof Number(code));
-  const verificationCode = verificationCodeMap.get(email);
-  console.log("verificationCode:", verificationCode);
-  if (verificationCode == Number(code)) {
-    res.status(200).json("Code verified successfully");
-  } else {
-    res.status(400).json("Invalid code");
-  }
-};
-const resetPassword = async (req, res) => {
-  const { email, password } = req.body;
-  const salt = await bcrypt.genSalt(10);
-  var hashedpassowrd = await bcrypt.hash(password, salt);
-  const updateUser = await prisma.user.update({
-    where: {
-      email: email,
-    },
-    data: {
-      password: hashedpassowrd,
-    },
-  });
-  if (updateUser) {
-    return res.status(200).json("Password updated");
-  } else {
-    return res.status(400).json("Error in updating the password");
-  }
-};
+   
+}
+
+
+const Verify =  (req, res) => {
+    const { email, code } = req.body;
+    console.log("email:", email);
+    console.log("code:", typeof (Number(code)));
+    const verificationCode = verificationCodeMap.get(email);
+    console.log("verificationCode:", verificationCode);
+    if (verificationCode == Number(code)) {
+        res.status(200).json("Code verified successfully");
+    } else {
+        res.status(400).json("Invalid code");
+    }
+
+
+}
+const resetPassword= async(req,res)=>{
+    const { email ,password } = req.body;
+    const salt = await bcrypt.genSalt(10);
+    var hashedpassowrd = await bcrypt.hash(password, salt)
+    const updateUser = await prisma.user.update({
+        where: {
+          email: email,
+        },
+        data: {
+          password: hashedpassowrd,
+        },
+      })
+      if(updateUser){
+        return   res.status(200).json('Password updated')
+        }else{
+            return    res.status(400).json('Error in updating the password');
+            }
+}
+
 const changePassword = async (req, res) => {
   const { email, oldPassword, newPassword } = req.body;
   const user = await prisma.user.findUnique({
@@ -162,7 +171,6 @@ const changePassword = async (req, res) => {
       password: hashedPassword,
     },
   });
-
   if (updateUser) {
     return res.status(200).json("Password updated");
   } else {
@@ -170,4 +178,6 @@ const changePassword = async (req, res) => {
   }
 };
 
-module.exports = { Sendverification, Verify, resetPassword, changePassword };
+
+
+module.exports={Sendverification,Verify,resetPassword,changePassword}

@@ -52,7 +52,7 @@ const UpdatePassword = ({ navigation ,route}) => {
         className="flex-1 justify-center items-center"
         enabled
       >
-        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        
           <View className=" items-end justify-center">
             <View>
               <Text className="font-bold text-4xl mb-20  dark:text-white">Update Password</Text>
@@ -85,7 +85,7 @@ const UpdatePassword = ({ navigation ,route}) => {
               <Text className="text-center text-white font-bold">Update</Text>
             </TouchableOpacity>
           </View>
-        </TouchableWithoutFeedback>
+        
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
